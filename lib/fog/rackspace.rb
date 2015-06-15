@@ -1,5 +1,11 @@
+require 'fog/core'
+require 'fog/bin'
+require 'fog'
+require 'fog/json'
+
 require 'fog/rackspace/version'
 require 'fog/rackspace/bin/rackspace'
+
 require 'fog/rackspace/auto_scale'
 require 'fog/rackspace/block_storage'
 require 'fog/rackspace/cdn'
