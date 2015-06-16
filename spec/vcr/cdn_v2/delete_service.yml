@@ -1,0 +1,640 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://global.cdn.api.rackspacecloud.com/v1.0/930035/services
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.29.0 fog-core/1.30.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - 01f29252431e454c8e2d8e90d4f08653
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 24 Apr 2015 02:22:50 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '6212'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.1.1.1)
+      X-Newrelic-App-Data:
+      - PxQGUF9bAAUTUlFbBgIPVkYdFGQHBDcQUQxLA1tMXV1dSmwTWE5FU0oGGBIDEU5aUwESQBsBG1ZKAQcBVFdVUwVVDVEJDwcKAV0ITRxQH0AGVVNZBQUMClFWBVsDUwRWRh1QUg4VBj8=
+      Pragma:
+      - no-cache
+    body:
+      encoding: UTF-8
+      string: "{\"services\": [{\"name\": \"some-domain-name.com\", \"id\": \"5c211c39-268b-4d26-9c9d-ad37225b0797\",
+        \"domains\": [{\"domain\": \"40874.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"40890.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/5c211c39-268b-4d26-9c9d-ad37225b0797\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"40874.com.cdn247.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"60f4b3dc-1fae-4fc7-83f6-d5ae6a59bba7\",
+        \"domains\": [{\"domain\": \"994191.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"994211.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/60f4b3dc-1fae-4fc7-83f6-d5ae6a59bba7\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"994191.com.cdn338.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"skrelnick.com\", \"id\": \"628bdc85-6737-42a0-a6b4-8570795efee4\",
+        \"domains\": [{\"domain\": \"630685.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"630698.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/628bdc85-6737-42a0-a6b4-8570795efee4\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"630685.com.cdn273.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"67d2e832-d8dd-4296-a54b-b14a4a21129e\",
+        \"domains\": [{\"domain\": \"547071.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"547087.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/67d2e832-d8dd-4296-a54b-b14a4a21129e\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"547071.com.cdn262.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"7338dbf2-3fe9-44b6-bc25-7d03c9c35448\",
+        \"domains\": [{\"domain\": \"705207.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"705221.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"default\", \"request_url\": \"/*\"}]}], \"restrictions\": [], \"caching\":
+        [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\": {\"enabled\":
+        false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/7338dbf2-3fe9-44b6-bc25-7d03c9c35448\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"705207.com.cdn214.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"skrelnick.com\", \"id\": \"7d89af12-7e5c-4f45-a5c4-3cf8592e1bb5\",
+        \"domains\": [{\"domain\": \"289542.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"289558.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/7d89af12-7e5c-4f45-a5c4-3cf8592e1bb5\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"289542.com.cdn183.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"d9bf9b3b-65c4-4e16-bc5c-cf9581e6ef9b\",
+        \"domains\": [{\"domain\": \"959886.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"959901.com\", \"port\": 80, \"ssl\": false, \"rules\": []}],
+        \"restrictions\": [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\":
+        \"cdn\", \"log_delivery\": {\"enabled\": false}, \"errors\": [], \"links\":
+        [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/d9bf9b3b-65c4-4e16-bc5c-cf9581e6ef9b\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"959886.com.cdn57.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"f2f58ee9-bc7a-4580-a740-6a63f282801a\",
+        \"domains\": [{\"domain\": \"375892.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"375909.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/f2f58ee9-bc7a-4580-a740-6a63f282801a\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"375892.com.cdn285.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"fd95d37a-3061-4bdf-8a8d-069802080c64\",
+        \"domains\": [{\"domain\": \"941231.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"941247.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/fd95d37a-3061-4bdf-8a8d-069802080c64\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"941231.com.cdn168.raxcdn.com\", \"rel\":
+        \"access_url\"}]}], \"links\": []}"
+    http_version: 
+  recorded_at: Fri, 24 Apr 2015 02:22:55 GMT
+- request:
+    method: get
+    uri: https://global.cdn.api.rackspacecloud.com/v1.0/930035/services
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.29.0 fog-core/1.30.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - 01f29252431e454c8e2d8e90d4f08653
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 24 Apr 2015 02:22:51 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '6212'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.1.1.1)
+      X-Newrelic-App-Data:
+      - PxQGUF9bAAUTUlFbBgIPVkYdFGQHBDcQUQxLA1tMXV1dSmwTWE5FU0oGGBIDEU5aUwESQBsBG1ZKAQcAUl5WWgRQCVEKDQIKAFMVTABNEVpXVQdZUlEOBgdWUlUAUFFESFdXXxEDPg==
+      Pragma:
+      - no-cache
+    body:
+      encoding: UTF-8
+      string: "{\"services\": [{\"name\": \"some-domain-name.com\", \"id\": \"5c211c39-268b-4d26-9c9d-ad37225b0797\",
+        \"domains\": [{\"domain\": \"40874.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"40890.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/5c211c39-268b-4d26-9c9d-ad37225b0797\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"40874.com.cdn247.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"60f4b3dc-1fae-4fc7-83f6-d5ae6a59bba7\",
+        \"domains\": [{\"domain\": \"994191.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"994211.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/60f4b3dc-1fae-4fc7-83f6-d5ae6a59bba7\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"994191.com.cdn338.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"skrelnick.com\", \"id\": \"628bdc85-6737-42a0-a6b4-8570795efee4\",
+        \"domains\": [{\"domain\": \"630685.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"630698.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/628bdc85-6737-42a0-a6b4-8570795efee4\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"630685.com.cdn273.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"67d2e832-d8dd-4296-a54b-b14a4a21129e\",
+        \"domains\": [{\"domain\": \"547071.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"547087.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/67d2e832-d8dd-4296-a54b-b14a4a21129e\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"547071.com.cdn262.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"7338dbf2-3fe9-44b6-bc25-7d03c9c35448\",
+        \"domains\": [{\"domain\": \"705207.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"705221.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"default\", \"request_url\": \"/*\"}]}], \"restrictions\": [], \"caching\":
+        [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\": {\"enabled\":
+        false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/7338dbf2-3fe9-44b6-bc25-7d03c9c35448\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"705207.com.cdn214.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"skrelnick.com\", \"id\": \"7d89af12-7e5c-4f45-a5c4-3cf8592e1bb5\",
+        \"domains\": [{\"domain\": \"289542.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"289558.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/7d89af12-7e5c-4f45-a5c4-3cf8592e1bb5\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"289542.com.cdn183.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"d9bf9b3b-65c4-4e16-bc5c-cf9581e6ef9b\",
+        \"domains\": [{\"domain\": \"959886.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"959901.com\", \"port\": 80, \"ssl\": false, \"rules\": []}],
+        \"restrictions\": [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\":
+        \"cdn\", \"log_delivery\": {\"enabled\": false}, \"errors\": [], \"links\":
+        [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/d9bf9b3b-65c4-4e16-bc5c-cf9581e6ef9b\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"959886.com.cdn57.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"f2f58ee9-bc7a-4580-a740-6a63f282801a\",
+        \"domains\": [{\"domain\": \"375892.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"375909.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/f2f58ee9-bc7a-4580-a740-6a63f282801a\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"375892.com.cdn285.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"fd95d37a-3061-4bdf-8a8d-069802080c64\",
+        \"domains\": [{\"domain\": \"941231.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"941247.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/fd95d37a-3061-4bdf-8a8d-069802080c64\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"941231.com.cdn168.raxcdn.com\", \"rel\":
+        \"access_url\"}]}], \"links\": []}"
+    http_version: 
+  recorded_at: Fri, 24 Apr 2015 02:22:55 GMT
+- request:
+    method: get
+    uri: https://global.cdn.api.rackspacecloud.com/v1.0/930035/services
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.29.0 fog-core/1.30.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - 01f29252431e454c8e2d8e90d4f08653
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 24 Apr 2015 02:22:51 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '6212'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.1.1.1)
+      X-Newrelic-App-Data:
+      - PxQGUF9bAAUTUlFbBgIPVkYdFGQHBDcQUQxLA1tMXV1dSmwTWE5FU0oGGBIDEU5aUwESQBsBG1ZKAQcHV1RbUgNUCVMPDQEBBFQITRxQH0AGD1FYAlRcCgNVWVUDBQcDRh1QUg4VBj8=
+      Pragma:
+      - no-cache
+    body:
+      encoding: UTF-8
+      string: "{\"services\": [{\"name\": \"some-domain-name.com\", \"id\": \"5c211c39-268b-4d26-9c9d-ad37225b0797\",
+        \"domains\": [{\"domain\": \"40874.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"40890.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/5c211c39-268b-4d26-9c9d-ad37225b0797\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"40874.com.cdn247.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"60f4b3dc-1fae-4fc7-83f6-d5ae6a59bba7\",
+        \"domains\": [{\"domain\": \"994191.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"994211.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/60f4b3dc-1fae-4fc7-83f6-d5ae6a59bba7\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"994191.com.cdn338.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"skrelnick.com\", \"id\": \"628bdc85-6737-42a0-a6b4-8570795efee4\",
+        \"domains\": [{\"domain\": \"630685.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"630698.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/628bdc85-6737-42a0-a6b4-8570795efee4\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"630685.com.cdn273.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"67d2e832-d8dd-4296-a54b-b14a4a21129e\",
+        \"domains\": [{\"domain\": \"547071.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"547087.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/67d2e832-d8dd-4296-a54b-b14a4a21129e\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"547071.com.cdn262.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"7338dbf2-3fe9-44b6-bc25-7d03c9c35448\",
+        \"domains\": [{\"domain\": \"705207.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"705221.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"default\", \"request_url\": \"/*\"}]}], \"restrictions\": [], \"caching\":
+        [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\": {\"enabled\":
+        false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/7338dbf2-3fe9-44b6-bc25-7d03c9c35448\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"705207.com.cdn214.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"skrelnick.com\", \"id\": \"7d89af12-7e5c-4f45-a5c4-3cf8592e1bb5\",
+        \"domains\": [{\"domain\": \"289542.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"289558.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/7d89af12-7e5c-4f45-a5c4-3cf8592e1bb5\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"289542.com.cdn183.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"d9bf9b3b-65c4-4e16-bc5c-cf9581e6ef9b\",
+        \"domains\": [{\"domain\": \"959886.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"959901.com\", \"port\": 80, \"ssl\": false, \"rules\": []}],
+        \"restrictions\": [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\":
+        \"cdn\", \"log_delivery\": {\"enabled\": false}, \"errors\": [], \"links\":
+        [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/d9bf9b3b-65c4-4e16-bc5c-cf9581e6ef9b\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"959886.com.cdn57.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"f2f58ee9-bc7a-4580-a740-6a63f282801a\",
+        \"domains\": [{\"domain\": \"375892.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"375909.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/f2f58ee9-bc7a-4580-a740-6a63f282801a\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"375892.com.cdn285.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"fd95d37a-3061-4bdf-8a8d-069802080c64\",
+        \"domains\": [{\"domain\": \"941231.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"941247.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/fd95d37a-3061-4bdf-8a8d-069802080c64\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"941231.com.cdn168.raxcdn.com\", \"rel\":
+        \"access_url\"}]}], \"links\": []}"
+    http_version: 
+  recorded_at: Fri, 24 Apr 2015 02:22:56 GMT
+- request:
+    method: get
+    uri: https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/5c211c39-268b-4d26-9c9d-ad37225b0797
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.29.0 fog-core/1.30.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - 01f29252431e454c8e2d8e90d4f08653
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 24 Apr 2015 02:22:51 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '692'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.1.1.1)
+      X-Newrelic-App-Data:
+      - PxQGUF9bAAUTUlFbBgIPVkYdFGQHBDcQUQxLA1tMXV1dSncOQwxSDg1MUgUzEVEcRlVPUhhCUhQSWFVWEUlJQBxSFFIWCAQLBFEJUABVAVNWBgRXV1ALHx1VTUAHAAMAVVcDAANVWgcHVQ9VGhRSU18WXDw=
+      Pragma:
+      - no-cache
+    body:
+      encoding: UTF-8
+      string: "{\"name\": \"some-domain-name.com\", \"id\": \"5c211c39-268b-4d26-9c9d-ad37225b0797\",
+        \"domains\": [{\"domain\": \"40874.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"40890.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/5c211c39-268b-4d26-9c9d-ad37225b0797\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"40874.com.cdn247.raxcdn.com\", \"rel\":
+        \"access_url\"}]}"
+    http_version: 
+  recorded_at: Fri, 24 Apr 2015 02:22:56 GMT
+- request:
+    method: delete
+    uri: https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/5c211c39-268b-4d26-9c9d-ad37225b0797
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.29.0 fog-core/1.30.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - 01f29252431e454c8e2d8e90d4f08653
+  response:
+    status:
+      code: 202
+      message: ''
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 24 Apr 2015 02:22:52 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Content-Length:
+      - '0'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.1.1.1)
+      X-Newrelic-App-Data:
+      - PxQGUF9bAAUTUlFbBgIPVkYdFGQHBDcQUQxLA1tMXV1dSncOQwxSDg1MUgUzEVEcRlVPUhhCUhQSWFVWEUlJQBxSFFIWCAMDB1wJUQVYAFRWBw9TUFEUAxxGAgFTUw4CVAdUBFBVUlMEUBpOXllYQVY4
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Fri, 24 Apr 2015 02:22:56 GMT
+- request:
+    method: get
+    uri: https://global.cdn.api.rackspacecloud.com/v1.0/930035/services
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.29.0 fog-core/1.30.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - 01f29252431e454c8e2d8e90d4f08653
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 24 Apr 2015 02:23:22 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '5518'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.1.1.1)
+      X-Newrelic-App-Data:
+      - PxQGUF9bAAUTUlFbBgIPVkYdFGQHBDcQUQxLA1tMXV1dSmwTWE5FU0oGGBIDEU5aUwESQBsBG1ZKAQcAU15UWghXCloMDAYBC1cBTRxQH0BdBgMDVVcAA1MFV1QDCQBRRh1QUg4VBj8=
+      Pragma:
+      - no-cache
+    body:
+      encoding: UTF-8
+      string: "{\"services\": [{\"name\": \"some-domain-name.com\", \"id\": \"60f4b3dc-1fae-4fc7-83f6-d5ae6a59bba7\",
+        \"domains\": [{\"domain\": \"994191.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"994211.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/60f4b3dc-1fae-4fc7-83f6-d5ae6a59bba7\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"994191.com.cdn338.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"skrelnick.com\", \"id\": \"628bdc85-6737-42a0-a6b4-8570795efee4\",
+        \"domains\": [{\"domain\": \"630685.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"630698.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/628bdc85-6737-42a0-a6b4-8570795efee4\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"630685.com.cdn273.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"67d2e832-d8dd-4296-a54b-b14a4a21129e\",
+        \"domains\": [{\"domain\": \"547071.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"547087.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/67d2e832-d8dd-4296-a54b-b14a4a21129e\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"547071.com.cdn262.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"7338dbf2-3fe9-44b6-bc25-7d03c9c35448\",
+        \"domains\": [{\"domain\": \"705207.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"705221.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"default\", \"request_url\": \"/*\"}]}], \"restrictions\": [], \"caching\":
+        [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\": {\"enabled\":
+        false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/7338dbf2-3fe9-44b6-bc25-7d03c9c35448\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"705207.com.cdn214.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"skrelnick.com\", \"id\": \"7d89af12-7e5c-4f45-a5c4-3cf8592e1bb5\",
+        \"domains\": [{\"domain\": \"289542.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"289558.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/7d89af12-7e5c-4f45-a5c4-3cf8592e1bb5\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"289542.com.cdn183.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"d9bf9b3b-65c4-4e16-bc5c-cf9581e6ef9b\",
+        \"domains\": [{\"domain\": \"959886.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"959901.com\", \"port\": 80, \"ssl\": false, \"rules\": []}],
+        \"restrictions\": [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\":
+        \"cdn\", \"log_delivery\": {\"enabled\": false}, \"errors\": [], \"links\":
+        [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/d9bf9b3b-65c4-4e16-bc5c-cf9581e6ef9b\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"959886.com.cdn57.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"f2f58ee9-bc7a-4580-a740-6a63f282801a\",
+        \"domains\": [{\"domain\": \"375892.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"375909.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/f2f58ee9-bc7a-4580-a740-6a63f282801a\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"375892.com.cdn285.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"fd95d37a-3061-4bdf-8a8d-069802080c64\",
+        \"domains\": [{\"domain\": \"941231.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"941247.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/fd95d37a-3061-4bdf-8a8d-069802080c64\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"941231.com.cdn168.raxcdn.com\", \"rel\":
+        \"access_url\"}]}], \"links\": []}"
+    http_version: 
+  recorded_at: Fri, 24 Apr 2015 02:23:27 GMT
+- request:
+    method: get
+    uri: https://global.cdn.api.rackspacecloud.com/v1.0/930035/services
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.29.0 fog-core/1.30.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - 01f29252431e454c8e2d8e90d4f08653
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 24 Apr 2015 02:23:22 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '5518'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.1.1.1)
+      X-Newrelic-App-Data:
+      - PxQGUF9bAAUTUlFbBgIPVkYdFGQHBDcQUQxLA1tMXV1dSmwTWE5FU0oGGBIDEU5aUwESQBsBG1ZKAQQBVVdSWwlQClQLDw0BClEMTRxQH0AADwRUBVULVVYHAgRTAQUDRh1QUg4VBj8=
+      Pragma:
+      - no-cache
+    body:
+      encoding: UTF-8
+      string: "{\"services\": [{\"name\": \"some-domain-name.com\", \"id\": \"60f4b3dc-1fae-4fc7-83f6-d5ae6a59bba7\",
+        \"domains\": [{\"domain\": \"994191.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"994211.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/60f4b3dc-1fae-4fc7-83f6-d5ae6a59bba7\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"994191.com.cdn338.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"skrelnick.com\", \"id\": \"628bdc85-6737-42a0-a6b4-8570795efee4\",
+        \"domains\": [{\"domain\": \"630685.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"630698.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/628bdc85-6737-42a0-a6b4-8570795efee4\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"630685.com.cdn273.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"67d2e832-d8dd-4296-a54b-b14a4a21129e\",
+        \"domains\": [{\"domain\": \"547071.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"547087.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/67d2e832-d8dd-4296-a54b-b14a4a21129e\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"547071.com.cdn262.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"7338dbf2-3fe9-44b6-bc25-7d03c9c35448\",
+        \"domains\": [{\"domain\": \"705207.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"705221.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"default\", \"request_url\": \"/*\"}]}], \"restrictions\": [], \"caching\":
+        [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\": {\"enabled\":
+        false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/7338dbf2-3fe9-44b6-bc25-7d03c9c35448\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"705207.com.cdn214.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"skrelnick.com\", \"id\": \"7d89af12-7e5c-4f45-a5c4-3cf8592e1bb5\",
+        \"domains\": [{\"domain\": \"289542.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"289558.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/7d89af12-7e5c-4f45-a5c4-3cf8592e1bb5\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"289542.com.cdn183.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"d9bf9b3b-65c4-4e16-bc5c-cf9581e6ef9b\",
+        \"domains\": [{\"domain\": \"959886.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"959901.com\", \"port\": 80, \"ssl\": false, \"rules\": []}],
+        \"restrictions\": [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\":
+        \"cdn\", \"log_delivery\": {\"enabled\": false}, \"errors\": [], \"links\":
+        [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/d9bf9b3b-65c4-4e16-bc5c-cf9581e6ef9b\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"959886.com.cdn57.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"f2f58ee9-bc7a-4580-a740-6a63f282801a\",
+        \"domains\": [{\"domain\": \"375892.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"375909.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/f2f58ee9-bc7a-4580-a740-6a63f282801a\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"375892.com.cdn285.raxcdn.com\", \"rel\":
+        \"access_url\"}]}, {\"name\": \"some-domain-name.com\", \"id\": \"fd95d37a-3061-4bdf-8a8d-069802080c64\",
+        \"domains\": [{\"domain\": \"941231.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"941247.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/fd95d37a-3061-4bdf-8a8d-069802080c64\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"941231.com.cdn168.raxcdn.com\", \"rel\":
+        \"access_url\"}]}], \"links\": []}"
+    http_version: 
+  recorded_at: Fri, 24 Apr 2015 02:23:27 GMT
+recorded_with: VCR 2.9.3

@@ -1,0 +1,80 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://iad.networks.api.rackspacecloud.com/v2.0/networks
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.26.0 fog-core/1.27.1
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - 3a2504b4a0494de3805964c47a9ab05b
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Via:
+      - 1.1 Repose (Repose/2.12)
+      Content-Length:
+      - '218'
+      Date:
+      - Tue, 16 Dec 2014 20:41:35 GMT
+      Server:
+      - Jetty(8.0.y.z-SNAPSHOT)
+    body:
+      encoding: UTF-8
+      string: '{"networks": [{"status": "ACTIVE", "subnets": ["79a2a078-84bd-4ffd-8e68-67f7854bb772"],
+        "name": "Testing", "admin_state_up": true, "tenant_id": "930035", "shared":
+        false, "id": "eff4da21-e006-4468-b9ce-798eb2fed3e8"}]}'
+    http_version: 
+  recorded_at: Tue, 16 Dec 2014 20:41:35 GMT
+- request:
+    method: post
+    uri: https://iad.networks.api.rackspacecloud.com/v2.0/ports
+    body:
+      encoding: UTF-8
+      string: '{"port":{"name":"ANewPort","network_id":"eff4da21-e006-4468-b9ce-798eb2fed3e8"}}'
+    headers:
+      User-Agent:
+      - fog/1.26.0 fog-core/1.27.1
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - 3a2504b4a0494de3805964c47a9ab05b
+  response:
+    status:
+      code: 201
+      message: ''
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Via:
+      - 1.1 Repose (Repose/2.12)
+      Content-Length:
+      - '394'
+      Date:
+      - Tue, 16 Dec 2014 20:41:56 GMT
+      Server:
+      - Jetty(8.0.y.z-SNAPSHOT)
+    body:
+      encoding: UTF-8
+      string: '{"port": {"status": "ACTIVE", "name": "ANewPort", "admin_state_up":
+        true, "network_id": "eff4da21-e006-4468-b9ce-798eb2fed3e8", "tenant_id": "930035",
+        "device_owner": null, "mac_address": "BC:76:4E:20:CB:0D", "fixed_ips": [{"subnet_id":
+        "79a2a078-84bd-4ffd-8e68-67f7854bb772", "ip_address": "192.168.3.1"}], "id":
+        "720de477-afec-4946-b6d7-695229373452", "security_groups": [], "device_id":
+        ""}}'
+    http_version: 
+  recorded_at: Tue, 16 Dec 2014 20:41:56 GMT
+recorded_with: VCR 2.9.3

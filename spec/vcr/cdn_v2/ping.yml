@@ -1,0 +1,40 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://global.cdn.api.rackspacecloud.com/v1.0/930035/ping
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.29.0 fog-core/1.30.0
+      Content-Type:
+      - application/json
+      Accept:
+      - "*/*"
+      X-Auth-Token:
+      - 01f29252431e454c8e2d8e90d4f08653
+  response:
+    status:
+      code: 204
+      message: ''
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Thu, 23 Apr 2015 22:06:05 GMT
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.1.1.1)
+      X-Newrelic-App-Data:
+      - PxQGUF9bAAUTUlFbBgIPVkYdFGQHBDcQUQxLA1tMXV1dSmwTWE5FU0oGGBEPDV8RHFRNUhkBB1dWAAELVlRSUgJSDVIPAAUAH0gITRMCVwFVVwNWV1IOBAgHWFsDExsABV1FVj8=
+      Pragma:
+      - no-cache
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 23 Apr 2015 22:06:08 GMT
+recorded_with: VCR 2.9.3

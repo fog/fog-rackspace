@@ -1,0 +1,118 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://iad.networks.api.rackspacecloud.com/v2.0/networks
+    body:
+      encoding: UTF-8
+      string: "{\"network\":{\"name\":\"ANewNetwork\"}}"
+    headers:
+      User-Agent:
+      - fog/1.26.0 fog-core/1.27.1
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - e874be5056284f4fb1326ec5d50102db
+  response:
+    status:
+      code: 201
+      message: ''
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Via:
+      - 1.1 Repose (Repose/2.12)
+      Content-Length:
+      - '181'
+      Date:
+      - Sat, 13 Dec 2014 00:15:21 GMT
+      Server:
+      - Jetty(8.0.y.z-SNAPSHOT)
+    body:
+      encoding: UTF-8
+      string: "{\"network\": {\"status\": \"ACTIVE\", \"subnets\": [], \"name\": \"ANewNetwork\",
+        \"admin_state_up\": true, \"tenant_id\": \"930035\", \"shared\": false, \"id\":
+        \"6bb34c4d-8c97-4830-8417-e5db6bed085a\"}}"
+    http_version: 
+  recorded_at: Sat, 13 Dec 2014 00:15:21 GMT
+- request:
+    method: get
+    uri: https://iad.networks.api.rackspacecloud.com/v2.0/networks
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.26.0 fog-core/1.27.1
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - e874be5056284f4fb1326ec5d50102db
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Via:
+      - 1.1 Repose (Repose/2.12)
+      Content-Length:
+      - '361'
+      Date:
+      - Sat, 13 Dec 2014 00:15:21 GMT
+      Server:
+      - Jetty(8.0.y.z-SNAPSHOT)
+    body:
+      encoding: UTF-8
+      string: "{\"networks\": [{\"status\": \"ACTIVE\", \"subnets\": [], \"name\":
+        \"SomethingDifferent\", \"admin_state_up\": true, \"tenant_id\": \"930035\",
+        \"shared\": false, \"id\": \"2f5b6fed-faf2-4f62-8a0a-76a1dd261014\"}, {\"status\":
+        \"ACTIVE\", \"subnets\": [], \"name\": \"ANewNetwork\", \"admin_state_up\":
+        true, \"tenant_id\": \"930035\", \"shared\": false, \"id\": \"6bb34c4d-8c97-4830-8417-e5db6bed085a\"}]}"
+    http_version: 
+  recorded_at: Sat, 13 Dec 2014 00:15:21 GMT
+- request:
+    method: post
+    uri: https://iad.networks.api.rackspacecloud.com/v2.0/subnets
+    body:
+      encoding: UTF-8
+      string: "{\"subnet\":{\"name\":\"ANewsubnet\",\"cidr\":\"192.168.101.1/24\",\"network_id\":\"6bb34c4d-8c97-4830-8417-e5db6bed085a\",\"ip_version\":\"4\"}}"
+    headers:
+      User-Agent:
+      - fog/1.26.0 fog-core/1.27.1
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - e874be5056284f4fb1326ec5d50102db
+  response:
+    status:
+      code: 201
+      message: ''
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Via:
+      - 1.1 Repose (Repose/2.12)
+      Content-Length:
+      - '361'
+      Date:
+      - Sat, 13 Dec 2014 00:15:22 GMT
+      Server:
+      - Jetty(8.0.y.z-SNAPSHOT)
+    body:
+      encoding: UTF-8
+      string: "{\"subnet\": {\"name\": \"ANewsubnet\", \"enable_dhcp\": null, \"network_id\":
+        \"6bb34c4d-8c97-4830-8417-e5db6bed085a\", \"tenant_id\": \"930035\", \"dns_nameservers\":
+        [], \"allocation_pools\": [{\"start\": \"192.168.101.1\", \"end\": \"192.168.101.254\"}],
+        \"host_routes\": [], \"ip_version\": 4, \"gateway_ip\": null, \"cidr\": \"192.168.101.1/24\",
+        \"id\": \"edf71f05-e8ba-4dc2-911f-326216b5c2ca\"}}"
+    http_version: 
+  recorded_at: Sat, 13 Dec 2014 00:15:22 GMT
+recorded_with: VCR 2.9.3

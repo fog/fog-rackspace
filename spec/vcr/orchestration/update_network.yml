@@ -1,0 +1,77 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://iad.networks.api.rackspacecloud.com/v2.0/networks
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.26.0 fog-core/1.27.1
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - e874be5056284f4fb1326ec5d50102db
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Via:
+      - 1.1 Repose (Repose/2.12)
+      Content-Length:
+      - '184'
+      Date:
+      - Sat, 13 Dec 2014 00:14:57 GMT
+      Server:
+      - Jetty(8.0.y.z-SNAPSHOT)
+    body:
+      encoding: UTF-8
+      string: "{\"networks\": [{\"status\": \"ACTIVE\", \"subnets\": [], \"name\":
+        \"ANewNetwork\", \"admin_state_up\": true, \"tenant_id\": \"930035\", \"shared\":
+        false, \"id\": \"2f5b6fed-faf2-4f62-8a0a-76a1dd261014\"}]}"
+    http_version: 
+  recorded_at: Sat, 13 Dec 2014 00:14:57 GMT
+- request:
+    method: put
+    uri: https://iad.networks.api.rackspacecloud.com/v2.0/networks/2f5b6fed-faf2-4f62-8a0a-76a1dd261014
+    body:
+      encoding: UTF-8
+      string: "{\"network\":{\"name\":\"SomethingDifferent\"}}"
+    headers:
+      User-Agent:
+      - fog/1.26.0 fog-core/1.27.1
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - e874be5056284f4fb1326ec5d50102db
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Via:
+      - 1.1 Repose (Repose/2.12)
+      Content-Length:
+      - '188'
+      Date:
+      - Sat, 13 Dec 2014 00:14:57 GMT
+      Server:
+      - Jetty(8.0.y.z-SNAPSHOT)
+    body:
+      encoding: UTF-8
+      string: "{\"network\": {\"status\": \"ACTIVE\", \"subnets\": [], \"name\": \"SomethingDifferent\",
+        \"admin_state_up\": true, \"tenant_id\": \"930035\", \"shared\": false, \"id\":
+        \"2f5b6fed-faf2-4f62-8a0a-76a1dd261014\"}}"
+    http_version: 
+  recorded_at: Sat, 13 Dec 2014 00:14:57 GMT
+recorded_with: VCR 2.9.3

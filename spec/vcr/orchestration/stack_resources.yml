@@ -1,0 +1,115 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.24.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - bbadd17bde994374a84eb2d9a6d1b593
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.2.1
+      Date:
+      - Sun, 09 Nov 2014 22:38:59 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '1052'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.0.2)
+    body:
+      encoding: UTF-8
+      string: "{\"stacks\": [{\"parent\": null, \"description\": \"This is a Heat
+        template to deploy a standalone redis server on\\nRackspace Cloud Servers\\n\",
+        \"links\": [{\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e\",
+        \"rel\": \"self\"}], \"stack_status_reason\": \"Stack CREATE completed successfully\",
+        \"stack_name\": \"def\", \"creation_time\": \"2014-11-09T22:34:33Z\", \"updated_time\":
+        null, \"stack_owner\": null, \"stack_status\": \"CREATE_COMPLETE\", \"id\":
+        \"5487e245-8dd5-4077-ad9c-f08d79f5ed4e\"}, {\"parent\": null, \"description\":
+        \"This is a Heat template to deploy a standalone redis server on\\nRackspace
+        Cloud Servers\\n\", \"links\": [{\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/abc/699a75ed-9eee-460a-9225-13515b8e27e6\",
+        \"rel\": \"self\"}], \"stack_status_reason\": \"Stack CREATE completed successfully\",
+        \"stack_name\": \"abc\", \"creation_time\": \"2014-11-09T22:34:12Z\", \"updated_time\":
+        null, \"stack_owner\": null, \"stack_status\": \"CREATE_COMPLETE\", \"id\":
+        \"699a75ed-9eee-460a-9225-13515b8e27e6\"}]}"
+    http_version: 
+  recorded_at: Sun, 09 Nov 2014 22:40:16 GMT
+- request:
+    method: get
+    uri: https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e/resources
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.24.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - bbadd17bde994374a84eb2d9a6d1b593
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.2.1
+      Date:
+      - Sun, 09 Nov 2014 22:39:00 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '2583'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.0.2)
+    body:
+      encoding: UTF-8
+      string: "{\"resources\": [{\"resource_name\": \"redis_password\", \"links\":
+        [{\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e/resources/redis_password\",
+        \"rel\": \"self\"}, {\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e\",
+        \"rel\": \"stack\"}], \"logical_resource_id\": \"redis_password\", \"resource_status\":
+        \"CREATE_COMPLETE\", \"updated_time\": \"2014-11-09T22:34:34Z\", \"required_by\":
+        [\"redis_server_config\"], \"resource_status_reason\": \"state changed\",
+        \"physical_resource_id\": \"DIvKlLgu9KgxxKM5\", \"resource_type\": \"OS::Heat::RandomString\"},
+        {\"resource_name\": \"redis_server_config\", \"links\": [{\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e/resources/redis_server_config\",
+        \"rel\": \"self\"}, {\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e\",
+        \"rel\": \"stack\"}], \"logical_resource_id\": \"redis_server_config\", \"resource_status\":
+        \"CREATE_COMPLETE\", \"updated_time\": \"2014-11-09T22:35:19Z\", \"required_by\":
+        [], \"resource_status_reason\": \"state changed\", \"physical_resource_id\":
+        \"a76dabd2-ef32-43a7-a755-39ff61955d52\", \"resource_type\": \"OS::Heat::ChefSolo\"},
+        {\"resource_name\": \"ssh_key\", \"links\": [{\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e/resources/ssh_key\",
+        \"rel\": \"self\"}, {\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e\",
+        \"rel\": \"stack\"}], \"logical_resource_id\": \"ssh_key\", \"resource_status\":
+        \"CREATE_COMPLETE\", \"updated_time\": \"2014-11-09T22:34:33Z\", \"required_by\":
+        [\"redis_server_config\", \"redis_server\"], \"resource_status_reason\": \"state
+        changed\", \"physical_resource_id\": \"5487e245-8dd5-4077-ad9c-f08d79f5ed4e\",
+        \"resource_type\": \"OS::Nova::KeyPair\"}, {\"resource_name\": \"redis_server\",
+        \"links\": [{\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e/resources/redis_server\",
+        \"rel\": \"self\"}, {\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e\",
+        \"rel\": \"stack\"}], \"logical_resource_id\": \"redis_server\", \"resource_status\":
+        \"CREATE_COMPLETE\", \"updated_time\": \"2014-11-09T22:34:35Z\", \"required_by\":
+        [\"redis_server_config\"], \"resource_status_reason\": \"state changed\",
+        \"physical_resource_id\": \"2f54767f-62f7-402a-9461-adbb5cb2e9cf\", \"resource_type\":
+        \"Rackspace::Cloud::Server\"}]}"
+    http_version: 
+  recorded_at: Sun, 09 Nov 2014 22:40:17 GMT
+recorded_with: VCR 2.9.3

@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e/events?limit=3&sort_dir=desc&sort_key=resource_name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.24.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - bbadd17bde994374a84eb2d9a6d1b593
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.2.1
+      Date:
+      - Sun, 09 Nov 2014 22:39:25 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '2479'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.0.2)
+    body:
+      encoding: UTF-8
+      string: "{\"events\": [{\"resource_name\": \"redis_server_config\", \"event_time\":
+        \"2014-11-09T22:37:37Z\", \"links\": [{\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e/resources/redis_server_config/events/19886c40-214b-41b7-8665-8a11de845850\",
+        \"rel\": \"self\"}, {\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e/resources/redis_server_config\",
+        \"rel\": \"resource\"}, {\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e\",
+        \"rel\": \"stack\"}], \"logical_resource_id\": \"redis_server_config\", \"resource_status\":
+        \"CREATE_COMPLETE\", \"resource_status_reason\": \"state changed\", \"physical_resource_id\":
+        \"a76dabd2-ef32-43a7-a755-39ff61955d52\", \"id\": \"19886c40-214b-41b7-8665-8a11de845850\"},
+        {\"resource_name\": \"redis_server_config\", \"event_time\": \"2014-11-09T22:35:19Z\",
+        \"links\": [{\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e/resources/redis_server_config/events/048715ad-94ee-4273-aad0-55b9fb06d745\",
+        \"rel\": \"self\"}, {\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e/resources/redis_server_config\",
+        \"rel\": \"resource\"}, {\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e\",
+        \"rel\": \"stack\"}], \"logical_resource_id\": \"redis_server_config\", \"resource_status\":
+        \"CREATE_IN_PROGRESS\", \"resource_status_reason\": \"state changed\", \"physical_resource_id\":
+        null, \"id\": \"048715ad-94ee-4273-aad0-55b9fb06d745\"}, {\"resource_name\":
+        \"redis_server\", \"event_time\": \"2014-11-09T22:35:18Z\", \"links\": [{\"href\":
+        \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e/resources/redis_server/events/869ec7b7-19bf-4782-9b73-7bf3cc83f5b5\",
+        \"rel\": \"self\"}, {\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e/resources/redis_server\",
+        \"rel\": \"resource\"}, {\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e\",
+        \"rel\": \"stack\"}], \"logical_resource_id\": \"redis_server\", \"resource_status\":
+        \"CREATE_COMPLETE\", \"resource_status_reason\": \"state changed\", \"physical_resource_id\":
+        \"2f54767f-62f7-402a-9461-adbb5cb2e9cf\", \"id\": \"869ec7b7-19bf-4782-9b73-7bf3cc83f5b5\"}]}"
+    http_version: 
+  recorded_at: Sun, 09 Nov 2014 22:40:42 GMT
+recorded_with: VCR 2.9.3

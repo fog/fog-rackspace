@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks?sort_dir=asc&sort_key=stack_name
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.24.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - bbadd17bde994374a84eb2d9a6d1b593
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.2.1
+      Date:
+      - Sun, 09 Nov 2014 22:39:06 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '1052'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.0.2)
+    body:
+      encoding: UTF-8
+      string: "{\"stacks\": [{\"parent\": null, \"description\": \"This is a Heat
+        template to deploy a standalone redis server on\\nRackspace Cloud Servers\\n\",
+        \"links\": [{\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/abc/699a75ed-9eee-460a-9225-13515b8e27e6\",
+        \"rel\": \"self\"}], \"stack_status_reason\": \"Stack CREATE completed successfully\",
+        \"stack_name\": \"abc\", \"creation_time\": \"2014-11-09T22:34:12Z\", \"updated_time\":
+        null, \"stack_owner\": null, \"stack_status\": \"CREATE_COMPLETE\", \"id\":
+        \"699a75ed-9eee-460a-9225-13515b8e27e6\"}, {\"parent\": null, \"description\":
+        \"This is a Heat template to deploy a standalone redis server on\\nRackspace
+        Cloud Servers\\n\", \"links\": [{\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e\",
+        \"rel\": \"self\"}], \"stack_status_reason\": \"Stack CREATE completed successfully\",
+        \"stack_name\": \"def\", \"creation_time\": \"2014-11-09T22:34:33Z\", \"updated_time\":
+        null, \"stack_owner\": null, \"stack_status\": \"CREATE_COMPLETE\", \"id\":
+        \"5487e245-8dd5-4077-ad9c-f08d79f5ed4e\"}]}"
+    http_version: 
+  recorded_at: Sun, 09 Nov 2014 22:40:23 GMT
+recorded_with: VCR 2.9.3

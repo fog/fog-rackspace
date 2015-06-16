@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.24.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - bbadd17bde994374a84eb2d9a6d1b593
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.2.1
+      Date:
+      - Sun, 09 Nov 2014 22:38:58 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '1397'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.0.2)
+    body:
+      encoding: UTF-8
+      string: "{\"stack\":{\"parent\":null,\"disable_rollback\":true,\"description\":\"This
+        is a Heat template to deploy a standalone redis server on\\nRackspace Cloud
+        Servers\\n\",\"links\":[{\"href\":\"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e\",\"rel\":\"self\"}],\"stack_status_reason\":\"Stack
+        CREATE completed successfully\",\"stack_name\":\"def\",\"outputs\":[{\"output_value\":\"*****\",\"description\":\"Redis
+        Password\",\"output_key\":\"redis_password\"},{\"output_value\":\"*****\",\"description\":\"SSH
+        Private Key\",\"output_key\":\"private_key\"},{\"output_value\":\"104.130.12.131\",\"description\":\"Server
+        IP\",\"output_key\":\"redis_server_ip\"},{\"output_value\":6379,\"description\":\"Redis
+        Port\",\"output_key\":\"redis_port\"}],\"timeout_mins\":null,\"creation_time\":\"2014-11-09T22:34:33Z\",\"capabilities\":[],\"notification_topics\":[],\"parameters\":{\"redis_hostname\":\"redis\",\"OS::stack_id\":\"5487e245-8dd5-4077-ad9c-f08d79f5ed4e\",\"OS::stack_name\":\"def\",\"image\":\"Ubuntu
+        14.04 LTS (Trusty Tahr)\",\"chef_version\":\"11.12.8\",\"redis_port\":\"6379\",\"flavor\":\"1
+        GB General Purpose v1\",\"redis_version\":\"2.8.14\",\"kitchen\":\"https://github.com/rackspace-orchestration-templates/redis-single\"},\"stack_owner\":null,\"stack_status\":\"CREATE_COMPLETE\",\"updated_time\":null,\"id\":\"5487e245-8dd5-4077-ad9c-f08d79f5ed4e\",\"template_description\":\"This
+        is a Heat template to deploy a standalone redis server on\\nRackspace Cloud
+        Servers\\n\"}}"
+    http_version: 
+  recorded_at: Sun, 09 Nov 2014 22:40:23 GMT
+recorded_with: VCR 2.9.3

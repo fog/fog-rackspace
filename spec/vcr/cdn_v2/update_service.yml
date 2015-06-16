@@ -1,0 +1,175 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://global.cdn.api.rackspacecloud.com/v1.0/930035/services
+    body:
+      encoding: UTF-8
+      string: "{\"name\":\"some-domain-name.com\",\"flavor_id\":\"cdn\",\"domains\":[{\"domain\":\"630685.com\"}],\"origins\":[{\"origin\":\"630698.com\",\"rules\":[{\"name\":\"SomethingElse\",\"request_url\":\"hotmail.com\"}]}]}"
+    headers:
+      User-Agent:
+      - fog/1.29.0 fog-core/1.30.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - 01f29252431e454c8e2d8e90d4f08653
+  response:
+    status:
+      code: 202
+      message: ''
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 24 Apr 2015 02:19:24 GMT
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.1.1.1)
+      Location:
+      - https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/628bdc85-6737-42a0-a6b4-8570795efee4
+      X-Newrelic-App-Data:
+      - PxQGUF9bAAUTUlFbBgIPVkYdFGQHBDcQUQxLA1tMXV1dSmwTWE5FU0oGGBIDEU5aUwESQBsBG1ZKAA8FVVBbWwlbCFsBDwcDB1AVUAlVH0AGUwFYU1JdBlZQAgFUUFEERh1QUg4VBj8=
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Fri, 24 Apr 2015 02:19:29 GMT
+- request:
+    method: get
+    uri: https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/628bdc85-6737-42a0-a6b4-8570795efee4
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.29.0 fog-core/1.30.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - 01f29252431e454c8e2d8e90d4f08653
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 24 Apr 2015 02:19:35 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '695'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.1.1.1)
+      X-Newrelic-App-Data:
+      - PxQGUF9bAAUTUlFbBgIPVkYdFGQHBDcQUQxLA1tMXV1dSncOQwxSDg1MUgUzEVEcRlVPUhhCUhQSWFVWEUlJQBxSFFIWCAUCAlQIUQhSBlBVBwZZV1UMHx1VTUAPBFFVAVUPBVFTUQRRWwlVGhRSU18WXDw=
+      Pragma:
+      - no-cache
+    body:
+      encoding: UTF-8
+      string: "{\"name\": \"some-domain-name.com\", \"id\": \"628bdc85-6737-42a0-a6b4-8570795efee4\",
+        \"domains\": [{\"domain\": \"630685.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"630698.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/628bdc85-6737-42a0-a6b4-8570795efee4\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"630685.com.cdn273.raxcdn.com\", \"rel\":
+        \"access_url\"}]}"
+    http_version: 
+  recorded_at: Fri, 24 Apr 2015 02:19:39 GMT
+- request:
+    method: patch
+    uri: https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/628bdc85-6737-42a0-a6b4-8570795efee4
+    body:
+      encoding: UTF-8
+      string: "[{\"op\":\"replace\",\"path\":\"/name\",\"value\":\"skrelnick.com\"}]"
+    headers:
+      User-Agent:
+      - fog/1.29.0 fog-core/1.30.0
+      Content-Type:
+      - application/json-patch+json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - 01f29252431e454c8e2d8e90d4f08653
+  response:
+    status:
+      code: 202
+      message: ''
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 24 Apr 2015 02:19:35 GMT
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.1.1.1)
+      Location:
+      - https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/628bdc85-6737-42a0-a6b4-8570795efee4
+      X-Newrelic-App-Data:
+      - PxQGUF9bAAUTUlFbBgIPVkYdFGQHBDcQUQxLA1tMXV1dSncOQwxSDg1MUgUzEVEcRlVPUhhCUhQSWFVWEUlJQBxSFFIWCQQCBFIBUAFTC1VQAQJUXlUUBgdIQ1pSCANWXFJQVwNeUAYBUgBAFF5VXkAAZA==
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Fri, 24 Apr 2015 02:19:40 GMT
+- request:
+    method: get
+    uri: https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/628bdc85-6737-42a0-a6b4-8570795efee4
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.29.0 fog-core/1.30.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - 01f29252431e454c8e2d8e90d4f08653
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Fri, 24 Apr 2015 02:19:46 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '688'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.1.1.1)
+      X-Newrelic-App-Data:
+      - PxQGUF9bAAUTUlFbBgIPVkYdFGQHBDcQUQxLA1tMXV1dSncOQwxSDg1MUgUzEVEcRlVPUhhCUhQSWFVWEUlJQBxSFFIWCAUCAFUBUQNWAVRTAgJXVlYNHx1VTUABAVJXUgRSUQdeAlMJAQpaGhRSU18WXDw=
+      Pragma:
+      - no-cache
+    body:
+      encoding: UTF-8
+      string: "{\"name\": \"skrelnick.com\", \"id\": \"628bdc85-6737-42a0-a6b4-8570795efee4\",
+        \"domains\": [{\"domain\": \"630685.com\", \"protocol\": \"http\"}], \"origins\":
+        [{\"origin\": \"630698.com\", \"port\": 80, \"ssl\": false, \"rules\": [{\"name\":
+        \"SomethingElse\", \"request_url\": \"hotmail.com\"}]}], \"restrictions\":
+        [], \"caching\": [], \"status\": \"deployed\", \"flavor_id\": \"cdn\", \"log_delivery\":
+        {\"enabled\": false}, \"errors\": [], \"links\": [{\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/services/628bdc85-6737-42a0-a6b4-8570795efee4\",
+        \"rel\": \"self\"}, {\"href\": \"https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn\",
+        \"rel\": \"flavor\"}, {\"href\": \"630685.com.cdn273.raxcdn.com\", \"rel\":
+        \"access_url\"}]}"
+    http_version: 
+  recorded_at: Fri, 24 Apr 2015 02:19:50 GMT
+recorded_with: VCR 2.9.3

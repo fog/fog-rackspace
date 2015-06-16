@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.24.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - bbadd17bde994374a84eb2d9a6d1b593
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.2.1
+      Date:
+      - Sun, 09 Nov 2014 22:39:24 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '1089'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.0.2)
+    body:
+      encoding: UTF-8
+      string: "{\"stack\": {\"disable_rollback\": true, \"description\": \"This is
+        a Heat template to deploy a standalone redis server on\\nRackspace Cloud Servers\\n\",
+        \"parent\": null, \"stack_status_reason\": \"Stack UPDATE started\", \"stack_name\":
+        \"def\", \"stack_owner\": null, \"creation_time\": \"2014-11-09T22:34:33Z\",
+        \"links\": [{\"href\": \"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/def/5487e245-8dd5-4077-ad9c-f08d79f5ed4e\",
+        \"rel\": \"self\"}], \"capabilities\": [], \"notification_topics\": [], \"updated_time\":
+        null, \"timeout_mins\": null, \"stack_status\": \"UPDATE_IN_PROGRESS\", \"parameters\":
+        {\"redis_hostname\": \"redis\", \"OS::stack_id\": \"5487e245-8dd5-4077-ad9c-f08d79f5ed4e\",
+        \"OS::stack_name\": \"def\", \"image\": \"Ubuntu 14.04 LTS (Trusty Tahr)\",
+        \"redis_version\": \"2.8.14\", \"redis_port\": \"6379\", \"flavor\": \"1 GB
+        General Purpose v1\", \"chef_version\": \"11.12.8\", \"kitchen\": \"https://github.com/rackspace-orchestration-templates/redis-single\"},
+        \"id\": \"5487e245-8dd5-4077-ad9c-f08d79f5ed4e\", \"template_description\":
+        \"This is a Heat template to deploy a standalone redis server on\\nRackspace
+        Cloud Servers\\n\"}}"
+    http_version: 
+  recorded_at: Sun, 09 Nov 2014 22:40:41 GMT
+recorded_with: VCR 2.9.3
