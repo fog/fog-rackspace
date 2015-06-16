@@ -1,5 +1,3 @@
-require 'fog/rackspace/core'
-
 module Fog
   module Rackspace
     class Orchestration < Fog::Service
@@ -9,10 +7,10 @@ module Fog
       class InternalServerError < Fog::Rackspace::Errors::InternalServerError; end
       class BadRequest < Fog::Rackspace::Errors::BadRequest; end
 
-      ORCHESTRATION_DFW_URL = "https://dfw.orchestration.api.rackspacecloud.com/v1"
-      ORCHESTRATION_LON_URL = "https://lon.orchestration.api.rackspacecloud.com/v1"
-      ORCHESTRATION_IAD_URL = "https://iad.orchestration.api.rackspacecloud.com/v1"
-      ORCHESTRATION_ORD_URL = "https://ord.orchestration.api.rackspacecloud.com/v1"
+      ORCHESTRATION_DFW_URL = 'https://dfw.orchestration.api.rackspacecloud.com/v1'
+      ORCHESTRATION_LON_URL = 'https://lon.orchestration.api.rackspacecloud.com/v1'
+      ORCHESTRATION_IAD_URL = 'https://iad.orchestration.api.rackspacecloud.com/v1'
+      ORCHESTRATION_ORD_URL = 'https://ord.orchestration.api.rackspacecloud.com/v1'
 
       requires :rackspace_username, :rackspace_api_key
       recognizes :rackspace_endpoint
@@ -66,7 +64,6 @@ module Fog
       # request :find_stack_resources => :list_resources
 
       module Reflectable
-
         REFLECTION_REGEX = /\/stacks\/(\w+)\/([\w|-]+)\/resources\/(\w+)/
 
         def resource
@@ -80,10 +77,9 @@ module Fog
         private
 
         def reflection
-          @reflection ||= REFLECTION_REGEX.match(self.links[0]['href'])
+          @reflection ||= REFLECTION_REGEX.match(links[0]['href'])
         end
-        alias :r :reflection
-
+        alias_method :r, :reflection
       end
 
       class Mock < Fog::Rackspace::Service
@@ -93,18 +89,18 @@ module Fog
           @rackspace_api_key = options[:rackspace_api_key]
         end
 
-        def request(params)
+        def request(_params)
           Fog::Mock.not_implemented
         end
 
-        def response(params={})
+        def response(params = {})
           body    = params[:body] || {}
           status  = params[:status] || 200
           headers = params[:headers] || {}
 
-          response = Excon::Response.new(:body => body, :headers => headers, :status => status)
+          response = Excon::Response.new(body: body, headers: headers, status: status)
           if params.key?(:expects) && ![*params[:expects]].include?(response.status)
-            raise(Excon::Errors.status_error(params, response))
+            fail(Excon::Errors.status_error(params, response))
           else response
           end
         end
@@ -139,12 +135,12 @@ module Fog
           raise ServiceError.slurp(error, self)
         end
 
-        def authenticate(options={})
+        def authenticate(_options = {})
           super({
-            :rackspace_api_key => @rackspace_api_key,
-            :rackspace_username => @rackspace_username,
-            :rackspace_auth_url => @rackspace_auth_url,
-            :connection_options => @connection_options
+            rackspace_api_key: @rackspace_api_key,
+            rackspace_username: @rackspace_username,
+            rackspace_auth_url: @rackspace_auth_url,
+            connection_options: @connection_options
           })
         end
 
@@ -153,21 +149,21 @@ module Fog
         end
 
         def request_id_header
-          "x-orchestration-request-id"
+          'x-orchestration-request-id'
         end
 
         def region
           @rackspace_region
         end
 
-        def endpoint_uri(service_endpoint_url=nil)
+        def endpoint_uri(service_endpoint_url = nil)
           @uri = super(@rackspace_endpoint || service_endpoint_url, :rackspace_orchestration_url)
         end
 
-        def request_uri(path, options={})
+        def request_uri(path, options = {})
           return path if options == {}
-          require "addressable/uri"
-          Addressable::URI.new({:path=>path, :query_values=>options}).request_uri
+          require 'addressable/uri'
+          Addressable::URI.new(path: path, query_values: options).request_uri
         end
 
         private
@@ -177,30 +173,30 @@ module Fog
 
           if v2_authentication?
             case @rackspace_endpoint
-              when ORCHESTRATION_DFW_URL
-                @rackspace_endpoint = nil
-                @rackspace_region = :dfw
-              when ORCHESTRATION_ORD_URL
-                @rackspace_endpoint = nil
-                @rackspace_region = :ord
-              when ORCHESTRATION_IAD_URL
-                @rackspace_endpoint = nil
-                @rackspace_region = :iad
-              when ORCHESTRATION_LON_URL
-                @rackspace_endpoint = nil
-                @rackspace_region = :lon
-              else
-                # we are actually using a custom endpoint
-                @rackspace_region = options[:rackspace_region]
+            when ORCHESTRATION_DFW_URL
+              @rackspace_endpoint = nil
+              @rackspace_region = :dfw
+            when ORCHESTRATION_ORD_URL
+              @rackspace_endpoint = nil
+              @rackspace_region = :ord
+            when ORCHESTRATION_IAD_URL
+              @rackspace_endpoint = nil
+              @rackspace_region = :iad
+            when ORCHESTRATION_LON_URL
+              @rackspace_endpoint = nil
+              @rackspace_region = :lon
+            else
+              # we are actually using a custom endpoint
+              @rackspace_region = options[:rackspace_region]
             end
           else
-            #if we are using auth1 and the endpoint is not set, default to DFW_URL for historical reasons
+            # if we are using auth1 and the endpoint is not set, default to DFW_URL for historical reasons
             @rackspace_endpoint ||= ORCHESTRATION_DFW_URL
           end
         end
 
         def deprecation_warnings(options)
-          Fog::Logger.deprecation("The :rackspace_endpoint option is deprecated. Please use :rackspace_orchestration_url for custom endpoints") if options[:rackspace_endpoint]
+          Fog::Logger.deprecation('The :rackspace_endpoint option is deprecated. Please use :rackspace_orchestration_url for custom endpoints') if options[:rackspace_endpoint]
 
           if [ORCHESTRATION_DFW_URL, ORCHESTRATION_ORD_URL, ORCHESTRATION_IAD_URL, ORCHESTRATION_LON_URL].include?(@rackspace_endpoint) && v2_authentication?
             regions = @identity_service.service_catalog.display_service_regions(service_name)

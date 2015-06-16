@@ -1,8 +1,7 @@
 require 'fog/core'
 require 'fog/json'
-require 'fog/rackspace/mock_data'
-require 'fog/rackspace/service'
-require 'fog/rackspace/errors'
+require_relative 'service'
+require_relative 'errors'
 
 module Fog
   module Rackspace
@@ -16,11 +15,11 @@ module Fog
         attr_reader :response_data, :status_code, :transaction_id
 
         def to_s
-          status = status_code ? "HTTP #{status_code}" : "HTTP <Unknown>"
+          status = status_code ? "HTTP #{status_code}" : 'HTTP <Unknown>'
           "[#{status} | #{transaction_id}] #{super}"
         end
 
-        def self.slurp(error, service=nil)
+        def self.slurp(error, service = nil)
           data = nil
           message = nil
           status_code = nil
@@ -71,9 +70,9 @@ module Fog
           "#{super} - #{validation_errors}"
         end
 
-        def self.slurp(error, service=nil)
+        def self.slurp(error, service = nil)
           new_error = super(error)
-          unless new_error.response_data.nil? or new_error.response_data['badRequest'].nil?
+          unless new_error.response_data.nil? || new_error.response_data['badRequest'].nil?
             new_error.instance_variable_set(:@validation_errors, new_error.response_data['badRequest']['validationErrors'])
           end
 
@@ -111,16 +110,14 @@ module Fog
       connection = Fog::Core::Connection.new(url, false, connection_options)
       @rackspace_api_key  = options[:rackspace_api_key]
       @rackspace_username = options[:rackspace_username]
-      response = connection.request({
-        :expects  => [200, 204],
-        :headers  => {
-          'X-Auth-Key'  => @rackspace_api_key,
-          'X-Auth-User' => @rackspace_username
-        },
-        :method   => 'GET',
-        :path     =>  (uri.path and not uri.path.empty?) ? uri.path : 'v1.0'
-      })
-      response.headers.reject do |key, value|
+      response = connection.request(expects: [200, 204],
+                                    headers: {
+                                      'X-Auth-Key'  => @rackspace_api_key,
+                                      'X-Auth-User' => @rackspace_username
+                                    },
+                                    method: 'GET',
+                                    path: (uri.path && !uri.path.empty?) ? uri.path : 'v1.0')
+      response.headers.reject do |key, _value|
         !['X-Server-Management-Url', 'X-Storage-Url', 'X-CDN-Management-Url', 'X-Auth-Token'].include?(key)
       end
     end
@@ -132,18 +129,18 @@ module Fog
 
     def self.normalize_url(endpoint)
       return nil unless endpoint
-      str = endpoint.chomp " "
-      str = str.chomp "/"
+      str = endpoint.chomp ' '
+      str = str.chomp '/'
       str.downcase
     end
 
     # CGI.escape, but without special treatment on spaces
-    def self.escape(str,extra_exclude_chars = '')
+    def self.escape(str, extra_exclude_chars = '')
       # '-' is a special character inside a regex class so it must be first or last.
       # Add extra excludes before the final '-' so it always remains trailing, otherwise
       # an unwanted range is created by mistake.
       str.gsub(/([^a-zA-Z0-9_.#{extra_exclude_chars}-]+)/) do
-        '%' + $1.unpack('H2' * $1.bytesize).join('%').upcase
+        '%' + Regexp.last_match(1).unpack('H2' * Regexp.last_match(1).bytesize).join('%').upcase
       end
     end
   end

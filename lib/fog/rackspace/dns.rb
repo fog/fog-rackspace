@@ -1,5 +1,3 @@
-require 'fog/rackspace/core'
-
 module Fog
   module DNS
     class Rackspace < Fog::Service
@@ -27,13 +25,13 @@ module Fog
       recognizes :rackspace_auth_url, :rackspace_auth_token, :rackspace_dns_endpoint, :rackspace_dns_url, :rackspace_region
 
       model_path 'fog/rackspace/models/dns'
-      model       :record
-      collection  :records
-      model       :zone
-      collection  :zones
+      model :record
+      collection :records
+      model :zone
+      collection :zones
 
       request_path 'fog/rackspace/requests/dns'
-      #TODO - Import/Export, modify multiple domains, modify multiple records
+      # TODO: - Import/Export, modify multiple domains, modify multiple records
       request :callback
       request :list_domains
       request :list_domain_details
@@ -50,7 +48,7 @@ module Fog
       request :add_records
 
       class Mock < Fog::Rackspace::Service
-        def initialize(options={})
+        def initialize(options = {})
           @rackspace_api_key = options[:rackspace_api_key]
           @rackspace_username = options[:rackspace_username]
           @rackspace_auth_url = options[:rackspace_auth_url]
@@ -81,11 +79,11 @@ module Fog
         end
 
         def region
-          #Note: DNS does not currently support multiple regions
+          # Note: DNS does not currently support multiple regions
           @rackspace_region
         end
 
-        def initialize(options={})
+        def initialize(options = {})
           @rackspace_api_key = options[:rackspace_api_key]
           @rackspace_username = options[:rackspace_username]
           @rackspace_auth_url = options[:rackspace_auth_url]
@@ -101,7 +99,7 @@ module Fog
           @connection = Fog::Core::Connection.new(endpoint_uri.to_s, @persistent, @connection_options)
         end
 
-        def endpoint_uri(service_endpoint_url=nil)
+        def endpoint_uri(service_endpoint_url = nil)
           @uri = super(@rackspace_endpoint || service_endpoint_url, :rackspace_dns_url)
         end
 
@@ -124,9 +122,9 @@ module Fog
         end
 
         def array_to_query_string(arr)
-          return "" unless arr
-          query_array = arr.map do | k, v |
-            val_str = v.is_a?(Array) ? v.join(",") : v.to_s
+          return '' unless arr
+          query_array = arr.map do |k, v|
+            val_str = v.is_a?(Array) ? v.join(',') : v.to_s
             "#{k}=#{val_str}"
           end
 
@@ -134,15 +132,15 @@ module Fog
         end
 
         def validate_path_fragment(name, fragment)
-          if fragment.nil? or fragment.to_s.empty?
-            raise ArgumentError.new("#{name} cannot be null or empty")
+          if fragment.nil? || fragment.to_s.empty?
+            fail ArgumentError.new("#{name} cannot be null or empty")
           end
         end
 
         private
 
         def deprecation_warnings(options)
-          Fog::Logger.deprecation("The :rackspace_dns_endpoint option is deprecated. Please use :rackspace_dns_url for custom endpoints") if options[:rackspace_dns_endpoint]
+          Fog::Logger.deprecation('The :rackspace_dns_endpoint option is deprecated. Please use :rackspace_dns_url for custom endpoints') if options[:rackspace_dns_endpoint]
         end
 
         def setup_endpoint(credentials)
@@ -158,12 +156,12 @@ module Fog
           @auth_token = credentials['X-Auth-Token']
         end
 
-        def authenticate(options={})
+        def authenticate(_options = {})
           super({
-            :rackspace_api_key  => @rackspace_api_key,
-            :rackspace_username => @rackspace_username,
-            :rackspace_auth_url => @rackspace_auth_url,
-            :connection_options => @connection_options
+            rackspace_api_key: @rackspace_api_key,
+            rackspace_username: @rackspace_username,
+            rackspace_auth_url: @rackspace_auth_url,
+            connection_options: @connection_options
           })
         end
       end

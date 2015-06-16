@@ -1,5 +1,3 @@
-require 'fog/rackspace/core'
-
 module Fog
   module Rackspace
     class CDNV2 < Fog::Service
@@ -36,18 +34,18 @@ module Fog
           @rackspace_api_key = options[:rackspace_api_key]
         end
 
-        def request(params)
+        def request(_params)
           Fog::Mock.not_implemented
         end
 
-        def response(params={})
+        def response(params = {})
           body    = params[:body] || {}
           status  = params[:status] || 200
           headers = params[:headers] || {}
 
-          response = Excon::Response.new(:body => body, :headers => headers, :status => status)
+          response = Excon::Response.new(body: body, headers: headers, status: status)
           if params.key?(:expects) && ![*params[:expects]].include?(response.status)
-            raise(Excon::Errors.status_error(params, response))
+            fail(Excon::Errors.status_error(params, response))
           else response
           end
         end
@@ -79,26 +77,26 @@ module Fog
           raise ServiceError.slurp(error, self)
         end
 
-        def request_uri(path, options={})
+        def request_uri(path, options = {})
           return path if options == {}
-          require "addressable/uri"
-          Addressable::URI.new({:path=>path, :query_values=>options}).request_uri
+          require 'addressable/uri'
+          Addressable::URI.new(path: path, query_values: options).request_uri
         end
 
         def ping
-          self.get_ping.status == 204
+          get_ping.status == 204
         end
 
         def home_document
-          self.get_home_document.body
+          get_home_document.body
         end
 
-        def authenticate(options={})
+        def authenticate(_options = {})
           super({
-            :rackspace_api_key => @rackspace_api_key,
-            :rackspace_username => @rackspace_username,
-            :rackspace_auth_url => @rackspace_auth_url,
-            :connection_options => @connection_options
+            rackspace_api_key: @rackspace_api_key,
+            rackspace_username: @rackspace_username,
+            rackspace_auth_url: @rackspace_auth_url,
+            connection_options: @connection_options
           })
         end
 
@@ -107,14 +105,14 @@ module Fog
         end
 
         def request_id_header
-          "x-raxcdn-id"
+          'x-raxcdn-id'
         end
 
         def region
           @rackspace_region
         end
 
-        def endpoint_uri(service_endpoint_url=nil)
+        def endpoint_uri(service_endpoint_url = nil)
           @uri = super(@rackspace_endpoint || service_endpoint_url)
         end
       end

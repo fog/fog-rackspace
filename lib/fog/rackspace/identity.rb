@@ -1,5 +1,3 @@
-require 'fog/rackspace/core'
-
 module Fog
   module Rackspace
     class Identity < Fog::Service
@@ -36,8 +34,8 @@ module Fog
       module Common
         attr_reader :service_catalog, :auth_token
 
-        def authenticate(options={})
-          data = self.create_token(@rackspace_username, @rackspace_api_key).body
+        def authenticate(_options = {})
+          data = create_token(@rackspace_username, @rackspace_api_key).body
           @service_catalog = ServiceCatalog.from_response(self, data)
           @auth_token = data['access']['token']['id']
         end
@@ -61,7 +59,7 @@ module Fog
       class Mock < Fog::Rackspace::Service
         include Common
 
-        def initialize(options={})
+        def initialize(options = {})
           apply_options(options)
 
           authenticate
@@ -71,7 +69,7 @@ module Fog
       class Real < Fog::Rackspace::Service
         include Common
 
-        def initialize(options={})
+        def initialize(options = {})
           apply_options(options)
           @connection = Fog::Core::Connection.new(@uri.to_s, @persistent, @connection_options)
 

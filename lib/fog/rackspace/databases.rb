@@ -1,5 +1,3 @@
-require 'fog/rackspace/core'
-
 module Fog
   module Rackspace
     class Databases < Fog::Service
@@ -55,7 +53,7 @@ module Fog
       request :revoke_user_access
 
       class Mock < Fog::Rackspace::Service
-        def request(params)
+        def request(_params)
           Fog::Mock.not_implemented
         end
       end
@@ -97,16 +95,16 @@ module Fog
           raise ServiceError.slurp(error, self)
         end
 
-        def endpoint_uri(service_endpoint_url=nil)
+        def endpoint_uri(service_endpoint_url = nil)
           @uri = super(@rackspace_endpoint || service_endpoint_url, :rackspace_database_url)
         end
 
-        def authenticate(options={})
+        def authenticate(_options = {})
           super({
-            :rackspace_api_key  => @rackspace_api_key,
-            :rackspace_username => @rackspace_username,
-            :rackspace_auth_url => @rackspace_auth_url,
-            :connection_options => @connection_options
+            rackspace_api_key: @rackspace_api_key,
+            rackspace_username: @rackspace_username,
+            rackspace_auth_url: @rackspace_auth_url,
+            connection_options: @connection_options
           })
         end
 
@@ -131,13 +129,13 @@ module Fog
               @rackspace_region = options[:rackspace_region]
             end
           else
-            #if we are using auth1 and the endpoint is not set, default to DFW_ENDPOINT for historical reasons
+            # if we are using auth1 and the endpoint is not set, default to DFW_ENDPOINT for historical reasons
             @rackspace_endpoint ||= DFW_ENDPOINT
           end
         end
 
         def deprecation_warnings(options)
-          Fog::Logger.deprecation("The :rackspace_endpoint option is deprecated. Please use :rackspace_database_url for custom endpoints") if options[:rackspace_endpoint]
+          Fog::Logger.deprecation('The :rackspace_endpoint option is deprecated. Please use :rackspace_database_url for custom endpoints') if options[:rackspace_endpoint]
 
           if [DFW_ENDPOINT, ORD_ENDPOINT, LON_ENDPOINT].include?(@rackspace_endpoint) && v2_authentication?
             regions = @identity_service.service_catalog.display_service_regions(service_name)

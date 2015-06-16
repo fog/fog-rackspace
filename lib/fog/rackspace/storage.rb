@@ -1,5 +1,3 @@
-require 'fog/rackspace/core'
-
 module Fog
   module Storage
     class Rackspace < Fog::Service
@@ -14,11 +12,11 @@ module Fog
       recognizes :rackspace_temp_url_key, :rackspace_storage_url, :rackspace_cdn_url
 
       model_path 'fog/rackspace/models/storage'
-      model       :directory
-      collection  :directories
-      model       :file
-      collection  :files
-      model       :account
+      model :directory
+      collection :directories
+      model :file
+      collection :files
+      model :account
 
       request_path 'fog/rackspace/requests/storage'
       request :copy_object
@@ -58,7 +56,7 @@ module Fog
           @connection_options = options[:connection_options] || {}
 
           unless @rackspace_region || (@rackspace_storage_url && @rackspace_cdn_url)
-            Fog::Logger.deprecation("Default region support will be removed in an upcoming release. Please switch to manually setting your endpoint. This requires settng the :rackspace_region option.")
+            Fog::Logger.deprecation('Default region support will be removed in an upcoming release. Please switch to manually setting your endpoint. This requires settng the :rackspace_region option.')
           end
 
           @rackspace_region ||= :dfw
@@ -66,17 +64,15 @@ module Fog
 
         def cdn
           @cdn ||= Fog::CDN.new(
-            :provider           => 'Rackspace',
-            :rackspace_api_key  => @rackspace_api_key,
-            :rackspace_auth_url => @rackspace_auth_url,
-            :rackspace_cdn_url => @rackspace_cdn_url,
-            :rackspace_username => @rackspace_username,
-            :rackspace_region => @rackspace_region,
-            :rackspace_cdn_ssl => @rackspace_cdn_ssl
+            provider: 'Rackspace',
+            rackspace_api_key: @rackspace_api_key,
+            rackspace_auth_url: @rackspace_auth_url,
+            rackspace_cdn_url: @rackspace_cdn_url,
+            rackspace_username: @rackspace_username,
+            rackspace_region: @rackspace_region,
+            rackspace_cdn_ssl: @rackspace_cdn_ssl
           )
-          if @cdn.enabled?
-            @cdn
-          end
+          @cdn if @cdn.enabled?
         end
 
         def service_net?
@@ -86,10 +82,10 @@ module Fog
         def authenticate
           if @rackspace_must_reauthenticate || @rackspace_auth_token.nil?
             options = {
-              :rackspace_api_key  => @rackspace_api_key,
-              :rackspace_username => @rackspace_username,
-              :rackspace_auth_url => @rackspace_auth_url,
-              :connection_options => @connection_options
+              rackspace_api_key: @rackspace_api_key,
+              rackspace_username: @rackspace_username,
+              rackspace_auth_url: @rackspace_auth_url,
+              connection_options: @connection_options
             }
             super(options)
           else
@@ -103,14 +99,14 @@ module Fog
         end
 
         def request_id_header
-          "X-Trans-Id"
+          'X-Trans-Id'
         end
 
         def region
           @rackspace_region
         end
 
-        def endpoint_uri(service_endpoint_url=nil)
+        def endpoint_uri(service_endpoint_url = nil)
           return @uri if @uri
           super(@rackspace_storage_url || service_endpoint_url, :rackspace_storage_url)
         end
@@ -118,7 +114,7 @@ module Fog
         # Return Account Details
         # @return [Fog::Storage::Rackspace::Account] account details object
         def account
-          account = Fog::Storage::Rackspace::Account.new(:service => self)
+          account = Fog::Storage::Rackspace::Account.new(service: self)
           account.reload
         end
       end
@@ -136,7 +132,8 @@ module Fog
           # {Fog::Rackspace::Storage#add_container} instead.
           def initialize(service)
             @service = service
-            @objects, @meta = {}, {}
+            @objects = {}
+            @meta = {}
           end
 
           # Determine if this container contains any MockObjects or not.
@@ -151,7 +148,7 @@ module Fog
           # @return [Integer] The number of bytes occupied by each contained
           #   object.
           def bytes_used
-            @objects.values.map { |o| o.bytes_used }.reduce(0) { |a, b| a + b }
+            @objects.values.map(&:bytes_used).reduce(0) { |a, b| a + b }
           end
 
           # Render the HTTP headers that would be associated with this
@@ -161,10 +158,8 @@ module Fog
           #   container, plus additional headers indicating the container's
           #   size.
           def to_headers
-            @meta.merge({
-              'X-Container-Object-Count' => @objects.size,
-              'X-Container-Bytes-Used' => bytes_used
-            })
+            @meta.merge('X-Container-Object-Count' => @objects.size,
+                        'X-Container-Bytes-Used' => bytes_used)
           end
 
           # Access a MockObject within this container by (unescaped) name.
@@ -182,7 +177,7 @@ module Fog
           # @return [MockObject] The object within this container with the
           #   specified name.
           def mock_object!(name)
-            mock_object(name) or raise Fog::Storage::Rackspace::NotFound.new
+            mock_object(name) || fail(Fog::Storage::Rackspace::NotFound.new)
           end
 
           # Add a new MockObject to this container. An existing object with
@@ -241,7 +236,7 @@ module Fog
           #
           # @return [Boolean]
           def dynamic_manifest?
-            ! large_object_prefix.nil?
+            !large_object_prefix.nil?
           end
 
           # Iterate through each MockObject that contains a part of the data for
@@ -346,7 +341,7 @@ module Fog
           @account_meta = nil
         end
 
-        def initialize(options={})
+        def initialize(options = {})
           apply_options(options)
           authenticate
           endpoint_uri
@@ -381,7 +376,7 @@ module Fog
         #   given name exists.
         # @return [MockContainer] The existing MockContainer.
         def mock_container!(cname)
-          mock_container(cname) or raise Fog::Storage::Rackspace::NotFound.new
+          mock_container(cname) || fail(Fog::Storage::Rackspace::NotFound.new)
         end
 
         # Create and add a new, empty MockContainer with the given name. An
@@ -407,7 +402,7 @@ module Fog
 
         private
 
-        def authenticate_v1(options)
+        def authenticate_v1(_options)
           uuid = Fog::Rackspace::MockData.uuid
           endpoint_uri "https://storage101.#{region}1.clouddrive.com/v1/MockCloudFS_#{uuid}"
           @auth_token = Fog::Mock.random_hex(32)
@@ -419,7 +414,7 @@ module Fog
 
         attr_reader :rackspace_cdn_ssl
 
-        def initialize(options={})
+        def initialize(options = {})
           apply_options(options)
 
           authenticate

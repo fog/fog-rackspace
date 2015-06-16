@@ -1,5 +1,3 @@
-require 'fog/rackspace/core'
-
 module Fog
   module CDN
     class Rackspace < Fog::Service
@@ -15,10 +13,10 @@ module Fog
 
       module Base
         URI_HEADERS = {
-          "X-Cdn-Ios-Uri" => :ios_uri,
-          "X-Cdn-Uri" => :uri,
-          "X-Cdn-Streaming-Uri" => :streaming_uri,
-          "X-Cdn-Ssl-Uri" => :ssl_uri
+          'X-Cdn-Ios-Uri' => :ios_uri,
+          'X-Cdn-Uri' => :uri,
+          'X-Cdn-Streaming-Uri' => :streaming_uri,
+          'X-Cdn-Ssl-Uri' => :ssl_uri
         }.freeze
 
         def apply_options(options)
@@ -41,7 +39,7 @@ module Fog
         end
 
         def request_id_header
-          "X-Trans-Id"
+          'X-Trans-Id'
         end
 
         # Returns true if CDN service is enabled
@@ -50,7 +48,7 @@ module Fog
           @enabled
         end
 
-        def endpoint_uri(service_endpoint_url=nil)
+        def endpoint_uri(service_endpoint_url = nil)
           @uri = super(@rackspace_cdn_url || service_endpoint_url, :rackspace_cdn_url)
         end
 
@@ -77,20 +75,18 @@ module Fog
         # @raise [Fog::Storage::Rackspace::ServiceError]
         # @note If unable to find container or container is not published this method will return an empty hash.
         def urls(container)
-          begin
-            response = head_container(container.key)
-            return {} unless response.headers['X-Cdn-Enabled'] == 'True'
-            urls_from_headers response.headers
-          rescue Fog::Service::NotFound
-            {}
-          end
+          response = head_container(container.key)
+          return {} unless response.headers['X-Cdn-Enabled'] == 'True'
+          urls_from_headers response.headers
+        rescue Fog::Service::NotFound
+          {}
         end
 
         private
 
         def urls_from_headers(headers)
           h = {}
-          URI_HEADERS.keys.each do | header |
+          URI_HEADERS.keys.each do |header|
             key = URI_HEADERS[header]
             h[key] = headers[header]
           end
@@ -111,10 +107,10 @@ module Fog
           @data = nil
         end
 
-        def initialize(options={})
+        def initialize(options = {})
           apply_options(options)
           authenticate(options)
-          @enabled = !! endpoint_uri
+          @enabled = !!endpoint_uri
         end
 
         def data
@@ -123,7 +119,7 @@ module Fog
 
         def purge(object)
           return true if object.is_a? Fog::Storage::Rackspace::File
-          raise Fog::Errors::NotImplemented.new("#{object.class} does not support CDN purging") if object
+          fail Fog::Errors::NotImplemented.new("#{object.class} does not support CDN purging") if object
         end
 
         def reset_data
@@ -134,7 +130,7 @@ module Fog
       class Real < Fog::Rackspace::Service
         include Base
 
-        def initialize(options={})
+        def initialize(options = {})
           apply_options(options)
           authenticate(options)
           @enabled = false
@@ -156,7 +152,7 @@ module Fog
         # @raise [Fog::Errors::NotImplemented] returned when non file parameters are specified
         def purge(file)
           unless file.is_a? Fog::Storage::Rackspace::File
-            raise Fog::Errors::NotImplemented.new("#{object.class} does not support CDN purging")  if object
+            fail Fog::Errors::NotImplemented.new("#{object.class} does not support CDN purging")  if object
           end
 
           delete_object file.directory.key, file.key
@@ -184,13 +180,13 @@ module Fog
         end
 
         # Fix for invalid auth_token, likely after 24 hours.
-        def authenticate(options={})
-         super({
-           :rackspace_api_key  => @rackspace_api_key,
-           :rackspace_username => @rackspace_username,
-           :rackspace_auth_url => @rackspace_auth_url,
-           :connection_options => @connection_options
-         })
+        def authenticate(_options = {})
+          super({
+            rackspace_api_key: @rackspace_api_key,
+            rackspace_username: @rackspace_username,
+            rackspace_auth_url: @rackspace_auth_url,
+            connection_options: @connection_options
+          })
         end
       end
     end

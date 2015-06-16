@@ -1,0 +1,128 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.31.0 fog-core/1.30.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - b569654894ed4762a9a337ee334c36f5
+  response:
+    status:
+      code: 401
+      message: ''
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Tue, 16 Jun 2015 19:01:24 GMT
+      Content-Length:
+      - '0'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.1.1.1)
+      Www-Authenticate:
+      - Keystone uri=https://identity.api.rackspacecloud.com/v2.0
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 16 Jun 2015 19:01:24 GMT
+- request:
+    method: post
+    uri: https://identity.api.rackspacecloud.com/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: '{"auth":{"RAX-KSKEY:apiKeyCredentials":{"username":"mattdarbytest","apiKey":"c8b184b2c1e34662abfdb5d40a035aa0"}}}'
+    headers:
+      User-Agent:
+      - fog/1.31.0 fog-core/1.30.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 16 Jun 2015 19:01:24 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      X-Newrelic-App-Data:
+      - PxQGUF9aDwETVlhSBQgFVUYdFGQHBDcQUQxLA1tMXV1dORYzVBJHNQFUZAQUFVFQVThOFlhaUggXER5jLTU3SxJOCEwIFAQcA10JVglNHlNIFANUBwIIUVIGVFJUAgADVgIUbg==
+      Vary:
+      - Accept, Accept-Encoding, X-Auth-Token
+      Front-End-Https:
+      - 'on'
+    body:
+      encoding: UTF-8
+      string: '{"access":{"token":{"id":"4e5313bcc93b44b7ada26b34ad870401","expires":"2015-06-17T17:55:02.058Z","tenant":{"id":"930035","name":"930035"},"RAX-AUTH:authenticatedBy":["APIKEY"]},"serviceCatalog":[{"name":"cloudFilesCDN","endpoints":[{"region":"IAD","tenantId":"MossoCloudFS_930035","publicURL":"https:\/\/cdn5.clouddrive.com\/v1\/MossoCloudFS_930035"},{"region":"SYD","tenantId":"MossoCloudFS_930035","publicURL":"https:\/\/cdn4.clouddrive.com\/v1\/MossoCloudFS_930035"},{"region":"DFW","tenantId":"MossoCloudFS_930035","publicURL":"https:\/\/cdn1.clouddrive.com\/v1\/MossoCloudFS_930035"},{"region":"HKG","tenantId":"MossoCloudFS_930035","publicURL":"https:\/\/cdn6.clouddrive.com\/v1\/MossoCloudFS_930035"}],"type":"rax:object-cdn"},{"name":"cloudFiles","endpoints":[{"region":"IAD","tenantId":"MossoCloudFS_930035","publicURL":"https:\/\/storage101.iad3.clouddrive.com\/v1\/MossoCloudFS_930035","internalURL":"https:\/\/snet-storage101.iad3.clouddrive.com\/v1\/MossoCloudFS_930035"},{"region":"SYD","tenantId":"MossoCloudFS_930035","publicURL":"https:\/\/storage101.syd2.clouddrive.com\/v1\/MossoCloudFS_930035","internalURL":"https:\/\/snet-storage101.syd2.clouddrive.com\/v1\/MossoCloudFS_930035"},{"region":"DFW","tenantId":"MossoCloudFS_930035","publicURL":"https:\/\/storage101.dfw1.clouddrive.com\/v1\/MossoCloudFS_930035","internalURL":"https:\/\/snet-storage101.dfw1.clouddrive.com\/v1\/MossoCloudFS_930035"},{"region":"HKG","tenantId":"MossoCloudFS_930035","publicURL":"https:\/\/storage101.hkg1.clouddrive.com\/v1\/MossoCloudFS_930035","internalURL":"https:\/\/snet-storage101.hkg1.clouddrive.com\/v1\/MossoCloudFS_930035"}],"type":"object-store"},{"name":"cloudBlockStorage","endpoints":[{"region":"DFW","tenantId":"930035","publicURL":"https:\/\/dfw.blockstorage.api.rackspacecloud.com\/v1\/930035"},{"region":"SYD","tenantId":"930035","publicURL":"https:\/\/syd.blockstorage.api.rackspacecloud.com\/v1\/930035"},{"region":"IAD","tenantId":"930035","publicURL":"https:\/\/iad.blockstorage.api.rackspacecloud.com\/v1\/930035"},{"region":"HKG","tenantId":"930035","publicURL":"https:\/\/hkg.blockstorage.api.rackspacecloud.com\/v1\/930035"}],"type":"volume"},{"name":"cloudImages","endpoints":[{"region":"IAD","tenantId":"930035","publicURL":"https:\/\/iad.images.api.rackspacecloud.com\/v2"},{"region":"HKG","tenantId":"930035","publicURL":"https:\/\/hkg.images.api.rackspacecloud.com\/v2"},{"region":"DFW","tenantId":"930035","publicURL":"https:\/\/dfw.images.api.rackspacecloud.com\/v2"},{"region":"SYD","tenantId":"930035","publicURL":"https:\/\/syd.images.api.rackspacecloud.com\/v2"}],"type":"image"},{"name":"cloudQueues","endpoints":[{"region":"HKG","tenantId":"930035","publicURL":"https:\/\/hkg.queues.api.rackspacecloud.com\/v1\/930035","internalURL":"https:\/\/snet-hkg.queues.api.rackspacecloud.com\/v1\/930035"},{"region":"SYD","tenantId":"930035","publicURL":"https:\/\/syd.queues.api.rackspacecloud.com\/v1\/930035","internalURL":"https:\/\/snet-syd.queues.api.rackspacecloud.com\/v1\/930035"},{"region":"DFW","tenantId":"930035","publicURL":"https:\/\/dfw.queues.api.rackspacecloud.com\/v1\/930035","internalURL":"https:\/\/snet-dfw.queues.api.rackspacecloud.com\/v1\/930035"},{"region":"IAD","tenantId":"930035","publicURL":"https:\/\/iad.queues.api.rackspacecloud.com\/v1\/930035","internalURL":"https:\/\/snet-iad.queues.api.rackspacecloud.com\/v1\/930035"}],"type":"rax:queues"},{"name":"cloudBigData","endpoints":[{"region":"IAD","tenantId":"930035","publicURL":"https:\/\/iad.bigdata.api.rackspacecloud.com\/v1.0\/930035"},{"region":"DFW","tenantId":"930035","publicURL":"https:\/\/dfw.bigdata.api.rackspacecloud.com\/v1.0\/930035"}],"type":"rax:bigdata"},{"name":"cloudOrchestration","endpoints":[{"region":"HKG","tenantId":"930035","publicURL":"https:\/\/hkg.orchestration.api.rackspacecloud.com\/v1\/930035"},{"region":"DFW","tenantId":"930035","publicURL":"https:\/\/dfw.orchestration.api.rackspacecloud.com\/v1\/930035"},{"region":"IAD","tenantId":"930035","publicURL":"https:\/\/iad.orchestration.api.rackspacecloud.com\/v1\/930035"},{"region":"SYD","tenantId":"930035","publicURL":"https:\/\/syd.orchestration.api.rackspacecloud.com\/v1\/930035"}],"type":"orchestration"},{"name":"cloudServersOpenStack","endpoints":[{"region":"IAD","tenantId":"930035","publicURL":"https:\/\/iad.servers.api.rackspacecloud.com\/v2\/930035","versionInfo":"https:\/\/iad.servers.api.rackspacecloud.com\/v2","versionList":"https:\/\/iad.servers.api.rackspacecloud.com\/","versionId":"2"},{"region":"DFW","tenantId":"930035","publicURL":"https:\/\/dfw.servers.api.rackspacecloud.com\/v2\/930035","versionInfo":"https:\/\/dfw.servers.api.rackspacecloud.com\/v2","versionList":"https:\/\/dfw.servers.api.rackspacecloud.com\/","versionId":"2"},{"region":"SYD","tenantId":"930035","publicURL":"https:\/\/syd.servers.api.rackspacecloud.com\/v2\/930035","versionInfo":"https:\/\/syd.servers.api.rackspacecloud.com\/v2","versionList":"https:\/\/syd.servers.api.rackspacecloud.com\/","versionId":"2"},{"region":"HKG","tenantId":"930035","publicURL":"https:\/\/hkg.servers.api.rackspacecloud.com\/v2\/930035","versionInfo":"https:\/\/hkg.servers.api.rackspacecloud.com\/v2","versionList":"https:\/\/hkg.servers.api.rackspacecloud.com\/","versionId":"2"}],"type":"compute"},{"name":"autoscale","endpoints":[{"region":"DFW","tenantId":"930035","publicURL":"https:\/\/dfw.autoscale.api.rackspacecloud.com\/v1.0\/930035"},{"region":"HKG","tenantId":"930035","publicURL":"https:\/\/hkg.autoscale.api.rackspacecloud.com\/v1.0\/930035"},{"region":"IAD","tenantId":"930035","publicURL":"https:\/\/iad.autoscale.api.rackspacecloud.com\/v1.0\/930035"},{"region":"SYD","tenantId":"930035","publicURL":"https:\/\/syd.autoscale.api.rackspacecloud.com\/v1.0\/930035"}],"type":"rax:autoscale"},{"name":"cloudDatabases","endpoints":[{"region":"DFW","tenantId":"930035","publicURL":"https:\/\/dfw.databases.api.rackspacecloud.com\/v1.0\/930035"},{"region":"IAD","tenantId":"930035","publicURL":"https:\/\/iad.databases.api.rackspacecloud.com\/v1.0\/930035"},{"region":"HKG","tenantId":"930035","publicURL":"https:\/\/hkg.databases.api.rackspacecloud.com\/v1.0\/930035"},{"region":"SYD","tenantId":"930035","publicURL":"https:\/\/syd.databases.api.rackspacecloud.com\/v1.0\/930035"}],"type":"rax:database"},{"name":"cloudBackup","endpoints":[{"region":"IAD","tenantId":"930035","publicURL":"https:\/\/iad.backup.api.rackspacecloud.com\/v1.0\/930035"},{"region":"HKG","tenantId":"930035","publicURL":"https:\/\/hkg.backup.api.rackspacecloud.com\/v1.0\/930035"},{"region":"SYD","tenantId":"930035","publicURL":"https:\/\/syd.backup.api.rackspacecloud.com\/v1.0\/930035"},{"region":"DFW","tenantId":"930035","publicURL":"https:\/\/dfw.backup.api.rackspacecloud.com\/v1.0\/930035"}],"type":"rax:backup"},{"name":"cloudNetworks","endpoints":[{"region":"IAD","tenantId":"930035","publicURL":"https:\/\/iad.networks.api.rackspacecloud.com\/v2.0"},{"region":"ORD","tenantId":"930035","publicURL":"https:\/\/ord.networks.api.rackspacecloud.com\/v2.0"},{"region":"SYD","tenantId":"930035","publicURL":"https:\/\/syd.networks.api.rackspacecloud.com\/v2.0"},{"region":"DFW","tenantId":"930035","publicURL":"https:\/\/dfw.networks.api.rackspacecloud.com\/v2.0"},{"region":"HKG","tenantId":"930035","publicURL":"https:\/\/hkg.networks.api.rackspacecloud.com\/v2.0"}],"type":"network"},{"name":"cloudLoadBalancers","endpoints":[{"region":"IAD","tenantId":"930035","publicURL":"https:\/\/iad.loadbalancers.api.rackspacecloud.com\/v1.0\/930035"},{"region":"HKG","tenantId":"930035","publicURL":"https:\/\/hkg.loadbalancers.api.rackspacecloud.com\/v1.0\/930035"},{"region":"DFW","tenantId":"930035","publicURL":"https:\/\/dfw.loadbalancers.api.rackspacecloud.com\/v1.0\/930035"},{"region":"SYD","tenantId":"930035","publicURL":"https:\/\/syd.loadbalancers.api.rackspacecloud.com\/v1.0\/930035"}],"type":"rax:load-balancer"},{"name":"cloudMetrics","endpoints":[{"region":"IAD","tenantId":"930035","publicURL":"https:\/\/global.metrics.api.rackspacecloud.com\/v2.0\/930035"}],"type":"rax:cloudmetrics"},{"name":"cloudFeeds","endpoints":[{"region":"HKG","tenantId":"930035","publicURL":"https:\/\/hkg.feeds.api.rackspacecloud.com\/930035","internalURL":"https:\/\/atom.prod.hkg1.us.ci.rackspace.net\/930035"},{"region":"SYD","tenantId":"930035","publicURL":"https:\/\/syd.feeds.api.rackspacecloud.com\/930035","internalURL":"https:\/\/atom.prod.syd2.us.ci.rackspace.net\/930035"},{"region":"IAD","tenantId":"930035","publicURL":"https:\/\/iad.feeds.api.rackspacecloud.com\/930035","internalURL":"https:\/\/atom.prod.iad3.us.ci.rackspace.net\/930035"},{"region":"DFW","tenantId":"930035","publicURL":"https:\/\/dfw.feeds.api.rackspacecloud.com\/930035","internalURL":"https:\/\/atom.prod.dfw1.us.ci.rackspace.net\/930035"},{"region":"ORD","tenantId":"930035","publicURL":"https:\/\/ord.feeds.api.rackspacecloud.com\/930035","internalURL":"https:\/\/atom.prod.ord1.us.ci.rackspace.net\/930035"}],"type":"rax:feeds"},{"name":"cloudSites","endpoints":[{"region":"DFW","tenantId":"930035","publicURL":"https:\/\/sites.api.rackspacecloud.com\/v1.0\/930035"}],"type":"rax:sites"},{"name":"cloudMonitoring","endpoints":[{"tenantId":"930035","publicURL":"https:\/\/monitoring.api.rackspacecloud.com\/v1.0\/930035"}],"type":"rax:monitor"},{"name":"cloudDNS","endpoints":[{"tenantId":"930035","publicURL":"https:\/\/dns.api.rackspacecloud.com\/v1.0\/930035"}],"type":"rax:dns"},{"name":"rackCDN","endpoints":[{"region":"DFW","tenantId":"930035","publicURL":"https:\/\/global.cdn.api.rackspacecloud.com\/v1.0\/930035","internalURL":"https:\/\/global.cdn.api.rackspacecloud.com\/v1.0\/930035"}],"type":"rax:cdn"}],"user":{"id":"1658c175e6f34629915d3305cd4e541c","roles":[{"id":"10000363","description":"Admin
+        role for OpenStack key management service","name":"keep:admin"},{"id":"10000362","description":"Cloud
+        Networks - Security Groups LA","name":"cloudNetworks:Security-Groups-LA"},{"tenantId":"MossoCloudFS_930035","id":"5","description":"A
+        Role that allows a user access to keystone Service methods","name":"object-store:default"},{"tenantId":"930035","id":"6","description":"A
+        Role that allows a user access to keystone Service methods","name":"compute:default"},{"id":"3","description":"User
+        Admin Role.","name":"identity:user-admin"}],"name":"mattdarbytest","RAX-AUTH:defaultRegion":"IAD"}}}'
+    http_version: 
+  recorded_at: Tue, 16 Jun 2015 19:01:24 GMT
+- request:
+    method: get
+    uri: https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.31.0 fog-core/1.30.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - 4e5313bcc93b44b7ada26b34ad870401
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.4.6 (Ubuntu)
+      Date:
+      - Tue, 16 Jun 2015 19:01:25 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '241'
+      Connection:
+      - keep-alive
+      Via:
+      - 1.0 Repose (Repose/6.1.1.1)
+      X-Newrelic-App-Data:
+      - PxQGUF9bAAUTUlFbBgIPVkYdFGQHBDcQUQxLA1tMXV1dSmwTWE5FU0oGGAcKAk5cQhdDTgcdB0hUAgUKUFdTUgNRDFMODwAKA1AVTABNEVNcBlNXB1sJUAQHAgBUCFNESFdXXxEDPg==
+      Pragma:
+      - no-cache
+    body:
+      encoding: UTF-8
+      string: '{"flavors": [{"id": "cdn", "providers": [{"provider": "akamai", "links":
+        [{"href": "http://www.akamai.com", "rel": "provider_url"}]}], "links": [{"href":
+        "https://global.cdn.api.rackspacecloud.com/v1.0/930035/flavors/cdn", "rel":
+        "self"}]}]}'
+    http_version: 
+  recorded_at: Tue, 16 Jun 2015 19:01:25 GMT
+recorded_with: VCR 2.9.3
