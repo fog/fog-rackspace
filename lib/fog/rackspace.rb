@@ -1,26 +1,70 @@
 require 'fog/core'
 require 'fog/bin'
-require 'fog'
 require 'fog/json'
 
-require_relative 'rackspace/version'
-require_relative 'rackspace/core'
-require_relative 'rackspace/auto_scale'
-require_relative 'rackspace/block_storage'
-require_relative 'rackspace/cdn'
-require_relative 'rackspace/cdn_v2'
-require_relative 'rackspace/compute'
-require_relative 'rackspace/compute_v2'
-require_relative 'rackspace/databases'
-require_relative 'rackspace/dns'
-require_relative 'rackspace/identity'
-require_relative 'rackspace/load_balancers'
-require_relative 'rackspace/monitoring'
-require_relative 'rackspace/queues'
-require_relative 'rackspace/storage'
-require_relative 'rackspace/networking'
-require_relative 'rackspace/orchestration'
-require_relative 'rackspace/networking_v2'
+require File.expand_path('../rackspace/version', __FILE__)
+require File.expand_path('../rackspace/service', __FILE__)
+
+module Fog
+  module CDN
+    autoload :Rackspace, File.expand_path('../rackspace/cdn', __FILE__)
+    autoload :Rackspace, File.expand_path('../rackspace/cdn_v2', __FILE__)
+  end
+
+  module Compute
+    autoload :Rackspace, File.expand_path('../rackspace/compute', __FILE__)
+    autoload :Rackspace, File.expand_path('../rackspace/compute_v2', __FILE__)
+  end
+
+  module DNS
+    autoload :Rackspace, File.expand_path('../rackspace/dns', __FILE__)
+  end
+
+  module Storage
+    autoload :Rackspace, File.expand_path('../rackspace/storage', __FILE__)
+  end
+
+  module Rackspace
+    extend Fog::Provider
+
+    autoload :Errors, File.expand_path('../rackspace/errors', __FILE__)
+    autoload :Mock, File.expand_path('../rackspace/mock_data', __FILE__)
+
+    autoload :AutoScale, File.expand_path('../rackspace/auto_scale', __FILE__)
+    autoload :BlockStorage, File.expand_path('../rackspace/block_storage', __FILE__)
+    autoload :CDN, File.expand_path('../rackspace/cdn', __FILE__)
+    autoload :CDNV2, File.expand_path('../rackspace/cdn_v2', __FILE__)
+    autoload :Compute, File.expand_path('../rackspace/compute', __FILE__)
+    autoload :ComputeV2, File.expand_path('../rackspace/compute_v2', __FILE__)
+    autoload :DNS, File.expand_path('../rackspace/dns', __FILE__)
+    autoload :Storage, File.expand_path('../rackspace/storage', __FILE__)
+    autoload :LoadBalancers, File.expand_path('../rackspace/load_balancers', __FILE__)
+    autoload :Identity, File.expand_path('../rackspace/identity', __FILE__)
+    autoload :Databases, File.expand_path('../rackspace/databases', __FILE__)
+    autoload :Monitoring, File.expand_path('../rackspace/monitoring', __FILE__)
+    autoload :Queues, File.expand_path('../rackspace/queues', __FILE__)
+    autoload :Networking, File.expand_path('../rackspace/networking', __FILE__)
+    autoload :NetworkingV2, File.expand_path('../rackspace/networking_v2', __FILE__)
+    autoload :Orchestration, File.expand_path('../rackspace/orchestration', __FILE__)
+
+    service(:auto_scale,       'AutoScale')
+    service(:block_storage,    'BlockStorage')
+    service(:cdn,              'CDN')
+    service(:cdn_v2,           'CDN v2')
+    service(:compute,          'Compute')
+    service(:compute_v2,       'Compute v2')
+    service(:dns,              'DNS')
+    service(:storage,          'Storage')
+    service(:load_balancers,   'LoadBalancers')
+    service(:identity,         'Identity')
+    service(:databases,        'Databases')
+    service(:monitoring,       'Monitoring')
+    service(:queues,           'Queues')
+    service(:networking,       'Networking')
+    service(:orchestration,    'Orchestration')
+    service(:networkingV2,     'NetworkingV2')
+  end
+end
 
 class Rackspace < Fog::Bin
   class << self
