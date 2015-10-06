@@ -1,3 +1,5 @@
+require 'fog/rackspace/core'
+
 module Fog
   module Rackspace
     class Queues < Fog::Service
@@ -51,11 +53,11 @@ module Fog
           @rackspace_region = options[:rackspace_region]
 
           unless v2_authentication?
-            fail Fog::Errors::NotImplemented.new('V2 authentication required for Queues')
+            raise Fog::Errors::NotImplemented.new("V2 authentication required for Queues")
           end
 
           unless @rackspace_region || @rackspace_queues_url
-            Fog::Logger.deprecation('Default region support will be removed in an upcoming release. Please switch to manually setting your endpoint. This requires settng the :rackspace_region option.')
+            Fog::Logger.deprecation("Default region support will be removed in an upcoming release. Please switch to manually setting your endpoint. This requires settng the :rackspace_region option.")
           end
 
           @rackspace_region ||= :ord
@@ -69,16 +71,16 @@ module Fog
           @rackspace_region
         end
 
-        def endpoint_uri(service_endpoint_url = nil)
+        def endpoint_uri(service_endpoint_url=nil)
           @uri = super(@rackspace_queues_url || service_endpoint_url, :rackspace_queues_url)
         end
 
-        def authenticate(_options = {})
+        def authenticate(options={})
           super({
-            rackspace_api_key: @rackspace_api_key,
-            rackspace_username: @rackspace_username,
-            rackspace_auth_url: @rackspace_auth_url,
-            connection_options: @connection_options
+            :rackspace_api_key  => @rackspace_api_key,
+            :rackspace_username => @rackspace_username,
+            :rackspace_auth_url => @rackspace_auth_url,
+            :connection_options => @connection_options
           })
         end
 
@@ -94,17 +96,15 @@ module Fog
       class Mock < Fog::Rackspace::Service
         include Common
 
-        PATH_BASE = '/v1/queues'
+        PATH_BASE = "/v1/queues"
 
         # An in-memory Queue implementation.
         class MockQueue
           attr_accessor :name, :metadata, :messages, :claims
 
           def initialize(name)
-            @name = name
-            @metadata = {}
-            @messages = []
-            @claims = {}
+            @name, @metadata = name, {}
+            @messages, @claims = [], {}
             @id_counter = Fog::Mock.random_hex(24).to_i(16)
           end
 
@@ -119,14 +119,14 @@ module Fog
           #
           # @return [Integer]
           def claimed
-            @messages.count(&:claimed?)
+            @messages.count { |msg| msg.claimed? }
           end
 
           # The number of messages not held by any claim.
           #
           # @return [Integer]
           def free
-            @messages.count { |msg| !msg.claimed? }
+            @messages.count { |msg| ! msg.claimed? }
           end
 
           # The oldest published message on this queue, or `nil`.
@@ -173,12 +173,12 @@ module Fog
           # @raises [Fog::Rackspace::Queues::NotFound] If no MockClaim with this ID exists.
           # @return [MockClaim] The requested MockClaim.
           def claim!(claim_id)
-            claims[claim_id] || fail(NotFound.new)
+            claims[claim_id] or raise NotFound.new
           end
 
           # Remove any messages or claims whose ttls have expired.
           def ageoff
-            messages.reject!(&:expired?)
+            messages.reject! { |m| m.expired? }
 
             claims.keys.dup.each do |id|
               claim = claims[id]
@@ -197,11 +197,8 @@ module Fog
 
           # Create a new message. Use {MockQueue#add_message} instead.
           def initialize(id, queue, client_id, data, ttl)
-            @id = id
-            @queue = queue
-            @producer_id = client_id
-            @data = data
-            @ttl = ttl
+            @id, @queue, @producer_id = id, queue, client_id
+            @data, @ttl = data, ttl
             @created = Time.now.to_i
             @claim = nil
           end
@@ -247,10 +244,10 @@ module Fog
           # @return [Hash]
           def to_h
             {
-              'body' => @data,
-              'age' => age,
-              'ttl' => @ttl,
-              'href' => href
+              "body" => @data,
+              "age" => age,
+              "ttl" => @ttl,
+              "href" => href
             }
           end
         end
@@ -269,8 +266,7 @@ module Fog
           def initialize(queue, ttl, grace)
             @queue = queue
             @id = Fog::Mock.random_hex(24)
-            @ttl = ttl
-            @grace = grace
+            @ttl, @grace = ttl, grace
             touch!
           end
 
@@ -311,13 +307,13 @@ module Fog
           #
           # @return [Hash]
           def to_h
-            ms = messages.map(&:to_h)
+            ms = messages.map { |m| m.to_h }
 
             {
-              'age' => age,
-              'href' => "#{PATH_BASE}/#{@queue.name}/claims/#{@id}",
-              'ttl' => @ttl,
-              'messages' => ms
+              "age" => age,
+              "href" => "#{PATH_BASE}/#{@queue.name}/claims/#{@id}",
+              "ttl" => @ttl,
+              "messages" => ms
             }
           end
         end
@@ -364,13 +360,13 @@ module Fog
         # @raises [Fog::Rackspace::Queue::NotFound] If there is no queue with the specified name.
         # @return [MockQueue] The queue with the specified name.
         def mock_queue!(queue_name)
-          mock_queue(queue_name) || fail(NotFound.new)
+          mock_queue(queue_name) or raise NotFound.new
         end
 
         # Remove any messages or expire any claims that have exceeded their ttl values. Invoked
         # before every request.
         def ageoff
-          data.values.each(&:ageoff)
+          data.values.each { |q| q.ageoff }
         end
 
         def request(params)

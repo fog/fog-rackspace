@@ -12,46 +12,46 @@ module Fog
         end
 
         def services
-          catalog.map { |s| s['name'] }
+          catalog.map {|s| s["name"]}
         end
 
-        def get_endpoints(service_name, service_net = false)
-          h = catalog.find { |service| service['name'] == service_name.to_s }
+        def get_endpoints(service_name, service_net=false)
+          h = catalog.find {|service| service["name"] == service_name.to_s}
           return {} unless h
           key = network_type_key(service_net)
-          h['endpoints'].select { |e| e[key] }
+          h["endpoints"].select {|e| e[key]}
         end
 
-        def display_service_regions(service_name, service_net = false)
+        def display_service_regions(service_name, service_net=false)
           endpoints = get_endpoints(service_name, service_net)
           regions = endpoints.map do |e|
-            e['region'] ? ":#{e['region'].downcase}" : ':global'
+            e["region"] ? ":#{e["region"].downcase}" : ":global"
           end
-          regions.join(', ')
+          regions.join(", ")
         end
 
-        def get_endpoint(service_name, region = nil, service_net = false)
+        def get_endpoint(service_name, region=nil, service_net=false)
           service_region = region_key(region)
 
           network_type = network_type_key(service_net)
 
           endpoints = get_endpoints(service_name, service_net)
-          fail "Unable to locate endpoint for service #{service_name}" if endpoints.empty?
+          raise "Unable to locate endpoint for service #{service_name}" if endpoints.empty?
 
           if endpoints.size > 1 && region.nil?
-            fail "There are multiple endpoints available for #{service_name}. Please specify one of the following regions: #{display_service_regions(service_name)}."
+            raise "There are multiple endpoints available for #{service_name}. Please specify one of the following regions: #{display_service_regions(service_name)}."
           end
 
           # select multiple endpoints
-          endpoint = endpoints.find { |e| matching_region?(e, service_region) }
+          endpoint = endpoints.find {|e| matching_region?(e, service_region) }
           return endpoint[network_type] if endpoint && endpoint[network_type]
 
           # endpoint doesnt have region
-          if endpoints.size == 1 && matching_region?(endpoints[0], 'GLOBAL')
+          if endpoints.size == 1 && matching_region?(endpoints[0], "GLOBAL")
             return endpoints[0][network_type]
           end
 
-          fail "Unknown region :#{region} for service #{service_name}. Please use one of the following regions: #{display_service_regions(service_name)}"
+          raise "Unknown region :#{region} for service #{service_name}. Please use one of the following regions: #{display_service_regions(service_name)}"
         end
 
         def reload
@@ -61,22 +61,22 @@ module Fog
         end
 
         def self.from_response(service, hash)
-          ServiceCatalog.new service: service, catalog: hash['access']['serviceCatalog']
+          ServiceCatalog.new :service => service, :catalog => hash["access"]["serviceCatalog"]
         end
 
         private
 
         def network_type_key(service_net)
-          service_net ? 'internalURL' : 'publicURL'
+          service_net ? "internalURL" : "publicURL"
         end
 
         def matching_region?(h, region)
-          region_key(h['region']) == region
+          region_key(h["region"]) == region
         end
 
         def region_key(region)
           return region.to_s.upcase if region.is_a? Symbol
-          (region.nil? || region.empty?) ? 'GLOBAL' : region.to_s.upcase
+          (region.nil? || region.empty?) ? "GLOBAL" : region.to_s.upcase
         end
       end
     end

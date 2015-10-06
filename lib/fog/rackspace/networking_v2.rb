@@ -1,3 +1,5 @@
+require 'fog/rackspace/core'
+
 module Fog
   module Rackspace
     class NetworkingV2 < Fog::Service
@@ -7,10 +9,10 @@ module Fog
       class InternalServerError < Fog::Rackspace::Errors::InternalServerError; end
       class BadRequest < Fog::Rackspace::Errors::BadRequest; end
 
-      NETWORKS_DFW_URL = 'https://dfw.networks.api.rackspacecloud.com/v2.0'
-      NETWORKS_LON_URL = 'https://lon.networks.api.rackspacecloud.com/v2.0'
-      NETWORKS_IAD_URL = 'https://iad.networks.api.rackspacecloud.com/v2.0'
-      NETWORKS_ORD_URL = 'https://ord.networks.api.rackspacecloud.com/v2.0'
+      NETWORKS_DFW_URL = "https://dfw.networks.api.rackspacecloud.com/v2.0"
+      NETWORKS_LON_URL = "https://lon.networks.api.rackspacecloud.com/v2.0"
+      NETWORKS_IAD_URL = "https://iad.networks.api.rackspacecloud.com/v2.0"
+      NETWORKS_ORD_URL = "https://ord.networks.api.rackspacecloud.com/v2.0"
 
       class InvalidStateException < ::RuntimeError
         attr_reader :desired_state
@@ -95,18 +97,18 @@ module Fog
           @rackspace_api_key = options[:rackspace_api_key]
         end
 
-        def request(_params)
+        def request(params)
           Fog::Mock.not_implemented
         end
 
-        def response(params = {})
+        def response(params={})
           body    = params[:body] || {}
           status  = params[:status] || 200
           headers = params[:headers] || {}
 
-          response = Excon::Response.new(body: body, headers: headers, status: status)
+          response = Excon::Response.new(:body => body, :headers => headers, :status => status)
           if params.key?(:expects) && ![*params[:expects]].include?(response.status)
-            fail(Excon::Errors.status_error(params, response))
+            raise(Excon::Errors.status_error(params, response))
           else response
           end
         end
@@ -141,12 +143,12 @@ module Fog
           raise ServiceError.slurp(error, self)
         end
 
-        def authenticate(_options = {})
+        def authenticate(options={})
           super({
-            rackspace_api_key: @rackspace_api_key,
-            rackspace_username: @rackspace_username,
-            rackspace_auth_url: @rackspace_auth_url,
-            connection_options: @connection_options
+                  :rackspace_api_key => @rackspace_api_key,
+                  :rackspace_username => @rackspace_username,
+                  :rackspace_auth_url => @rackspace_auth_url,
+                  :connection_options => @connection_options
           })
         end
 
@@ -155,14 +157,14 @@ module Fog
         end
 
         def request_id_header
-          'x-networks-request-id'
+          "x-networks-request-id"
         end
 
         def region
           @rackspace_region
         end
 
-        def endpoint_uri(service_endpoint_url = nil)
+        def endpoint_uri(service_endpoint_url=nil)
           @uri = super(@rackspace_endpoint || service_endpoint_url, :rackspace_networking_v2_url)
         end
 
@@ -187,13 +189,13 @@ module Fog
               @rackspace_region = options[:rackspace_region]
             end
           else
-            # if we are using auth1 and the endpoint is not set, default to NETWORKS_DFW_URL for historical reasons
+            #if we are using auth1 and the endpoint is not set, default to NETWORKS_DFW_URL for historical reasons
             @rackspace_endpoint ||= NETWORKS_DFW_URL
           end
         end
 
         def deprecation_warnings(options)
-          Fog::Logger.deprecation('The :rackspace_endpoint option is deprecated. Please use :rackspace_networking_v2_url for custom endpoints') if options[:rackspace_endpoint]
+          Fog::Logger.deprecation("The :rackspace_endpoint option is deprecated. Please use :rackspace_networking_v2_url for custom endpoints") if options[:rackspace_endpoint]
 
           if [NETWORKS_DFW_URL, NETWORKS_ORD_URL, NETWORKS_LON_URL].include?(@rackspace_endpoint) && v2_authentication?
             regions = @identity_service.service_catalog.display_service_regions(service_name)

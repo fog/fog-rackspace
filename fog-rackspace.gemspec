@@ -22,19 +22,25 @@ Gem::Specification.new do |spec|
     fail 'RubyGems 2.0 or newer is required to protect against public gem pushes.'
   end
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(tests|spec)/}) }
+  spec.test_files    = `git ls-files -- {spec,tests}/*`.split("\x0")
+  spec.require_paths = ['lib']
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ['lib']
+
+  spec.add_dependency 'fog-core'
+  spec.add_dependency 'fog-json'
+
+  spec.add_dependency "ipaddress", '~> 0.5'
 
   spec.add_development_dependency 'bundler', '~> 1.10'
   spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'vcr'
   spec.add_development_dependency 'webmock'
   spec.add_development_dependency 'minitest'
+  spec.add_development_dependency 'minitest-stub-const'
   spec.add_development_dependency 'shindo', '~> 0.3.4'
-
-  spec.add_dependency 'fog'
+  spec.add_development_dependency "rspec-core"
+  spec.add_development_dependency "rspec-expectations"
 end

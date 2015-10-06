@@ -1,3 +1,5 @@
+require 'fog/rackspace/core'
+
 module Fog
   module Rackspace
     class Networking < Fog::Service
@@ -24,9 +26,9 @@ module Fog
       end
 
       class InvalidImageStateException < InvalidStateException
-        def to_s
-          "Image should have transitioned to '#{desired_state}' not '#{current_state}'"
-        end
+         def to_s
+           "Image should have transitioned to '#{desired_state}' not '#{current_state}'"
+         end
       end
 
       DFW_ENDPOINT = 'https://dfw.servers.api.rackspacecloud.com/v2'
@@ -65,18 +67,18 @@ module Fog
           @rackspace_api_key = options[:rackspace_api_key]
         end
 
-        def request(_params)
+        def request(params)
           Fog::Mock.not_implemented
         end
 
-        def response(params = {})
+        def response(params={})
           body    = params[:body] || {}
           status  = params[:status] || 200
           headers = params[:headers] || {}
 
-          response = Excon::Response.new(body: body, headers: headers, status: status)
+          response = Excon::Response.new(:body => body, :headers => headers, :status => status)
           if params.key?(:expects) && ![*params[:expects]].include?(response.status)
-            fail(Excon::Errors.status_error(params, response))
+            raise(Excon::Errors.status_error(params, response))
           else response
           end
         end
@@ -111,12 +113,12 @@ module Fog
           raise ServiceError.slurp(error, self)
         end
 
-        def authenticate(_options = {})
+        def authenticate(options={})
           super({
-            rackspace_api_key: @rackspace_api_key,
-            rackspace_username: @rackspace_username,
-            rackspace_auth_url: @rackspace_auth_url,
-            connection_options: @connection_options
+            :rackspace_api_key => @rackspace_api_key,
+            :rackspace_username => @rackspace_username,
+            :rackspace_auth_url => @rackspace_auth_url,
+            :connection_options => @connection_options
           })
         end
 
@@ -125,14 +127,14 @@ module Fog
         end
 
         def request_id_header
-          'x-compute-request-id'
+          "x-compute-request-id"
         end
 
         def region
           @rackspace_region
         end
 
-        def endpoint_uri(service_endpoint_url = nil)
+        def endpoint_uri(service_endpoint_url=nil)
           @uri = super(@rackspace_endpoint || service_endpoint_url, :rackspace_compute_url)
         end
 
@@ -157,13 +159,13 @@ module Fog
               @rackspace_region = options[:rackspace_region]
             end
           else
-            # if we are using auth1 and the endpoint is not set, default to DFW_ENDPOINT for historical reasons
+            #if we are using auth1 and the endpoint is not set, default to DFW_ENDPOINT for historical reasons
             @rackspace_endpoint ||= DFW_ENDPOINT
           end
         end
 
         def deprecation_warnings(options)
-          Fog::Logger.deprecation('The :rackspace_endpoint option is deprecated. Please use :rackspace_compute_url for custom endpoints') if options[:rackspace_endpoint]
+          Fog::Logger.deprecation("The :rackspace_endpoint option is deprecated. Please use :rackspace_compute_url for custom endpoints") if options[:rackspace_endpoint]
 
           if [DFW_ENDPOINT, ORD_ENDPOINT, LON_ENDPOINT].include?(@rackspace_endpoint) && v2_authentication?
             regions = @identity_service.service_catalog.display_service_regions(service_name)

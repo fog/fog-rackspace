@@ -1,9 +1,11 @@
+require 'fog/rackspace/core'
+
 module Fog
   module Rackspace
     class LoadBalancers < Fog::Service
       include Fog::Rackspace::Errors
 
-      # These references exist for backwards compatibility
+      #These references exist for backwards compatibility
       class ServiceError < Fog::Rackspace::Errors::ServiceError; end
       class InternalServerError < Fog::Rackspace::Errors::InternalServerError; end
       class BadRequest < Fog::Rackspace::Errors::BadRequest; end
@@ -90,7 +92,7 @@ module Fog
       class Mock < Fog::Rackspace::Service
         include Shared
 
-        def initialize(options = {})
+        def initialize(options={})
           @rackspace_api_key = options[:rackspace_api_key]
           @rackspace_username = options[:rackspace_username]
           @rackspace_auth_url = options[:rackspace_auth_url]
@@ -100,7 +102,7 @@ module Fog
       class Real < Fog::Rackspace::Service
         include Shared
 
-        def initialize(options = {})
+        def initialize(options={})
           @rackspace_api_key = options[:rackspace_api_key]
           @rackspace_username = options[:rackspace_username]
           @rackspace_auth_url = options[:rackspace_auth_url]
@@ -129,12 +131,12 @@ module Fog
           raise ServiceError.slurp(error, self)
         end
 
-        def authenticate(_options = {})
+        def authenticate(options={})
           super({
-            rackspace_api_key: @rackspace_api_key,
-            rackspace_username: @rackspace_username,
-            rackspace_auth_url: @rackspace_auth_url,
-            connection_options: @connection_options
+            :rackspace_api_key => @rackspace_api_key,
+            :rackspace_username => @rackspace_username,
+            :rackspace_auth_url => @rackspace_auth_url,
+            :connection_options => @connection_options
           })
         end
 
@@ -146,7 +148,7 @@ module Fog
           @rackspace_region
         end
 
-        def endpoint_uri(service_endpoint_url = nil)
+        def endpoint_uri(service_endpoint_url=nil)
           @uri = super(@rackspace_endpoint || service_endpoint_url, :rackspace_load_balancers_url)
         end
 
@@ -171,13 +173,13 @@ module Fog
               @rackspace_region = options[:rackspace_region]
             end
           else
-            # if we are using auth1 and the endpoint is not set, default to DFW_ENDPOINT for historical reasons
-            @rackspace_endpoint ||= DFW_ENDPOINT
+            #if we are using auth1 and the endpoint is not set, default to DFW_ENDPOINT for historical reasons
+             @rackspace_endpoint ||= DFW_ENDPOINT
           end
         end
 
         def deprecation_warnings(options)
-          Fog::Logger.deprecation('The :rackspace_lb_endpoint option is deprecated. Please use :rackspace_load_balancers_url for custom endpoints') if options[:rackspace_lb_endpoint]
+          Fog::Logger.deprecation("The :rackspace_lb_endpoint option is deprecated. Please use :rackspace_load_balancers_url for custom endpoints") if options[:rackspace_lb_endpoint]
 
           if [DFW_ENDPOINT, ORD_ENDPOINT, LON_ENDPOINT].include?(@rackspace_endpoint) && v2_authentication?
             regions = @identity_service.service_catalog.display_service_regions(service_name)
