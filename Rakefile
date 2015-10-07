@@ -35,7 +35,10 @@ task :live, :provider do |t, args|
 end
 
 task :nuke do
-  Fog.providers.each do |provider|
+  require 'bundler/setup'
+  require 'fog/rackspace/core'
+  require 'fog/rackspace/bin'
+  Fog.available_providers.each do |provider|
     next if ['Vmfusion'].include?(provider)
     begin
       compute = Fog::Compute.new(:provider => provider)
@@ -45,6 +48,7 @@ task :nuke do
       end
     rescue
     end
+
     begin
       dns = Fog::DNS.new(:provider => provider)
       for zone in dns.zones

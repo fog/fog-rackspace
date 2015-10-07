@@ -1,5 +1,5 @@
 require "spec_helper"
-require "fog/bin"
+require "fog/rackspace/bin"
 
 describe Fog do
   describe "#providers" do

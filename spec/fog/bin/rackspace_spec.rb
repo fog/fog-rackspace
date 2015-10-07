@@ -1,6 +1,6 @@
 require "minitest/autorun"
 require "fog-rackspace"
-require "fog/bin"
+require "fog/rackspace/bin"
 require "helpers/bin"
 
 describe Rackspace do
