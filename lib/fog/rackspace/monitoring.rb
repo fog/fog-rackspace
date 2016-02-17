@@ -1,4 +1,4 @@
-require 'fog/rackspace/core'
+
 # This class originally came from the rackspace-monitoring gem located here:
 # https://github.com/racker/rackspace-monitoring-rb
 # It has been heavily modified for import into Fog master.

@@ -1,6 +1,8 @@
 require "bundler/gem_tasks"
-require "rspec/core/rake_task"
 
-RSpec::Core::RakeTask.new(:spec)
+task :default => :test
 
-task :default => :spec
+mock = ENV['FOG_MOCK'] || 'true'
+task :test do
+  sh("export FOG_MOCK=#{mock} && bundle exec shindont")
+end

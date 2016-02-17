@@ -1,4 +1,3 @@
-require 'fog/rackspace/core'
 
 module Fog
   module Rackspace
