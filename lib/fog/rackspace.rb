@@ -1,33 +1,51 @@
-require "fog/rackspace/version"
-
+require 'fog/rackspace/version'
 require 'fog/core'
 require 'fog/json'
+
 require 'fog/rackspace/mock_data'
 require 'fog/rackspace/service'
 require 'fog/rackspace/errors'
-require 'fog/rackspace/auto_scale'
-require 'fog/rackspace/block_storage'
-require 'fog/rackspace/cdn'
-require 'fog/rackspace/cdn_v2'
-require 'fog/rackspace/compute'
-require 'fog/rackspace/compute_v2'
-require 'fog/rackspace/databases'
-require 'fog/rackspace/dns'
-require 'fog/rackspace/identity'
-require 'fog/rackspace/load_balancers'
-require 'fog/rackspace/monitoring'
-require 'fog/rackspace/queues'
-require 'fog/rackspace/storage'
-require 'fog/rackspace/networking'
-require 'fog/rackspace/orchestration'
-require 'fog/rackspace/networking_v2'
+
 
 module Fog
+  module CDN
+    autoload :Rackspace,  File.expand_path('../rackspace/cdn', __FILE__)
+  end
+
+  module Compute
+    autoload :Rackspace, File.expand_path('../rackspace/compute', __FILE__)
+    autoload :RackspaceV2, File.expand_path('../rackspace/compute_v2', __FILE__)
+  end
+
+  module DNS
+    autoload :Rackspace, File.expand_path('../rackspace/dns', __FILE__)
+  end
+
+  module Storage
+    autoload :Rackspace, File.expand_path('../rackspace/storage', __FILE__)
+  end
   module Rackspace
     extend Fog::Provider
 
     US_AUTH_ENDPOINT = 'https://identity.api.rackspacecloud.com/v2.0' unless defined? US_AUTH_ENDPOINT
     UK_AUTH_ENDPOINT = 'https://lon.identity.api.rackspacecloud.com/v2.0' unless defined? UK_AUTH_ENDPOINT
+
+    autoload :AutoScale, File.expand_path('../rackspace/auto_scale', __FILE__)
+    autoload :BlockStorage, File.expand_path('../rackspace/block_storage', __FILE__)
+    autoload :CDN, File.expand_path('../rackspace/cdn', __FILE__)
+    autoload :CDNV2, File.expand_path('../rackspace/cdn_v2', __FILE__)
+    autoload :Compute, File.expand_path('../rackspace/compute', __FILE__)
+    autoload :ComputeV2, File.expand_path('../rackspace/compute_v2', __FILE__)
+    autoload :Database, File.expand_path('../rackspace/databases', __FILE__)
+    autoload :DNS, File.expand_path('../rackspace/dns', __FILE__)
+    autoload :Identity, File.expand_path('../rackspace/identity', __FILE__)
+    autoload :LoadBalancers, File.expand_path('../rackspace/load_balancers', __FILE__)
+    autoload :Monitoring, File.expand_path('../rackspace/monitoring', __FILE__)
+    autoload :Queues, File.expand_path('../rackspace/queues', __FILE__)
+    autoload :Storage, File.expand_path('../rackspace/storage', __FILE__)
+    autoload :Networking, File.expand_path('../rackspace/networking', __FILE__)
+    autoload :Orchestration, File.expand_path('../rackspace/orchestration', __FILE__)
+    autoload :NetworkingV2, File.expand_path('../rackspace/networking_v2', __FILE__)
 
     service(:auto_scale,       'AutoScale')
     service(:block_storage,    'BlockStorage')
