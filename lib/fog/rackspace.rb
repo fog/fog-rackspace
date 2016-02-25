@@ -24,6 +24,7 @@ module Fog
   module Storage
     autoload :Rackspace, File.expand_path('../rackspace/storage', __FILE__)
   end
+  
   module Rackspace
     extend Fog::Provider
 

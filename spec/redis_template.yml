@@ -1,0 +1,164 @@
+heat_template_version: 2013-05-23
+
+description: |
+  This is a Heat template to deploy a standalone redis server on
+  Rackspace Cloud Servers
+
+parameter_groups:
+
+- label: Server Settings
+  parameters:
+  - flavor
+  - image
+
+- label: Redis Settings
+  parameters:
+  - redis_port
+
+- label: rax-dev-params
+  parameters:
+  - redis_version
+  - redis_hostname
+  - kitchen
+  - chef_version
+
+parameters:
+
+  flavor:
+    label: Server Size
+    description: |
+      Rackspace Cloud Server flavor to use. The size is based on the amount of
+      RAM for the provisioned server.
+    type: string
+    default: 1 GB General Purpose v1
+    constraints:
+    - allowed_values:
+      - 1 GB General Purpose v1
+      - 2 GB General Purpose v1
+      - 4 GB General Purpose v1
+      - 8 GB General Purpose v1
+      - 15 GB I/O v1
+      - 30 GB I/O v1
+      - 512MB Standard Instance
+      - 1GB Standard Instance
+      - 2GB Standard Instance
+      - 4GB Standard Instance
+      - 8GB Standard Instance
+      - 15GB Standard Instance
+      - 30GB Standard Instance
+      description: |
+        Must be a valid Rackspace Cloud Server flavor for the region you have
+        selected to deploy into.
+
+  image:
+    label: Operating System
+    description: |
+      Server image used for all servers that are created as a part of this
+      deployment
+    type: string
+    default: Ubuntu 14.04 LTS (Trusty Tahr)
+    constraints:
+    - allowed_values:
+      - Ubuntu 12.04 LTS (Precise Pangolin)
+      - Ubuntu 14.04 LTS (Trusty Tahr)
+      description: Must be a supported operating system.
+
+  redis_version:
+    label: Redis Version
+    description: version of Redis to install
+    type: string
+    default: 2.8.14
+
+  redis_hostname:
+    label: Server Hostname
+    description: Hostname for Redis server
+    type: string
+    default: redis
+
+  redis_port:
+    label: Port
+    description: Port for redis servers to listen on.
+    type: number
+    default: 6379
+    constraints:
+    - range:
+        min: 1024
+        max: 65535
+      description: Must be between 1024 and 65535.
+
+
+  kitchen:
+    label: Kitchen
+    description: URL for the kitchen to use
+    type: string
+    default: https://github.com/rackspace-orchestration-templates/redis-single
+
+  chef_version:
+    label: Chef Version
+    description: Version of chef client to use
+    type: string
+    default: 11.12.8
+
+resources:
+
+  ssh_key:
+    type: OS::Nova::KeyPair
+    properties:
+      name: { get_param: "OS::stack_id" }
+      save_private_key: true
+
+  redis_password:
+    type: OS::Heat::RandomString
+    properties:
+      length: 16
+      sequence: lettersdigits
+
+  redis_server:
+    type: Rackspace::Cloud::Server
+    depends_on: ssh_key
+    properties:
+      name: { get_param: redis_hostname }
+      flavor: { get_param: flavor }
+      image: { get_param: image }
+      key_name: { get_resource: ssh_key }
+      metadata:
+        rax-heat: { get_param: "OS::stack_id" }
+
+  redis_server_config:
+    type: OS::Heat::ChefSolo
+    depends_on: redis_server
+    properties:
+      username: root
+      private_key: { get_attr: [ssh_key, private_key] }
+      host: { get_attr: [redis_server, accessIPv4] }
+      kitchen: { get_param: kitchen }
+      chef_version: { get_param: chef_version }
+      node:
+        run_list: [ "recipe[apt]",
+                    "recipe[build-essential]",
+                    "recipe[redisio::default]",
+                    "recipe[redisio::enable]" ]
+        redisio:
+          default_settings:
+            requirepass: { get_attr: [redis_password, value] }
+          servers:
+            - name: { get_param: redis_hostname }
+              port: { get_param: redis_port }
+          version: { get_param: redis_version }
+
+outputs:
+  private_key:
+    description: SSH Private Key
+    value: { get_attr: [ssh_key, private_key] }
+
+  redis_password:
+    description: Redis Password
+    value: { get_attr: [redis_password, value] }
+
+  redis_server_ip:
+    description: Server IP
+    value: { get_attr: [redis_server, accessIPv4]}
+
+  redis_port:
+    description: Redis Port
+    value: { get_param: redis_port }

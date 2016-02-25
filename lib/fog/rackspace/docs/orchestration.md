@@ -60,7 +60,7 @@ irb:  service.stacks.new.save({
 We get back a JSON blob filled with info about our new stack:
 
 ```ruby
-===> {"id"=>"73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "links"=>[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"self"}]}
+===> {"id"=>"73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "links"=>[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"self"}]}
 ```
 
 Now that we have the `id` of our new stack, we can get a reference to it using the stack's `name` and `id`:
@@ -71,7 +71,7 @@ irb: stack = service.stacks.get("a_redis_stack", "73e0f38a-a9fb-4a4e-8196-2b6303
 ===>   <Fog::Rackspace::Orchestration::Stack
     id="73e0f38a-a9fb-4a4e-8196-2b63039ef31f",
     description="This is a Heat template to deploy a standalone redis server on\nRackspace Cloud Servers\n",
-    links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"self"}],
+    links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"self"}],
     stack_status_reason="Stack CREATE started",
     stack_name="a_redis_stack",
     creation_time="2014-11-13T16:21:02Z",
@@ -88,7 +88,7 @@ irb: stack.events
         id="7b1830a3-5d7b-43b2-bc1b-cffbb25c8b3e",
         resource_name="redis_server_config",
         event_time="2014-11-13T16:21:45Z",
-        links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server_config/events/7b1830a3-5d7b-43b2-bc1b-cffbb25c8b3e", "rel"=>"self"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server_config", "rel"=>"resource"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"stack"}],
+        links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server_config/events/7b1830a3-5d7b-43b2-bc1b-cffbb25c8b3e", "rel"=>"self"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server_config", "rel"=>"resource"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"stack"}],
         logical_resource_id="redis_server_config",
         resource_status="CREATE_IN_PROGRESS",
         resource_status_reason="state changed",
@@ -105,7 +105,7 @@ irb: stack.resources
         id=nil,
         resource_name="redis_server",
         description=nil,
-        links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server", "rel"=>"self"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"stack"}],
+        links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server", "rel"=>"self"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"stack"}],
         logical_resource_id="redis_server",
         resource_status="CREATE_COMPLETE",
         updated_time="2014-11-13T16:21:04Z",
@@ -133,7 +133,7 @@ irb:  stacks = service.stacks.all(sort_key: "stack_name", sort_dir: "asc")
       <Fog::Rackspace::Orchestration::Stack
         id="73e0f38a-a9fb-4a4e-8196-2b63039ef31f",
         description="This is a Heat template to deploy a standalone redis server on\nRackspace Cloud Servers\n",
-        links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"self"}],
+        links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"self"}],
         stack_status_reason="Stack CREATE started",
         stack_name="a_redis_stack",
         creation_time="2014-11-13T16:21:02Z",
@@ -155,7 +155,7 @@ You can abandon a stack -- essentially, it will delete the stack, but keep the r
 
 ```ruby
 irb: stack.abandon
-===> #<Excon::Response:0x00000104d6b870 @data={:body=>{"status"=>"IN_PROGRESS", "name"=>"a_redis_stack", "stack_user_project_id"=>"930035", "environment"=>{"parameters"=>{}, "resource_registry"=>{"resources"=>{}}}, "template"=>{"parameter_groups"=>[{"parameters"=>["flavor", "image"], "label"=>"Server Settings"}, {"parameters"=>["redis_port"], "label"=>"Redis Settings"}, {"parameters"=>["redis_version", "redis_hostname", "kitchen", "chef_version"], "label"=>"rax-dev-params"}], "heat_template_version"=>"2013-05-23", "description"=>"This is a Heat te
+===> #<Excon::Response:0x00000104d6b870 @data={:body=>{"status"=>"IN_PROGRESS", "name"=>"a_redis_stack", "stack_user_project_id"=>"TENANT_ID", "environment"=>{"parameters"=>{}, "resource_registry"=>{"resources"=>{}}}, "template"=>{"parameter_groups"=>[{"parameters"=>["flavor", "image"], "label"=>"Server Settings"}, {"parameters"=>["redis_port"], "label"=>"Redis Settings"}, {"parameters"=>["redis_version", "redis_hostname", "kitchen", "chef_version"], "label"=>"rax-dev-params"}], "heat_template_version"=>"2013-05-23", "description"=>"This is a Heat te
 ```
 
 You can preview a stack:
@@ -168,7 +168,7 @@ irb: service.stacks.preview({
 ===>   <Fog::Rackspace::Orchestration::Stack
     id="None",
     description="This is a Heat template to deploy a standalone redis server on\nRackspace Cloud Servers\n",
-    links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_template/None", "rel"=>"self"}],
+    links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_template/None", "rel"=>"self"}],
     stack_status_reason=nil,
     stack_name="a_redis_template",
     creation_time="2014-11-13T16:33:50Z",
@@ -208,7 +208,7 @@ irb: event = stack.events.first
     id="7b1830a3-5d7b-43b2-bc1b-cffbb25c8b3e",
     resource_name="redis_server_config",
     event_time="2014-11-13T16:21:45Z",
-    links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server_config/events/7b1830a3-5d7b-43b2-bc1b-cffbb25c8b3e", "rel"=>"self"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server_config", "rel"=>"resource"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"stack"}],
+    links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server_config/events/7b1830a3-5d7b-43b2-bc1b-cffbb25c8b3e", "rel"=>"self"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server_config", "rel"=>"resource"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"stack"}],
     logical_resource_id="redis_server_config",
     resource_status="CREATE_IN_PROGRESS",
     resource_status_reason="state changed",
@@ -238,7 +238,7 @@ irb: event = service.events.get(stack, resource, event_id)
     id="7b1830a3-5d7b-43b2-bc1b-cffbb25c8b3e",
     resource_name="redis_server_config",
     event_time="2014-11-13T16:21:45Z",
-    links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server_config/events/7b1830a3-5d7b-43b2-bc1b-cffbb25c8b3e", "rel"=>"self"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server_config", "rel"=>"resource"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"stack"}],
+    links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server_config/events/7b1830a3-5d7b-43b2-bc1b-cffbb25c8b3e", "rel"=>"self"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server_config", "rel"=>"resource"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"stack"}],
     logical_resource_id="redis_server_config",
     resource_status="CREATE_IN_PROGRESS",
     resource_status_reason="state changed",
@@ -253,7 +253,7 @@ irb: event.stack
 ===>   <Fog::Rackspace::Orchestration::Stack
     id="73e0f38a-a9fb-4a4e-8196-2b63039ef31f",
     description="This is a Heat template to deploy a standalone redis server on\nRackspace Cloud Servers\n",
-    links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"self"}],
+    links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"self"}],
     stack_status_reason="Stack CREATE completed successfully",
     stack_name="a_redis_stack",
     creation_time="2014-11-13T16:21:02Z",
@@ -282,7 +282,7 @@ irb: resource = event.resource
     id=nil,
     resource_name="redis_server_config",
     description="",
-    links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server_config", "rel"=>"self"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"stack"}],
+    links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f/resources/redis_server_config", "rel"=>"self"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"stack"}],
     logical_resource_id="redis_server_config",
     resource_status="CREATE_COMPLETE",
     updated_time="2014-11-13T16:21:45Z",
@@ -304,7 +304,7 @@ irb: service.resources.all(stack, {nested_depth: 1})
         id=nil,
         resource_name="redis_server",
         description=nil,
-        links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/ee648a3b-14a3-4df8-aa58-620a9d67e3e5/resources/redis_server", "rel"=>"self"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/ee648a3b-14a3-4df8-aa58-620a9d67e3e5", "rel"=>"stack"}],
+        links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/ee648a3b-14a3-4df8-aa58-620a9d67e3e5/resources/redis_server", "rel"=>"self"}, {"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/ee648a3b-14a3-4df8-aa58-620a9d67e3e5", "rel"=>"stack"}],
         logical_resource_id="redis_server",
         resource_status="CREATE_COMPLETE",
         updated_time="2014-11-13T16:32:30Z",
@@ -322,7 +322,7 @@ irb: resource.stack
 ===>   <Fog::Rackspace::Orchestration::Stack
     id="73e0f38a-a9fb-4a4e-8196-2b63039ef31f",
     description="This is a Heat template to deploy a standalone redis server on\nRackspace Cloud Servers\n",
-    links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/930035/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"self"}],
+    links=[{"href"=>"https://iad.orchestration.api.rackspacecloud.com/v1/TENANT_ID/stacks/a_redis_stack/73e0f38a-a9fb-4a4e-8196-2b63039ef31f", "rel"=>"self"}],
     stack_status_reason="Stack CREATE completed successfully",
     stack_name="a_redis_stack",
     creation_time="2014-11-13T16:21:02Z",

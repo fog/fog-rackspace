@@ -34,6 +34,7 @@ module Fog
 
         def initialize(options)
           @rackspace_api_key = options[:rackspace_api_key]
+          @rackspace_region  = options[:rackspace_region]
         end
 
         def request(params)
@@ -55,11 +56,12 @@ module Fog
 
       class Real < Fog::Rackspace::Service
         def initialize(options = {})
-          @rackspace_api_key = options[:rackspace_api_key]
-          @rackspace_username = options[:rackspace_username]
-          @rackspace_auth_url = options[:rackspace_auth_url]
+          @rackspace_api_key             = options[:rackspace_api_key]
+          @rackspace_username            = options[:rackspace_username]
+          @rackspace_auth_url            = options[:rackspace_auth_url]
+          @rackspace_region              = options[:rackspace_region]
+          @connection_options            = options[:connection_options] || {}
           @rackspace_must_reauthenticate = false
-          @connection_options = options[:connection_options] || {}
 
           authenticate
 
