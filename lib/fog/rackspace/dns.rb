@@ -1,5 +1,3 @@
-
-
 module Fog
   module DNS
     class Rackspace < Fog::Service
@@ -31,6 +29,8 @@ module Fog
       collection  :records
       model       :zone
       collection  :zones
+      model       :ptr_record
+      collection  :ptr_records
 
       request_path 'fog/rackspace/requests/dns'
       #TODO - Import/Export, modify multiple domains, modify multiple records
@@ -48,6 +48,10 @@ module Fog
       request :remove_record
       request :remove_records
       request :add_records
+      request :create_ptr_record
+      request :list_ptr_records
+      request :modify_ptr_record
+      request :remove_ptr_record
 
       class Mock < Fog::Rackspace::Service
         def initialize(options={})
