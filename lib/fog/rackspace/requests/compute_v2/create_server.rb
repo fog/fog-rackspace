@@ -74,6 +74,10 @@ module Fog
             { :uuid => '11111111-1111-1111-1111-111111111111' }
           ]
 
+          if options[:scheduler]
+            data['os:scheduler_hints'] = options[:scheduler]
+          end
+
           if options[:keypair]
             Fog::Logger.deprecation(":keypair has been depreciated. Please use :key_name instead.")
             options[:key_name] = options[:keypair]

@@ -174,6 +174,11 @@ module Fog
         # @note The key_pair/key_name is used to specify the keypair used for server creation. It is not populated by cloud servers.
         attribute :key_name
 
+        # @!attribute [w] scheduler
+        # @return [String] Scheduler Hints
+        # @see http://docs.openstack.org/kilo/config-reference/content/section_compute-scheduler.html
+        attribute :scheduler
+
         def initialize(attributes={})
           @service = attributes[:service]
           super
@@ -270,7 +275,8 @@ module Fog
           modified_options[:boot_volume_id] ||= attributes[:boot_volume_id]
           modified_options[:boot_image_id] ||= attributes[:boot_image_id]
           modified_options[:boot_volume_size] ||= attributes[:boot_volume_size]
-
+          modified_options[:scheduler] ||= attributes[:scheduler]
+          
           if modified_options[:networks]
             modified_options[:networks].map! { |id| { :uuid => id } }
           end
