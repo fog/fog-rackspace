@@ -125,4 +125,164 @@ http_interactions:
         "f681b06c-8485-4a93-9e12-e86fa7e451c4"}}'
     http_version: 
   recorded_at: Thu, 17 Mar 2016 14:54:00 GMT
+- request:
+    method: get
+    uri: https://iad.networks.api.rackspacecloud.com/v2.0/networks
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog-core/1.35.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - AACvJ2vAha4PuUeY_jreWmOxR3KVK2wdjaUL6W7KHZfGBD-8tIzSUHrZaJ3gnekfFeQFCasPZHQ_dT55Sw_tKkg90jUnvafLTaceAScYavi2b8qzUqKxfiE7qHJ2y44BLcSuEigYvy2jhA
+  response:
+    status:
+      code: 401
+      message: ''
+    headers:
+      Date:
+      - Thu, 03 Nov 2016 15:29:58 GMT
+      Via:
+      - 1.1 Repose (Repose/6.2.0.2)
+      Www-Authenticate:
+      - Keystone uri=https://identity.api.rackspacecloud.com/v2.0
+      Content-Length:
+      - '0'
+      Server:
+      - Jetty(9.2.z-SNAPSHOT)
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 03 Nov 2016 15:29:57 GMT
+- request:
+    method: post
+    uri: https://identity.api.rackspacecloud.com/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: '{"auth":{"RAX-KSKEY:apiKeyCredentials":{"username":"<RS_USERNAME>","apiKey":"<RS_API_KEY>"}}}'
+    headers:
+      User-Agent:
+      - fog-core/1.35.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Thu, 03 Nov 2016 15:29:59 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept, Accept-Encoding, X-Auth-Token
+      X-Newrelic-App-Data:
+      - PxQCWVFVDwQTVVRTBAQAUlATGhE1AwE2QgNWEVlbQFtcC2VOYwRAFjNTVTIDEU5aUwE9TUNeXAMKQhYbMikwNhlAFFIWCBgCHVUKUQdRBVtVBBtMV08aBlRdA1tUBVNVXQkPB1BVVUAcBFkOS11p
+      X-Trans-Id:
+      - eyJyZXF1ZXN0SWQiOiI1MzQwZGRjZi02MWIwLTRjOWItYWZiZi05ZmFlOTA1MmI1ODAiLCJvcmlnaW4iOm51bGx9
+      Front-End-Https:
+      - 'on'
+    body:
+      encoding: UTF-8
+      string: '{"access":{"serviceCatalog":[{"endpoints":[{"tenantId":"MossoCloudFS_<RS_TENANT_ID>","publicURL":"https:\/\/storage101.iad3.clouddrive.com\/v1\/MossoCloudFS_<RS_TENANT_ID>","internalURL":"https:\/\/snet-storage101.iad3.clouddrive.com\/v1\/MossoCloudFS_<RS_TENANT_ID>","region":"IAD"},{"tenantId":"MossoCloudFS_<RS_TENANT_ID>","publicURL":"https:\/\/storage101.syd2.clouddrive.com\/v1\/MossoCloudFS_<RS_TENANT_ID>","internalURL":"https:\/\/snet-storage101.syd2.clouddrive.com\/v1\/MossoCloudFS_<RS_TENANT_ID>","region":"SYD"},{"tenantId":"MossoCloudFS_<RS_TENANT_ID>","publicURL":"https:\/\/storage101.hkg1.clouddrive.com\/v1\/MossoCloudFS_<RS_TENANT_ID>","internalURL":"https:\/\/snet-storage101.hkg1.clouddrive.com\/v1\/MossoCloudFS_<RS_TENANT_ID>","region":"HKG"},{"tenantId":"MossoCloudFS_<RS_TENANT_ID>","publicURL":"https:\/\/storage101.dfw1.clouddrive.com\/v1\/MossoCloudFS_<RS_TENANT_ID>","internalURL":"https:\/\/snet-storage101.dfw1.clouddrive.com\/v1\/MossoCloudFS_<RS_TENANT_ID>","region":"DFW"}],"name":"cloudFiles","type":"object-store"},{"endpoints":[{"tenantId":"MossoCloudFS_<RS_TENANT_ID>","publicURL":"https:\/\/cdn5.clouddrive.com\/v1\/MossoCloudFS_<RS_TENANT_ID>","region":"IAD"},{"tenantId":"MossoCloudFS_<RS_TENANT_ID>","publicURL":"https:\/\/cdn4.clouddrive.com\/v1\/MossoCloudFS_<RS_TENANT_ID>","region":"SYD"},{"tenantId":"MossoCloudFS_<RS_TENANT_ID>","publicURL":"https:\/\/cdn6.clouddrive.com\/v1\/MossoCloudFS_<RS_TENANT_ID>","region":"HKG"},{"tenantId":"MossoCloudFS_<RS_TENANT_ID>","publicURL":"https:\/\/cdn1.clouddrive.com\/v1\/MossoCloudFS_<RS_TENANT_ID>","region":"DFW"}],"name":"cloudFilesCDN","type":"rax:object-cdn"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/syd.autoscale.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"SYD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/iad.autoscale.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"IAD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/hkg.autoscale.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"HKG"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/dfw.autoscale.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"DFW"}],"name":"autoscale","type":"rax:autoscale"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/preview.dns.api.rackspacecloud.com\/v2\/<RS_TENANT_ID>"}],"name":"Cloud
+        DNS","type":"dns"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/dfw.backup.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"DFW"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/syd.backup.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"SYD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/hkg.backup.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"HKG"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/iad.backup.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"IAD"}],"name":"cloudBackup","type":"rax:backup"},{"endpoints":[{"versionId":"2","tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/iad.servers.api.rackspacecloud.com\/v2\/<RS_TENANT_ID>","versionList":"https:\/\/iad.servers.api.rackspacecloud.com\/","versionInfo":"https:\/\/iad.servers.api.rackspacecloud.com\/v2","region":"IAD"},{"versionId":"2","tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/hkg.servers.api.rackspacecloud.com\/v2\/<RS_TENANT_ID>","versionList":"https:\/\/hkg.servers.api.rackspacecloud.com\/","versionInfo":"https:\/\/hkg.servers.api.rackspacecloud.com\/v2","region":"HKG"},{"versionId":"2","tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/syd.servers.api.rackspacecloud.com\/v2\/<RS_TENANT_ID>","versionList":"https:\/\/syd.servers.api.rackspacecloud.com\/","versionInfo":"https:\/\/syd.servers.api.rackspacecloud.com\/v2","region":"SYD"},{"versionId":"2","tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/dfw.servers.api.rackspacecloud.com\/v2\/<RS_TENANT_ID>","versionList":"https:\/\/dfw.servers.api.rackspacecloud.com\/","versionInfo":"https:\/\/dfw.servers.api.rackspacecloud.com\/v2","region":"DFW"}],"name":"cloudServersOpenStack","type":"compute"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/hkg.loadbalancers.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"HKG"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/dfw.loadbalancers.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"DFW"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/syd.loadbalancers.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"SYD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/iad.loadbalancers.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"IAD"}],"name":"cloudLoadBalancers","type":"rax:load-balancer"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/hkg.databases.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"HKG"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/dfw.databases.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"DFW"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/syd.databases.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"SYD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/iad.databases.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"IAD"}],"name":"cloudDatabases","type":"rax:database"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/hkg.blockstorage.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","region":"HKG"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/syd.blockstorage.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","region":"SYD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/dfw.blockstorage.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","region":"DFW"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/iad.blockstorage.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","region":"IAD"}],"name":"cloudBlockStorage","type":"volume"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/global.cdn.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","internalURL":"https:\/\/global.cdn.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"DFW"}],"name":"rackCDN","type":"rax:cdn"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/identity.api.rackspacecloud.com\/v2.0","region":"DFW"}],"name":"Cloud
+        Auth Service","type":"identity"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/dns.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>"}],"name":"cloudDNS","type":"rax:dns"},{"endpoints":[{"versionId":"2","tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/dfw.bigdata.api.rackspacecloud.com\/v2\/<RS_TENANT_ID>","versionList":"https:\/\/dfw.bigdata.api.rackspacecloud.com\/","versionInfo":"https:\/\/dfw.bigdata.api.rackspacecloud.com\/v2","region":"DFW"},{"versionId":"1","tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/dfw.bigdata.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","versionList":"https:\/\/dfw.bigdata.api.rackspacecloud.com\/","versionInfo":"https:\/\/dfw.bigdata.api.rackspacecloud.com\/v1.0","region":"DFW"},{"versionId":"2","tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/iad.bigdata.api.rackspacecloud.com\/v2\/<RS_TENANT_ID>","versionList":"https:\/\/iad.bigdata.api.rackspacecloud.com\/","versionInfo":"https:\/\/iad.bigdata.api.rackspacecloud.com\/v2","region":"IAD"},{"versionId":"1","tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/iad.bigdata.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","versionList":"https:\/\/iad.bigdata.api.rackspacecloud.com\/","versionInfo":"httpis:\/\/iad.bigdata.api.rackspacecloud.com\/v1.0","region":"IAD"}],"name":"cloudBigData","type":"rax:bigdata"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/syd.queues.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","internalURL":"https:\/\/snet-syd.queues.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","region":"SYD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/dfw.queues.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","internalURL":"https:\/\/snet-dfw.queues.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","region":"DFW"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/iad.queues.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","internalURL":"https:\/\/snet-iad.queues.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","region":"IAD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/hkg.queues.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","internalURL":"https:\/\/snet-hkg.queues.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","region":"HKG"}],"name":"cloudQueues","type":"rax:queues"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/dfw.orchestration.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","region":"DFW"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/iad.orchestration.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","region":"IAD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/syd.orchestration.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","region":"SYD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/hkg.orchestration.api.rackspacecloud.com\/v1\/<RS_TENANT_ID>","region":"HKG"}],"name":"cloudOrchestration","type":"orchestration"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/dfw.feeds.api.rackspacecloud.com\/<RS_TENANT_ID>","internalURL":"https:\/\/atom.prod.dfw1.us.ci.rackspace.net\/<RS_TENANT_ID>","region":"DFW"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/ord.feeds.api.rackspacecloud.com\/<RS_TENANT_ID>","internalURL":"https:\/\/atom.prod.ord1.us.ci.rackspace.net\/<RS_TENANT_ID>","region":"ORD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/syd.feeds.api.rackspacecloud.com\/<RS_TENANT_ID>","internalURL":"https:\/\/atom.prod.syd2.us.ci.rackspace.net\/<RS_TENANT_ID>","region":"SYD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/iad.feeds.api.rackspacecloud.com\/<RS_TENANT_ID>","internalURL":"https:\/\/atom.prod.iad3.us.ci.rackspace.net\/<RS_TENANT_ID>","region":"IAD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/hkg.feeds.api.rackspacecloud.com\/<RS_TENANT_ID>","internalURL":"https:\/\/atom.prod.hkg1.us.ci.rackspace.net\/<RS_TENANT_ID>","region":"HKG"}],"name":"cloudFeeds","type":"rax:feeds"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/hkg.networks.api.rackspacecloud.com\/v2.0","region":"HKG"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/iad.networks.api.rackspacecloud.com\/v2.0","region":"IAD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/ord.networks.api.rackspacecloud.com\/v2.0","region":"ORD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/syd.networks.api.rackspacecloud.com\/v2.0","region":"SYD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/dfw.networks.api.rackspacecloud.com\/v2.0","region":"DFW"}],"name":"cloudNetworks","type":"network"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/global.metrics.api.rackspacecloud.com\/v2.0\/<RS_TENANT_ID>","region":"IAD"}],"name":"cloudMetrics","type":"rax:cloudmetrics"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/iad.images.api.rackspacecloud.com\/v2","region":"IAD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/dfw.images.api.rackspacecloud.com\/v2","region":"DFW"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/syd.images.api.rackspacecloud.com\/v2","region":"SYD"},{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/hkg.images.api.rackspacecloud.com\/v2","region":"HKG"}],"name":"cloudImages","type":"image"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/sites.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>","region":"DFW"}],"name":"cloudSites","type":"rax:sites"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/monitoring.api.rackspacecloud.com\/v1.0\/<RS_TENANT_ID>"}],"name":"cloudMonitoring","type":"rax:monitor"},{"endpoints":[{"tenantId":"<RS_TENANT_ID>","publicURL":"https:\/\/iad.rackconnect.api.rackspacecloud.com\/v3\/<RS_TENANT_ID>","region":"IAD"}],"name":"rackconnect","type":"rax:rackconnect"}],"user":{"RAX-AUTH:defaultRegion":"IAD","roles":[{"name":"CloudNetworks-FloatingIP-EA","description":"Early
+        Access Identity role for OpenStack Floating IP feature","id":"10000384"},{"name":"compute:default","tenantId":"<RS_TENANT_ID>","description":"A
+        Role that allows a user access to keystone Service methods","id":"6"},{"name":"object-store:default","tenantId":"MossoCloudFS_<RS_TENANT_ID>","description":"A
+        Role that allows a user access to keystone Service methods","id":"5"},{"name":"identity:user-admin","description":"User
+        Admin Role.","id":"3"},{"name":"keep:admin","description":"Admin role for
+        OpenStack key management service","id":"10000363"},{"name":"cloudNetworks:Security-Groups-LA","description":"Cloud
+        Networks - Security Groups LA","id":"10000362"}],"name":"<RS_USERNAME>","id":"1658c175e6f34629915d3305cd4e541c"},"token":{"expires":"2016-11-04T15:38:36.425Z","RAX-AUTH:authenticatedBy":["APIKEY"],"id":"AACl8V4mdnZWwuCK1iOeeSh_wY1sezyyMhROuRzce4UFkLgFaiekSnEvaDFPvZ_PLyASVT11r2ecWH_0kgAlsN4XTq1W354c2wXpMNCzboo3n_KFWYSdwkG10-m2Nv7qVgPOYOilnGn_nQ","tenant":{"name":"<RS_TENANT_ID>","id":"<RS_TENANT_ID>"}}}}'
+    http_version: 
+  recorded_at: Thu, 03 Nov 2016 15:29:58 GMT
+- request:
+    method: get
+    uri: https://iad.networks.api.rackspacecloud.com/v2.0/networks
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog-core/1.35.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - AACl8V4mdnZWwuCK1iOeeSh_wY1sezyyMhROuRzce4UFkLgFaiekSnEvaDFPvZ_PLyASVT11r2ecWH_0kgAlsN4XTq1W354c2wXpMNCzboo3n_KFWYSdwkG10-m2Nv7qVgPOYOilnGn_nQ
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Thu, 03 Nov 2016 15:30:00 GMT, Thu, 03 Nov 2016 15:30:00 GMT
+      Via:
+      - 1.1 Repose (Repose/6.2.0.2)
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '365'
+      Server:
+      - Jetty(9.2.z-SNAPSHOT)
+    body:
+      encoding: UTF-8
+      string: '{"networks": [{"status": "ACTIVE", "subnets": ["9e3347e6-cd61-4095-aad0-625cf0931243"],
+        "name": "test", "admin_state_up": true, "tenant_id": "<RS_TENANT_ID>", "shared":
+        false, "id": "15c9dea7-4db9-43d4-ae4e-df94ed8814b2"}], "networks_links": [{"href":
+        "http://localhost:9696/v2.0/networks?marker=15c9dea7-4db9-43d4-ae4e-df94ed8814b2&page_reverse=True",
+        "rel": "previous"}]}'
+    http_version: 
+  recorded_at: Thu, 03 Nov 2016 15:29:59 GMT
+- request:
+    method: post
+    uri: https://iad.networks.api.rackspacecloud.com/v2.0/networks
+    body:
+      encoding: UTF-8
+      string: '{"network":{"name":"ANewNetwork"}}'
+    headers:
+      User-Agent:
+      - fog-core/1.35.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Auth-Token:
+      - AACl8V4mdnZWwuCK1iOeeSh_wY1sezyyMhROuRzce4UFkLgFaiekSnEvaDFPvZ_PLyASVT11r2ecWH_0kgAlsN4XTq1W354c2wXpMNCzboo3n_KFWYSdwkG10-m2Nv7qVgPOYOilnGn_nQ
+  response:
+    status:
+      code: 201
+      message: ''
+    headers:
+      Date:
+      - Thu, 03 Nov 2016 15:30:00 GMT, Thu, 03 Nov 2016 15:30:02 GMT
+      Via:
+      - 1.1 Repose (Repose/6.2.0.2)
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '181'
+      Server:
+      - Jetty(9.2.z-SNAPSHOT)
+    body:
+      encoding: UTF-8
+      string: '{"network": {"status": "ACTIVE", "subnets": [], "name": "ANewNetwork",
+        "admin_state_up": true, "tenant_id": "<RS_TENANT_ID>", "shared": false, "id":
+        "b45fb1ee-b72b-4bbe-9e48-fd0f8c2488b0"}}'
+    http_version: 
+  recorded_at: Thu, 03 Nov 2016 15:30:02 GMT
 recorded_with: VCR 3.0.1

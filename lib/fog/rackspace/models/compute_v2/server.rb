@@ -271,8 +271,11 @@ module Fog
           modified_options[:boot_image_id] ||= attributes[:boot_image_id]
           modified_options[:boot_volume_size] ||= attributes[:boot_volume_size]
 
-          if modified_options[:networks]
-            modified_options[:networks].map! { |id| { :uuid => id } }
+          if mn = modified_options[:networks]
+            # If we've already processed it into the correct form don't process again.
+            unless mn.first.is_a?(Hash)
+              modified_options[:networks].map! { |id| { :uuid => id } }
+            end
           end
 
           data = service.create_server(name, image_id, flavor_id, 1, 1, modified_options)
