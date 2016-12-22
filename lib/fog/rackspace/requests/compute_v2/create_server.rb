@@ -1,243 +1,199 @@
-module Fog
   module Compute
     class RackspaceV2
       class Real
-        # Create server
-        # @param [String] name name of server
-        # @param [String] image_id of the image used to create server
-        # @param [String] flavor_id id of the flavor of the image
-        # @param [String] min_count
-        # @param [String] max_count
-        # @param [Hash] options
-        # @option options [Hash] metadata key value pairs of server metadata
-        # @option options [String] OS-DCF:diskConfig The disk configuration value. (AUTO or MANUAL)
-        # @option options [Hash] personality Hash containing data to inject into the file system of the cloud server instance during server creation.
-        # @option options [Boolean] config_drive whether to attach a read-only configuration drive
-        # @option options [String] keypair  Name of the kay-pair to associate with this server.
-        # @option options [Array<Hash>] block_device_mapping A manually specified block device mapping to fully control the creation and
-        #   attachment of volumes to this server. Mutually exclusive with :volume_id or :volume_image_id. If provided, leave image_id
-        #   as "". See http://developer.openstack.org/api-ref-compute-v2-ext.html#ext-os-block-device-mapping-v2-boot for details.
-        # @option options [String] boot_volume_id Id of a pre-created bootable volume to use for this server. If provided, leave image_id as "".
-        # @option options [Integer] boot_volume_size Size of the bootable volume to be created expressed in GB. (defaults to 100)
-        # @option options [String] boot_image_id Id of an image to create a bootable volume from and attach to this server. If provided,
-        #   leave image_id as "".
-        # @return [Excon::Response] response:
-        #   * body [Hash]:
-        #     * server [Hash]:
-        #       * name [String] - name of server
-        #       * imageRef [String] - id of image used to create server
-        #       * flavorRef [String] - id of flavor used to create server
-        #       * OS-DCF:diskConfig [String] - The disk configuration value.
-        #       * name [String] - name of server
-        #       * metadata [Hash] - Metadata key and value pairs.
-        #       * personality [Array]:
-        #         * [Hash]:
-        #           * path - path of the file created
-        #           * contents - Base 64 encoded file contents
-        #       * networks [Array]:
-        #         * [Hash]:
-        #           * uuid [String] - uuid of attached network
-        #       * config_drive [Boolean]: Wether to use a config drive or not
-        #       * user_data [String]: User data for cloud init
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/CreateServers.html
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Server_Metadata-d1e2529.html
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Server_Personality-d1e2543.html
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ch_extensions.html#diskconfig_attribute
-        # @see http://developer.openstack.org/api-ref-compute-v2-ext.html#ext-os-block-device-mapping-v2-boot
-        #
-        # * State Transitions
-        #   * BUILD -> ACTIVE
-        #   * BUILD -> ERROR (on error)
-        def create_server(name, image_id, flavor_id, min_count, max_count, options = {})
+
+        def create_server(name, image_id, flavor_id, options = {})
           data = {
-            'server' => {
-              'name'      => name,
-              'imageRef'  => image_id,
-              'flavorRef' => flavor_id,
-              'minCount'  => min_count,
-              'maxCount'  => max_count
+            'server' =&gt; {
+              'flavorRef' =&gt; flavor_id,
+              'name'      =&gt; name
             }
           }
+          data['server']['imageRef'] = image_id if image_id
 
-          data['server']['adminPass'] = options[:password] unless options[:password].nil?
-          data['server']['OS-DCF:diskConfig'] = options[:disk_config] unless options[:disk_config].nil?
-          data['server']['metadata'] = options[:metadata] unless options[:metadata].nil?
-          data['server']['personality'] = options[:personality] unless options[:personality].nil?
-          data['server']['config_drive'] = options[:config_drive] unless options[:config_drive].nil?
-          data['server']['user_data'] = options[:user_data] unless options[:user_data].nil?
-          data['server']['networks'] = options[:networks] || [
-            { :uuid => '00000000-0000-0000-0000-000000000000' },
-            { :uuid => '11111111-1111-1111-1111-111111111111' }
-          ]
-
-          if options[:keypair]
-            Fog::Logger.deprecation(":keypair has been depreciated. Please use :key_name instead.")
-            options[:key_name] = options[:keypair]
+          vanilla_options = ['accessIPv4', 'accessIPv6',
+                             'availability_zone', 'user_data', 'key_name',
+                             'adminPass', 'config_drive', 'min_count', 'max_count',
+                             'return_reservation_id']
+          vanilla_options.select { |o| options[o] }.each do |key|
+            data['server'][key] = options[key]
           end
 
-          data['server']['key_name'] = options[:key_name] unless options[:key_name].nil?
-
-          if options[:block_device_mapping]
-            if options[:boot_volume_id]
-              Fog::Logger.warning("Manual :block_device_mapping overrides :boot_volume_id in #create_server!")
-            end
-
-            if options[:boot_image_id]
-              Fog::Logger.warning("Manual :block_device_mapping overrides :boot_image_id in #create_server!")
-            end
-
-            data['server']['block_device_mapping_v2'] = options[:block_device_mapping]
-          else
-            if options[:boot_volume_id]
-              if options[:boot_image_id]
-                Fog::Logger.warning(":boot_volume_id overrides :boot_image_id!")
+=begin
+          if options['security_groups']
+            # security names requires a hash with a name prefix
+            data['server']['security_groups'] =
+              Array(options['security_groups']).map do |sg|
+                name = if sg.kind_of?(Fog::Compute::RackspaceV2::SecurityGroup)
+                         sg.name
+                       else
+                         sg
+                       end
+                {:name =&gt; name}
               end
+          end
+=end
 
-              if options[:boot_volume_size]
-                Fog::Logger.warning("Boot volume size: " + options[:boot_volume_size] + "GB")
+          if options['personality']
+            data['server']['personality'] = []
+            options['personality'].each do |file|
+              data['server']['personality'] &lt;&lt; {
+                'contents' =&gt; Base64.encode64(file['contents'] || file[:contents]),
+                'path'     =&gt; file['path'] || file[:path]
+              }
+            end
+          end
+
+          if options['nics']
+            data['server']['networks'] =
+              Array(options['nics']).map do |nic|
+                neti = {}
+                neti['uuid'] = (nic['net_id'] || nic[:net_id]) unless (nic['net_id'] || nic[:net_id]).nil?
+                neti['fixed_ip'] = (nic['v4_fixed_ip'] || nic[:v4_fixed_ip]) unless (nic['v4_fixed_ip'] || nic[:v4_fixed_ip]).nil?
+                neti['port'] = (nic['port_id'] || nic[:port_id]) unless (nic['port_id'] || nic[:port_id]).nil?
+                neti
               end
+          end
 
-              data['server']['block_device_mapping_v2'] = [{
-                'boot_index' => '0',
-                'uuid' => options[:boot_volume_id],
-                'source_type' => 'volume',
-                'destination_type' => 'volume',
-                'volume_size' => options[:boot_volume_size] ? options[:boot_volume_size] : 100
-              }]
-            end
+          if options['os:scheduler_hints']
+            data['os:scheduler_hints'] = options['os:scheduler_hints']
+          end
 
-            if options[:boot_image_id]
-              data['server']['block_device_mapping_v2'] = [{
-                'boot_index' => '0',
-                'uuid' => options[:boot_image_id],
-                'source_type' => 'image',
-                'destination_type' => 'volume',
-                'volume_size' => options[:boot_volume_size] ? options[:boot_volume_size] : 100
-              }]
+          if (block_device_mapping = options['block_device_mapping_v2'])
+            data['server']['block_device_mapping_v2'] = [block_device_mapping].flatten.collect do |mapping|
+              entered_block_device_mapping = {}
+              [:boot_index, :delete_on_termination, :destination_type, :device_name, :source_type, :uuid,
+               :volume_size].each do |index|
+                entered_block_device_mapping[index.to_s] = mapping[index] if mapping.key?(index)
+              end
+              entered_block_device_mapping
             end
-        end
+          elsif (block_device_mapping = options['block_device_mapping'])
+            data['server']['block_device_mapping'] = [block_device_mapping].flatten.collect do |mapping|
+              {
+                'delete_on_termination' =&gt; mapping[:delete_on_termination],
+                'device_name'           =&gt; mapping[:device_name],
+                'volume_id'             =&gt; mapping[:volume_id],
+                'volume_size'           =&gt; mapping[:volume_size],
+              }
+            end
+          end
+
+          path = options['block_device_mapping'] ? 'os-volumes_boot.json' : 'servers.json'
 
           request(
-            :body    => Fog::JSON.encode(data),
-            :expects => [202],
-            :method  => 'POST',
-            :path    => "servers"
+            :body    =&gt; Fog::JSON.encode(data),
+            :expects =&gt; [200, 202],
+            :method  =&gt; 'POST',
+            :path    =&gt; path
           )
         end
       end
 
       class Mock
-        def create_server(name, image_id, flavor_id, min_count, max_count, options={})
-          server_id   = Fog::Rackspace::MockData.uuid
-          public_ip4  = Fog::Rackspace::MockData.ipv4_address
-          public_ip6  = Fog::Rackspace::MockData.ipv6_address
-          private_ip4 = Fog::Rackspace::MockData.ipv4_address
-          private_ip6 = Fog::Rackspace::MockData.ipv6_address
-          admin_pass  = Fog::Mock.random_letters(12)
+        def create_server(name, image_id, flavor_id, options = {})
+          response = Excon::Response.new
+          response.status = 202
 
+          server_id = Fog::Mock.random_numbers(6).to_s
+	
           flavor = self.data[:flavors][flavor_id]
           image  = self.data[:images][image_id]
 
-          server = {
-            "OS-DCF:diskConfig"      => "AUTO",
-            "OS-EXT-STS:power_state" => 1,
-            "OS-EXT-STS:task_state"  => nil,
-            "OS-EXT-STS:vm_state"    => "active",
-            "accessIPv4" => public_ip4,
-            "accessIPv6" => public_ip6,
-            "addresses" => {
-              "private" => [
-                {
-                  "addr" => private_ip4,
-                  "version" => 4
-                }
-              ],
-                "public" => [
-                  {
-                    "addr" => public_ip4,
-                    "version" => 4
-                  },
-                  {
-                    "addr" => public_ip6,
-                    "version" => 6
-                  }
-              ]
-            },
-            "created" => "2012-07-28T15:32:25Z",
-            "flavor" => Fog::Rackspace::MockData.keep(flavor, "id", "links"),
-            "hostId" => Fog::Mock.random_hex(56),
-            "id" => server_id,
-            "image"  => Fog::Rackspace::MockData.keep(image, "id", "links"),
-            "links" => [
-              {
-                "href" => "https://dfw.servers.api.rackspacecloud.com/v2/010101/servers/#{server_id}",
-                "rel" => "self",
-              },
-              {
-                "href" => "https://dfw.servers.api.rackspacecloud.com/010101/servers/#{server_id}",
-                "rel" => "bookmark",
-              }
-            ],
-            "metadata" => {},
-            "name" => name,
-            "progress" => 100,
-            "rax-bandwidth:bandwidth" => [
-              {
-                "audit_period_end"   => "2012-08-16T14:12:00Z",
-                "audit_period_start" => "2012-08-16T06:00:00Z",
-                "bandwidth_inbound"  => 39147845,
-                "bandwidth_outbound" => 13390651,
-                "interface"          => "public",
-              },
-              {
-                "audit_period_end"   => "2012-08-16T14:12:00Z",
-                "audit_period_start" => "2012-08-16T06:00:00Z",
-                "bandwidth_inbound"  => 24229191,
-                "bandwidth_outbound" => 84,
-                "interface"          => "private",
-              }
-            ],
-            "status"             => "ACTIVE",
-            "tenant_id"          => "010101",
-            "updated"            => "2012-07-28T15:37:09Z",
-            "user_id"            => "170454",
-            :volume_ids          => [],
+          mock_data = {
+            'addresses'    =&gt; {"Private" =&gt; [{"addr" =&gt; Fog::Mock.random_ip}]},
+#            'flavor'       =&gt; {"id" =&gt; flavor_id, "links" =&gt; [{"href" =&gt; "http://nova1:8774/admin/flavors/1", "rel" =&gt; "bookmark"}]},
+            'flavor'       =&gt; Fog::Rackspace::MockData.keep(flavor, "id", "links"),
+            'id'           =&gt; server_id,
+#            'image'        =&gt; {"id" =&gt; image_id, "links" =&gt; [{"href" =&gt; "http://nova1:8774/admin/images/#{image_id}", "rel" =&gt; "bookmark"}]},
+            'image'        =&gt; Fog::Rackspace::MockData.keep(image, "id", "links"),
+#            'links'        =&gt; [{"href" =&gt; "http://nova1:8774/v1.1/admin/servers/5", "rel" =&gt; "self"}, {"href" =&gt; "http://nova1:8774/admin/servers/5", "rel" =&gt; "bookmark"}],
+            'links'        =&gt; [
+                                 {
+                                    "href" =&gt; "https://dfw.servers.api.rackspacecloud.com/v2/010101/servers/#{server_id}",
+                                    "rel" =&gt; "self",
+                                 },
+                                 {
+                                    "href" =&gt; "https://dfw.servers.api.rackspacecloud.com/010101/servers/#{server_id}",
+                                    "rel" =&gt; "bookmark",
+                                 }
+                              ],
+            'hostId'       =&gt; "123456789ABCDEF01234567890ABCDEF",
+            'name'         =&gt; name || "server_#{rand(999)}",
+            'accessIPv4'   =&gt; options['accessIPv4'] || "",
+            'accessIPv6'   =&gt; options['accessIPv6'] || "",
+            'progress'     =&gt; 0,
+            'status'       =&gt; 'BUILD',
+            'created'      =&gt; '2012-09-27T00:04:18Z',
+            'updated'      =&gt; '2012-09-27T00:04:27Z',
+            'user_id'      =&gt; user_id,
+            'config_drive' =&gt; options['config_drive'] || '',
           }
 
-          #  add in additional networks
-          if options[:networks]
-            options[:networks].each do |network|
-              net_label = self.data[:networks][network[:uuid]]["label"]
-              server["addresses"] = { net_label => []}
+          nics = options['nics']
+
+          if nics
+            nics.each do |_nic|
+              mock_data["addresses"].merge!(
+                "Public" =&gt; [{'addr' =&gt; Fog::Mock.random_ip}]
+              )
             end
           end
-          self.data[:servers][server_id] = server
 
-          response = {
-            "server" => {
-              "OS-DCF:diskConfig" => "AUTO",
-              "adminPass" => admin_pass,
-              "id" => server_id,
-              "links" => [
-                {
-                  "href" => "https://dfw.servers.api.rackspacecloud.com/v2/010101/servers/#{server_id}",
-                  "rel"  => "self"
-                  },
-                  {
-                  "href" => "https://dfw.servers.api.rackspacecloud.com/010101/servers/#{server_id}",
-                  "rel"  => "bookmark"
-                }
-              ]
-            }
-          }
+          response_data = if options['return_reservation_id'] == 'True'
+                            {'reservation_id' =&gt; "r-#{Fog::Mock.random_numbers(6)}"}
+                          else
+                            {
+                              'adminPass' =&gt; 'password',
+                              'id'        =&gt; server_id,
+                              'links'     =&gt; mock_data['links'],
+                            }
+                          end
 
-          response(:body => response)
+          if block_devices = options["block_device_mapping_v2"]
+            block_devices.each { |bd| volumes.get(bd[:uuid]).attach(server_id, bd[:device_name]) }
+          elsif block_device = options["block_device_mapping"]
+            volumes.get(block_device[:volume_id]).attach(server_id, block_device[:device_name])
+          end
+
+          data[:last_modified][:servers][server_id] = Time.now
+          data[:servers][server_id] = mock_data
+
+=begin          
+          security_groups = options['security_groups']
+          if security_groups
+            groups = Array(security_groups).map do |sg|
+              if sg.kind_of?(Fog::Compute::RackspaceV2::SecurityGroup)
+                sg.name
+              else
+                sg
+              end
+            end
+
+            data[:server_security_group_map][server_id] = groups
+            response_data['security_groups'] = groups
+          end
+=end
+
+          data[:last_modified][:servers][server_id] = Time.now
+          data[:servers][server_id] = mock_data
+
+          if options['os:scheduler_hints'] &amp;&amp; options['os:scheduler_hints']['group']
+            group = data[:server_groups][options['os:scheduler_hints']['group']]
+            group[:members] &lt;&lt; server_id if group
+          end
+
+          response.body = if options['return_reservation_id'] == 'True'
+                            response_data
+                          else
+                            {'server' =&gt; response_data}
+                          end
+          response
         end
+
+
       end
     end
   end
 end
+
