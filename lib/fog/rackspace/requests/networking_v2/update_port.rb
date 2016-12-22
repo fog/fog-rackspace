@@ -3,7 +3,7 @@ module Fog
     class NetworkingV2
       class Real
         def update_port(port)
-          data = {:port => {:name => port.name}}
+          data = {:port => {:name => port.name,:security_groups => port.security_groups}}
 
           request(
             :method  => 'PUT',

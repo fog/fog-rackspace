@@ -1,406 +1,188 @@
-# -*- coding: utf-8 -*-
 require 'fog/compute/models/server'
 require 'fog/rackspace/models/compute_v2/metadata'
 
 module Fog
   module Compute
     class RackspaceV2
-      class Server < Fog::Compute::Server
-        # States
-        ACTIVE = 'ACTIVE'
-        BUILD = 'BUILD'
-        DELETED = 'DELETED'
-        ERROR = 'ERROR'
-        HARD_REBOOT = 'HARD_REBOOT'
-        MIGRATING = 'MIGRATING'
-        PASSWORD = 'PASSWORD'
-        REBOOT = 'REBOOT'
-        REBUILD = 'REBUILD'
-        RESCUE = 'RESCUE'
-        RESIZE = 'RESIZE'
-        REVERT_RESIZE = 'REVERT_RESIZE'
-        SUSPENDED = 'SUSPENDED'
-        UNKNOWN = 'UNKNOWN'
-        VERIFY_RESIZE = 'VERIFY_RESIZE'
+      class Server &lt; Fog::Compute::Server
 
-        # @!attribute [r] id
-        # @return [String] The server id
         identity :id
+#        attribute :instance_name, :aliases =&gt; 'OS-EXT-SRV-ATTR:instance_name'
 
-        # @!attribute [rw] name
-        # @return [String] The server name.
-        attribute :name
-
-        # @!attribute [r] created
-        # @return [String] The time stamp for the creation date.
-        attribute :created
-
-        # @!attribute [r] updated
-        # @return [String] The time stamp for the last update.
-        attribute :updated
-
-        # @!attribute [r] host Id
-        #   The host Id.
-        #   The compute provisioning algorithm has an anti-affinity property that attempts to spread customer VMs across hosts.
-        #   Under certain situations, VMs from the same customer might be placed on the same host.
-        #   hostId represents the host your server runs on and can be used to determine this scenario if it is relevant to your application.
-        #   HostId is unique per account and is not globally unique.
-        # @return [String] host id.
-        attribute :host_id, :aliases => 'hostId'
-
-        # @!attribute [r] state
-        # @return [String] server status.
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Servers-d1e2078.html#server_status
-        attribute :state, :aliases => 'status'
-
-        # @!attribute [r] state_ext
-        # @return [String] server (extended) status.
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Servers-d1e2078.html#server_status
-        attribute :state_ext, :aliases => 'OS-EXT-STS:task_state'
-
-        # @!attribute [r] progress
-        # @return [Fixnum] The build completion progress, as a percentage. Value is from 0 to 100.
-        attribute :progress
-
-        # @!attribute [r] user_id
-        # @return [String] The user Id.
-        attribute :user_id
-
-        # @!attribute [r] tenant_id
-        # @return [String] The tenant Id.
-        attribute :tenant_id
-
-        # @!attribute [r] links
-        # @return [Array] Server links.
+        attribute :addresses
+        attribute :flavor
+        attribute :host_id, :aliases =&gt; 'hostId'
+        attribute :image
+        attribute :metadata
         attribute :links
+        attribute :name
 
         # @!attribute [rw] personality
         # @note This attribute is only used for server creation. This field will be nil on subsequent retrievals.
-        # @return [Hash] Hash containing data to inject into the file system of the cloud server instance during server creation.
+        # @return [Hash] Hash containing data to inject into the file system of the cloud server instance during
+        #                server creation.
         # @example To inject fog.txt into file system
-        #   :personality => [{ :path => '/root/fog.txt',
-        #                      :contents => Base64.encode64('Fog was here!')
+        #   :personality =&gt; [{ :path =&gt; '/root/fog.txt',
+        #                      :contents =&gt; Base64.encode64('Fog was here!')
         #                   }]
         # @see #create
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Server_Personality-d1e2543.html
+        # @see http://docs.openstack.org/api/openstack-compute/2/content/Server_Personality-d1e2543.html
         attribute :personality
+        attribute :progress
+        attribute :accessIPv4
+        attribute :accessIPv6
+#        attribute :availability_zone, :aliases =&gt; 'OS-EXT-AZ:availability_zone'
+        attribute :user_data_encoded
+        attribute :state,       :aliases =&gt; 'status'
+        attribute :created,     :type =&gt; :time
+        attribute :updated,     :type =&gt; :time
 
-        # @!attribute [rw] ipv4_address
-        # @return [String] The public IP version 4 access address.
-        # @note This field will populate once the server is ready to use.
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Server_Primary_Addresses-d1e2558.html
-        attribute :ipv4_address, :aliases => 'accessIPv4'
-
-        # @!attribute [rw] ipv6_address
-        # @return [String] The public IP version 6 access address.
-        # @note This field will populate once the server is ready to use.
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Server_Primary_Addresses-d1e2558.html
-        attribute :ipv6_address, :aliases => 'accessIPv6'
-
-        # @!attribute [rw] disk_config
-        # @return [String<AUTO, MANUAL>] The disk configuration value.
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ch_extensions.html#diskconfig_attribute
-        #
-        # The disk configuration value.
-        #   * AUTO -   The server is built with a single partition the size of the target flavor disk. The file system is automatically adjusted to fit the entire partition.
-        #              This keeps things simple and automated. AUTO is valid only for images and servers with a single partition that use the EXT3 file system.
-        #              This is the default setting for applicable Rackspace base images.
-        #
-        #   * MANUAL - The server is built using whatever partition scheme and file system is in the source image. If the target flavor disk is larger,
-        #              the remaining disk space is left unpartitioned. This enables images to have non-EXT3 file systems, multiple partitions,
-        #              and so on, and enables you to manage the disk configuration.
-        attribute :disk_config, :aliases => 'OS-DCF:diskConfig'
-
-        # @!attribute [rw] config_drive_ext
-        # @return [Boolean] whether a read-only configuration drive is attached
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/config_drive_ext.html
-        attribute :config_drive
-
-        # @!attribute [rw] user_data
-        # @return [Boolean] User-data
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/config_drive_ext.html
-        attribute :user_data
-
-        # @!attribute [r] bandwidth
-        # @return [Array] The amount of bandwidth used for the specified audit period.
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ch_extensions.html#bandwidth_extension
-        attribute :bandwidth, :aliases => 'rax-bandwidth:bandwidth'
-
-        # @!attribute [r] address
-        # @return [Hash<String, Array[Hash]>] IP addresses allocated for server by network
-        # @example
-        #  {
-        #     "public" => [
-        #          {"version"=>4, "addr"=>"166.78.105.63"},
-        #          {"version"=>6, "addr"=>"2001:4801:7817:0072:0fe1:75e8:ff10:61a9"}
-        #                 ],
-        #    "private"=> [{"version"=>4, "addr"=>"10.177.18.209"}]
-        #  }
-        attribute :addresses
-
-        # @!attribute [r] flavor_id
-        # @return [String] The flavor Id.
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Flavors-d1e4188.html
-        attribute :flavor_id, :aliases => 'flavor', :squash => 'id'
-
-        # @!attribute [r] image_id
-        # @return [String] The image Id.
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Images-d1e4435.html
-        attribute :image_id, :aliases => 'image', :squash => 'id'
-
-        # @!attribute [w] boot_volume_id
-        # @return [String] The ID of a bootable volume from the BlockStorage service.
-        # @see http://developer.openstack.org/api-ref-compute-v2-ext.html#ext-os-block-device-mapping-v2-boot
-        attribute :boot_volume_id
-
-        # @!attribute [w] boot_volume_size
-        # @return [Integer] The Size of the boot volume to be created by the BlockStorage service.
-        # @see http://developer.openstack.org/api-ref-compute-v2-ext.html#ext-os-block-device-mapping-v2-boot
-        attribute :boot_volume_size
-
-        # @!attribute [w] boot_image_id
-        # @return [String] The ID of an image to create a bootable volume from.
-        # @see http://developer.openstack.org/api-ref-compute-v2-ext.html#ext-os-block-device-mapping-v2-boot
-        attribute :boot_image_id
-
-        # @!attribute [rw] password
-        # @return [String] Password for system adminstrator account.
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Server_Passwords-d1e2510.html
-        # @note Can be set while creating a server, but use change_admin_password instead of save/update for changes.
-        attribute :password
-
-        # @!attribute [rw] key_name
-        # @return [String] The name of the key_pair used for server.
-        # @note The key_pair/key_name is used to specify the keypair used for server creation. It is not populated by cloud servers.
+        attribute :tenant_id
+        attribute :user_id
         attribute :key_name
+        attribute :fault
+        attribute :config_drive
+        attribute :os_dcf_disk_config, :aliases =&gt; 'OS-DCF:diskConfig'
+#        attribute :os_ext_srv_attr_host, :aliases =&gt; 'OS-EXT-SRV-ATTR:host'
+#        attribute :os_ext_srv_attr_hypervisor_hostname, :aliases =&gt; 'OS-EXT-SRV-ATTR:hypervisor_hostname'
+#        attribute :os_ext_srv_attr_instance_name, :aliases =&gt; 'OS-EXT-SRV-ATTR:instance_name'
+#        attribute :os_ext_sts_power_state, :aliases =&gt; 'OS-EXT-STS:power_state'
+        attribute :os_ext_sts_task_state, :aliases =&gt; 'OS-EXT-STS:task_state'
+#        attribute :os_ext_sts_vm_state, :aliases =&gt; 'OS-EXT-STS:vm_state'
 
-        def initialize(attributes={})
-          @service = attributes[:service]
+        attr_reader :password
+        attr_writer :image_id, :flavor_id, :nics    # , :os_scheduler_hints
+        attr_accessor :block_device_mapping, :block_device_mapping_v2  # boot_volume_id attribute in rackspace
+
+        # In some cases it's handy to be able to store the project for the record, e.g. swift doesn't contain project
+        # info in the result, so we can track it in this attribute based on what project was used in the request
+        attr_accessor :project
+
+        def initialize(attributes = {})
+          # Old 'connection' is renamed as service and should be used instead
+          prepare_service_value(attributes)
+
+#          self.security_groups = attributes.delete(:security_groups)
+          self.min_count = attributes.delete(:min_count)
+          self.max_count = attributes.delete(:max_count)
+          self.nics = attributes.delete(:nics)
+#          self.os_scheduler_hints = attributes.delete(:os_scheduler_hints)
+          self.block_device_mapping = attributes.delete(:block_device_mapping)
+          self.block_device_mapping_v2 = attributes.delete(:block_device_mapping_v2)
+
           super
         end
-
-        alias_method :access_ipv4_address, :ipv4_address
-        alias_method :access_ipv4_address=, :ipv4_address=
-        alias_method :access_ipv6_address, :ipv6_address
-        alias_method :access_ipv6_address=, :ipv6_address=
-
-        # Server metadata
-        # @return [Fog::Compute::RackspaceV2::Metadata] metadata key value pairs.
+=begin
         def metadata
           @metadata ||= begin
-            Fog::Compute::RackspaceV2::Metadata.new({
-              :service => service,
-              :parent => self
-            })
+            Fog::Compute::OpenStack::Metadata.new(:service =&gt; service,
+                                                  :parent  =&gt; self)
           end
         end
 
-        # Set server metadata
-        # @param [Hash] hash contains key value pairs
-        def metadata=(hash={})
-          metadata.from_hash(hash)
+        def metadata=(new_metadata = {})
+          return unless new_metadata
+          metas = []
+          new_metadata.each_pair { |k, v| metas &lt;&lt; {"key" =&gt; k, "value" =&gt; v} }
+          @metadata = metadata.load(metas)
+        end
+=end
+        def user_data=(ascii_userdata)
+          self.user_data_encoded = [ascii_userdata].pack('m') if ascii_userdata
         end
 
-        # Returns the key pair based on the key_name of the server
-        # @return [KeyPair]
-        # @note The key_pair/key_name is used to specify the keypair used for server creation. It is not populated by cloud servers.
-        def key_pair
-          requires :key_name
-
-          service.key_pairs.get(key_name)
-        end
-
-        # Sets the key_pair used by the server.
-        # @param new_keypair [KeyPair] key_pair object for server
-        # @note The key_pair/key_name is used to specify the keypair used for server creation. It is not populated by cloud servers.
-        def key_pair=(new_keypair)
-          if new_keypair.is_a?(String)
-             Fog::Logger.deprecation("#key_pair= should be used to set KeyPair objects. Please use #key_name method instead")
-            self.key_name = new_keypair
-          else
-            self.key_name = new_keypair && new_keypair.name
-          end
-        end
-
-        # Saves the server.
-        # Creates server if it is new, otherwise it will update server attributes name, accessIPv4, and accessIPv6.
-        # @return [Boolean] true if server has started saving
-        def save(options = {})
-          if persisted?
-            update
-          else
-            create(options)
-          end
+        def destroy
+          requires :id
+          service.delete_server(id)
           true
         end
 
-        # Creates server
-        # * requires attributes: service:, :name, :image_id, and :flavor_id
-        # * optional attributes :disk_config, :metadata, :personality, :config_drive, :boot_volume_id, :boot_image_id
-        # * :image_id should be "" if :boot_volume_id or :boot_image_id are provided.
-        # @return [Boolean] returns true if server is being created
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        # @note You should use servers.create to create servers instead calling this method directly
-        # @see Servers#create
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/CreateServers.html
-        #
-        # * State Transitions
-        #   * BUILD -> ACTIVE
-        #   * BUILD -> ERROR (on error)
-        def create(options)
-          requires :name, :image_id, :flavor_id
-          modified_options = Marshal.load(Marshal.dump(options))
+        def images
+          requires :id
+          service.images(:server =&gt; self)
+        end
 
-          if attributes[:keypair]
-            Fog::Logger.deprecation(":keypair has been depreciated. Please use :key_name instead.")
-            modified_options[:key_name] = attributes[:keypair]
-          end
+=begin
+        def all_addresses
+          # currently openstack API does not tell us what is a floating ip vs a fixed ip for the vm listing,
+          # we fall back to get all addresses and filter sadly.
+          # Only includes manually-assigned addresses, not auto-assigned
+          @all_addresses ||= service.list_all_addresses.body["floating_ips"].select { |data| data['instance_id'] == id }
+        end
 
-          modified_options[:password] ||= attributes[:password] unless password.nil?
-          modified_options[:networks] ||= attributes[:networks]
-          modified_options[:disk_config] = disk_config unless disk_config.nil?
-          modified_options[:metadata] = metadata.to_hash unless @metadata.nil?
-          modified_options[:personality] = personality unless personality.nil?
-          modified_options[:config_drive] = config_drive unless config_drive.nil?
-          modified_options[:user_data] = user_data_encoded unless user_data_encoded.nil?
-          modified_options[:key_name] ||= attributes[:key_name]
-          modified_options[:boot_volume_id] ||= attributes[:boot_volume_id]
-          modified_options[:boot_image_id] ||= attributes[:boot_image_id]
-          modified_options[:boot_volume_size] ||= attributes[:boot_volume_size]
+        def reload
+          @all_addresses = nil
+          super
+        end
+=end
+        # returns all ip_addresses for a given instance
+        # this includes both the fixed ip(s) and the floating ip(s)
+        def ip_addresses
+          addresses ? addresses.values.flatten.collect { |x| x['addr'] } : []
+        end
+=begin
+        def floating_ip_addresses
+          all_floating = if addresses
+                           flattened_values = addresses.values.flatten
+                           flattened_values.select { |d| d["OS-EXT-IPS:type"] == "floating" }.collect { |a| a["addr"] }
+                         else
+                           []
+                         end
 
-          if mn = modified_options[:networks]
-            # If we've already processed it into the correct form don't process again.
-            unless mn.first.is_a?(Hash)
-              modified_options[:networks].map! { |id| { :uuid => id } }
+          # Return them all, leading with manually assigned addresses
+#          manual = all_addresses.collect { |addr| addr["ip"] }
+
+          all_floating.sort do |a, b|
+            a_manual = manual.include? a
+            b_manual = manual.include? b
+
+            if a_manual &amp;&amp; !b_manual
+              -1
+            elsif !a_manual &amp;&amp; b_manual
+              1
+            else
+              0
             end
           end
-
-          data = service.create_server(name, image_id, flavor_id, 1, 1, modified_options)
-          merge_attributes(data.body['server'])
-          true
+          all_floating.empty? ? manual : all_floating
         end
-
-        # Updates server
-        # This will update :name, :accessIPv4, and :accessIPv6 attributes.
-        # @note If you edit the server name, the server host name does not change. Also, server names are not guaranteed to be unique.
-        # @return true if update has started updating
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ServerUpdate.html
-        #
-        # * State Transition
-        #   * ACTIVE -> ACTIVE
-        def update
-          requires :identity
-          options = {
-            'name' => name,
-            'accessIPv4' => ipv4_address,
-            'accessIPv6' => ipv6_address
-          }
-
-          data = service.update_server(identity, options)
-          merge_attributes(data.body['server'])
-          true
-        end
-
-        # Destroy the server
-        # @return [Boolean] returns true if server has started deleting
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Delete_Server-d1e2883.html
-        #
-        # * Status Transition:
-        #   * ACTIVE -> DELETED
-        #   * ERROR -> DELETED
-        def destroy
-          requires :identity
-          service.delete_server(identity)
-          true
-        end
-
-        # Server flavor
-        # @return [Fog::Compute::RackspaceV2::Flavor] server flavor
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        def flavor
-          requires :flavor_id
-          @flavor ||= service.flavors.get(flavor_id)
-        end
-
-        # Server image
-        # @return [Fog::Compute::RackspaceV2::Image] server image
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        def image
-          requires :image_id
-          @image ||= service.images.get(image_id)
-        end
-
-        # Creates Image from server. Once complete, a new image is available that you can use to rebuild or create servers.
-        # @param name [String] name of image to create
-        # @param options [Hash]:
-        # @option options [Hash<String, String>] metadata hash of containing metadata key value pairs.
-        # @return [Fog::ComputeRackspaceV2::Image] image being created
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Create_Image-d1e4655.html
-        #
-        # * State Transition:
-        #   * SAVING -> ACTIVE
-        #   * SAVING  -> ERROR (on error)
-        def create_image(name, options = {})
-          requires :identity
-          response = service.create_image(identity, name, options)
-          begin
-            image_id = response.headers["Location"].match(/\/([^\/]+$)/)[1]
-            Fog::Compute::RackspaceV2::Image.new(:collection => service.images, :service => service, :id => image_id)
-          rescue
-            nil
+=end
+=begin
+        def public_ip_addresses
+          if floating_ip_addresses.empty?
+            if addresses
+              addresses.select { |s| s[0] =~ /public/i }.collect { |a| a[1][0]['addr'] }
+            else
+              []
+            end
+          else
+            floating_ip_addresses
           end
         end
 
-        # Attached Cloud Block Volumes
-        # @return [Fog::Compute::RackspaceV2::Attachments] attached Cloud Block Volumes
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Volume_Attachments.html
-        def attachments
-          @attachments ||= begin
-            Fog::Compute::RackspaceV2::Attachments.new({
-              :service => service,
-              :server => self
-            })
-          end
+        def floating_ip_address
+          floating_ip_addresses.first
         end
 
-        # Attaches Cloud Block Volume
-        # @param [Fog::Rackspace::BlockStorage::Volume, String] volume object or the volume id of volume to mount
-        # @param [String] device name of the device /dev/xvd[a-p]  (optional)
-        # @return [Fog::Compute::RackspaceV2::Attachment] resulting attachment object
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Attach_Volume_to_Server.html
-        def attach_volume(volume, device=nil)
-          requires :identity
-          volume_id = volume.is_a?(String) ? volume : volume.id
-          attachments.create(:server_id => identity, :volume_id => volume_id, :device => device)
+        def public_ip_address
+          public_ip_addresses.first
+        end
+
+        def private_ip_addresses
+          rfc1918_regexp = /(^10\.|^172\.1[6-9]\.|^172\.2[0-9]\.|^172.3[0-1]\.|^192\.168\.)/
+          almost_private = ip_addresses - public_ip_addresses - floating_ip_addresses
+          almost_private.select { |ip| rfc1918_regexp.match ip }
+        end
+
+        def private_ip_address
+          private_ip_addresses.first
+        end
+=end
+
+        # Server's public IPv4 address
+        # @return [String] public IPv4 address
+        def public_ip_address
+          accessIPv4
         end
 
         # Server's private IPv4 address
@@ -409,249 +191,228 @@ module Fog
           addresses['private'].select{|a| a["version"] == 4}[0]["addr"] rescue ''
         end
 
-        # Server's public IPv4 address
-        # @return [String] public IPv4 address
-        def public_ip_address
-          ipv4_address
+        attr_reader :image_id
+
+        attr_writer :image_id
+
+        attr_reader :flavor_id
+
+        attr_writer :flavor_id
+
+        def ready?
+          state == 'ACTIVE'
         end
 
-        # Is server is in ready state
-        # @param [String] ready_state By default state is ACTIVE
-        # @param [Array,String] error_states By default state is ERROR
-        # @return [Boolean] returns true if server is in a ready state
-        # @raise [Fog::Compute::RackspaceV2::InvalidServerStateException] if server state is an error state
-        def ready?(ready_state = ACTIVE, error_states=[ERROR])
-          if error_states
-            error_states = Array(error_states)
-            raise InvalidServerStateException.new(ready_state, state) if error_states.include?(state)
-          end
-          state == ready_state
+        def failed?
+          state == 'ERROR'
         end
 
-        # Reboot server
-        # @param [String<SOFT, HARD>] type 'SOFT' will do a soft reboot. 'HARD' will do a hard reboot.
-        # @return [Boolean] returns true if server is being rebooted
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Reboot_Server-d1e3371.html
-        #
-        # * State transition:
-        #   * ACTIVE -> REBOOT  -> ACTIVE (soft reboot)
-        #   * ACTIVE -> HARD_REBOOT -> ACTIVE (hard reboot)
-        def reboot(type = 'SOFT')
-          requires :identity
-          service.reboot_server(identity, type)
-          self.state = type == 'SOFT' ? REBOOT : HARD_REBOOT
+        def change_password(admin_password)
+          requires :id
+          service.change_server_password(id, admin_password)
           true
         end
 
-        # Rebuild removes all data on the server and replaces it with the specified image. The id and all IP addresses remain the same.
-        # @param [String] image_id image to use for rebuild
-        # @return [Boolean] returns true if rebuild is in process
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Rebuild_Server-d1e3538.html
-        #
-        # * Status Transition:
-        #   * ACTIVE -> REBUILD -> ACTIVE
-        #   * ACTIVE -> REBUILD -> ERROR (on error)
-        def rebuild(image_id, options={})
-          requires :identity
-          service.rebuild_server(identity, image_id, options)
-          self.state = REBUILD
+
+        def rebuild(image_id, name, admin_pass = nil, metadata = nil, personality = nil)
+          requires :id
+          service.rebuild_server(id, image_id, name, admin_pass, metadata, personality)
           true
         end
 
-        # Resize existing server to a different flavor, in essence, scaling the server up or down. The original server is saved for a period of time to allow rollback if there is a problem. All resizes should be tested and explicitly confirmed, at which time the original server is removed. All resizes are automatically confirmed after 24 hours if they are not confirmed or reverted.
-        # @param [String] flavor_id to resize
-        # @return [Boolean] returns true if resize is in process
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        # @note All resizes are automatically confirmed after 24 hours if you do not explicitly confirm or revert the resize.
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Resize_Server-d1e3707.html
-        # @see #confirm_resize
-        # @see #revert_resize
-        #
-        # * Status Transition:
-        #   * ACTIVE -> QUEUE_RESIZE -> PREP_RESIZE -> VERIFY_RESIZE
-        #   * ACTIVE -> QUEUE_RESIZE -> ACTIVE (on error)
         def resize(flavor_id)
-          requires :identity
-          service.resize_server(identity, flavor_id)
-          self.state = RESIZE
+          requires :id
+          service.resize_server(id, flavor_id)
           true
         end
 
-        # Confirms server resize operation
-        # @return [Boolean] returns true if resize has been confirmed
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        # @note All resizes are automatically confirmed after 24 hours if you do not explicitly confirm or revert the resize.
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Confirm_Resized_Server-d1e3868.html
-        # @see #resize
-        #
-        # * Status Transition:
-        #   * VERIFY_RESIZE -> ACTIVE
-            #   * VERIFY_RESIZE -> ERROR (on error)å
-        def confirm_resize
-          requires :identity
-          service.confirm_resize_server(identity)
-          true
-        end
-
-        # Reverts server resize operation
-        # @return [Boolean] returns true if resize is being reverted
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        # @note All resizes are automatically confirmed after 24 hours if you do not explicitly confirm or revert the resize.
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Revert_Resized_Server-d1e4024.html
-        # @see #resize
-        #
-        # * Status Transition:
-        #   * VERIFY_RESIZE -> ACTIVE
-        #   * VERIFY_RESIZE -> ERROR (on error)
         def revert_resize
-          requires :identity
-          service.revert_resize_server(identity)
+          requires :id
+          service.revert_resize_server(id)
           true
         end
 
-        # Place existing server into rescue mode, allowing for offline editing of configuration. The original server's disk is attached to a new instance of the same base image for a period of time to facilitate working within rescue mode.  The original server will be automatically restored after 90 minutes.
-        # @return [Boolean] returns true if call to put server in rescue mode reports success
-        # @raise [Fog::Rackspace::Errors::NotFound] - HTTP 404
-        # @raise [Fog::Rackspace::Errors::BadRequest] - HTTP 400
-        # @raise [Fog::Rackspace::Errors::InternalServerError] - HTTP 500
-        # @raise [Fog::Rackspace::Errors::ServiceError]
-        # @note Rescue mode is only guaranteed to be active for 90 minutes.
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html
-        # @see #unrescue
-        #
-        # * Status Transition:
-        #   * ACTIVE -> PREP_RESCUE -> RESCUE
-        def rescue
-          requires :identity
-          data = service.rescue_server(identity)
-          merge_attributes(data.body)
+        def confirm_resize
+          requires :id
+          service.confirm_resize_server(id)
+          true
+        end
+=begin
+        def security_groups
+          requires :id
+
+          groups = service.list_security_groups(:server_id =&gt; id).body['security_groups']
+
+          groups.map do |group|
+            Fog::Compute::RackspaceV2::SecurityGroup.new group.merge(:service =&gt; service)
+          end
+        end
+
+        attr_writer :security_groups
+=end
+        def reboot(type = 'SOFT')
+          requires :id
+          service.reboot_server(id, type)
           true
         end
 
-        # Remove existing server from rescue mode.
-        # @return [Boolean] returns true if call to remove server from rescue mode reports success
-        # @raise [Fog::Rackspace::Errors::NotFound] - HTTP 404
-        # @raise [Fog::Rackspace::Errors::BadRequest] - HTTP 400
-        # @raise [Fog::Rackspace::Errors::InternalServerError] - HTTP 500
-        # @raise [Fog::Rackspace::Errors::ServiceError]
-        # @note Rescue mode is only guaranteed to be active for 90 minutes.
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/exit_rescue_mode.html
-        # @see #rescue
-        #
-        # * Status Transition:
-        #   * PREP_UNRESCUE -> ACTIVE
-        def unrescue
-          requires :identity
-          service.unrescue_server(identity)
-          self.state = ACTIVE
+        def stop
+          requires :id
+          service.stop_server(id)
+        end
+
+        def pause
+          requires :id
+          service.pause_server(id)
+        end
+
+        def suspend
+          requires :id
+          service.suspend_server(id)
+        end
+
+        def start
+          requires :id
+
+          case state.downcase
+          when 'paused'
+            service.unpause_server(id)
+          when 'suspended'
+            service.resume_server(id)
+          else
+            service.start_server(id)
+          end
+        end
+
+        def shelve
+          requires :id
+          service.shelve_server(id)
+        end
+
+        def unshelve
+          requires :id
+          service.unshelve_server(id)
+        end
+
+        def shelve_offload
+          requires :id
+          service.shelve_offload_server(id)
+        end
+
+        def create_image(name, metadata = {})
+          requires :id
+          service.create_image(id, name, metadata)
+        end
+
+        def console(log_length = nil)
+          requires :id
+          service.get_console_output(id, log_length)
+        end
+
+        def migrate
+          requires :id
+          service.migrate_server(id)
+        end
+
+        def live_migrate(host, block_migration, disk_over_commit)
+          requires :id
+          service.live_migrate_server(id, host, block_migration, disk_over_commit)
+        end
+
+        def evacuate(host = nil, on_shared_storage = nil, admin_password = nil)
+          requires :id
+          service.evacuate_server(id, host, on_shared_storage, admin_password)
+        end
+
+        def associate_address(floating_ip)
+          requires :id
+          service.associate_address id, floating_ip
+        end
+
+        def disassociate_address(floating_ip)
+          requires :id
+          service.disassociate_address id, floating_ip
+        end
+
+        def reset_vm_state(vm_state)
+          requires :id
+          service.reset_server_state id, vm_state
+        end
+
+        attr_writer :min_count
+
+        attr_writer :max_count
+
+        def networks
+          service.networks(:server =&gt; self)
+        end
+
+        def volumes
+          requires :id
+          service.volumes.select do |vol|
+            vol.attachments.find { |attachment| attachment["serverId"] == id }
+          end
+        end
+
+        def volume_attachments
+          requires :id
+          service.get_server_volumes(id).body['volumeAttachments']
+        end
+
+        def attach_volume(volume_id, device_name)
+          requires :id
+          service.attach_volume(volume_id, id, device_name)
           true
         end
 
-        # Change admin password
-        # @param [String] password The administrator password.
-        # @return [Boolean] returns true if operation was scheduled
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        # @note Though Rackspace does not enforce complexity requirements for the password, the operating system might. If the password is not complex enough, the server might enter an ERROR state.
-        # @see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Change_Password-d1e3234.html
-        #
-        # * Status Transition:
-        #   * ACTIVE -> PASSWORD -> ACTIVE
-        #   * ACTIVE -> PASSWORD -> ERROR (on error)
-        def change_admin_password(password)
-          requires :identity
-          service.change_server_password(identity, password)
-          self.state = PASSWORD
-          self.password = password
+        def detach_volume(volume_id)
+          requires :id
+          service.detach_volume(id, volume_id)
           true
         end
 
-        # Setup server for SSH access
-        # @see Servers#bootstrap
+        def save
+          raise Fog::Errors::Error, 'Resaving an existing object may create a duplicate' if persisted?
+          requires :flavor_id, :name
+          requires_one :image_id, :block_device_mapping, :block_device_mapping_v2
+          options = {
+            'personality'             =&gt; personality,
+            'accessIPv4'              =&gt; accessIPv4,
+            'accessIPv6'              =&gt; accessIPv6,
+#            'availability_zone'       =&gt; availability_zone,
+            'user_data'               =&gt; user_data_encoded,
+            'key_name'                =&gt; key_name,
+            'config_drive'            =&gt; config_drive,
+#            'security_groups'         =&gt; @security_groups,
+            'min_count'               =&gt; @min_count,
+            'max_count'               =&gt; @max_count,
+            'nics'                    =&gt; @nics,
+#            'os:scheduler_hints'      =&gt; @os_scheduler_hints,
+            'block_device_mapping'    =&gt; @block_device_mapping,
+            'block_device_mapping_v2' =&gt; @block_device_mapping_v2,
+          }
+          options['metadata'] = metadata.to_hash unless @metadata.nil?
+          options = options.reject { |_key, value| value.nil? }
+          data = service.create_server(name, image_id, flavor_id, options)
+          merge_attributes(data.body['server'])
+          true
+        end
+
         def setup(credentials = {})
           requires :ssh_ip_address, :identity, :public_key, :username
-
-          retried_disconnect = false
-
-          commands = [
-            %{mkdir .ssh},
-            %{echo "#{public_key}" >> ~/.ssh/authorized_keys},
-            password_lock,
-            %{echo "#{Fog::JSON.encode(attributes)}" >> ~/attributes.json},
-            %{echo "#{Fog::JSON.encode(metadata)}" >> ~/metadata.json}
-          ]
-          commands.compact
-
-          self.password = nil if password_lock
-
-          Fog::SSH.new(ssh_ip_address, username, credentials).run(commands)
+          ssh = Fog::SSH.new(ssh_ip_address, username, credentials)
+          ssh.run([
+                    %(mkdir .ssh),
+                    %(echo "#{public_key}" &gt;&gt; ~/.ssh/authorized_keys),
+                    %(passwd -l #{username}),
+                    %(echo "#{Fog::JSON.encode(attributes)}" &gt;&gt; ~/attributes.json),
+                    %(echo "#{Fog::JSON.encode(metadata)}" &gt;&gt; ~/metadata.json)
+                  ])
         rescue Errno::ECONNREFUSED
           sleep(1)
           retry
-        # Ubuntu 12.04 images seem to be disconnecting during the ssh setup process.
-        # This rescue block is an effort to address that issue.
-        rescue Net::SSH::Disconnect
-          unless retried_disconnect
-            retried_disconnect = true
-            sleep(1)
-            retry
-          end
         end
 
-        def virtual_interfaces
-          @virtual_interfaces ||= Fog::Compute::RackspaceV2::VirtualInterfaces.new :server => self, :service => service
-        end
-
-        # VNC Console URL
-        # @param [String] Type of vnc console to get ('novnc' or 'xvpvnc')
-        # @return [String] returns URL to vnc console
-        # @raise [Fog::Compute::RackspaceV2::NotFound] - HTTP 404
-        # @raise [Fog::Compute::RackspaceV2::BadRequest] - HTTP 400
-        # @raise [Fog::Compute::RackspaceV2::InternalServerError] - HTTP 500
-        # @raise [Fog::Compute::RackspaceV2::ServiceError]
-        # @note This URL will time out due to inactivity
-        def get_vnc_console(console_type = "xvpvnc")
-          requires :identity
-          data = service.get_vnc_console(identity, console_type)
-          data.body['console']['url']
-        end
-
-        private
-
-        def adminPass=(new_admin_pass)
-          self.password = new_admin_pass
-        end
-
-        def password_lock
-          if !attributes[:no_passwd_lock].nil?
-            Fog::Logger.warning("Rackspace[:no_passwd_lock] is deprecated since it is now the default behavior, use Rackspace[:passwd_lock] instead")
-          end
-
-          "passwd -l #{username}" if attributes[:passwd_lock]
-        end
-
-        def user_data_encoded
-           self.user_data.nil? ? nil : [self.user_data].pack('m')
-        end
       end
     end
   end
