@@ -519,6 +519,39 @@ module Fog
           true
         end
 
+        # This operation starts a stopped server, and changes its status to ACTIVE.
+        # Prior to running this command, the server status must be SHUTTOFF
+        # @param [String] server_id id of server to rescue
+        # @return [Boolean] returns true if call to put server in ACTIVE mode reports success
+        # @raise [Fog::Rackspace::Errors::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Errors::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Errors::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Errors::ServiceError]
+        # @note Rescue mode is only guaranteed to be active for 90 minutes
+        # @see https://developer.rackspace.com/docs/cloud-servers/v2/api-reference/svr-basic-operations/#start-specified-server
+        def start
+          requires :identity
+          service.start_server(identity)
+          true
+        end
+
+        # This operation stops a running server, and changes the server status to SHUTOFF
+        # and changes the clean_shutdown parameter to TRUE.
+        # Prior to running this command, the server status must be ACTIVE or ERROR.
+        # @param [String] server_id id of server to rescue
+        # @return [Boolean] returns true if call to put server in SHUTOFF mode reports success
+        # @raise [Fog::Rackspace::Errors::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Errors::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Errors::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Errors::ServiceError]
+        # @note Rescue mode is only guaranteed to be active for 90 minutes
+        # @see https://developer.rackspace.com/docs/cloud-servers/v2/api-reference/svr-basic-operations/#stop-specified-server
+        def stop
+          requires :identity
+          service.stop_server(identity)
+          true
+        end
+
         # Place existing server into rescue mode, allowing for offline editing of configuration. The original server's disk is attached to a new instance of the same base image for a period of time to facilitate working within rescue mode.  The original server will be automatically restored after 90 minutes.
         # @return [Boolean] returns true if call to put server in rescue mode reports success
         # @raise [Fog::Rackspace::Errors::NotFound] - HTTP 404

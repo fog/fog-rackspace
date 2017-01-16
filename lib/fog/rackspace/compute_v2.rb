@@ -81,6 +81,8 @@ module Fog
       request :unrescue_server
       request :list_addresses
       request :list_addresses_by_network
+      request :start_server
+      request :stop_server
 
       request :create_image
       request :list_images

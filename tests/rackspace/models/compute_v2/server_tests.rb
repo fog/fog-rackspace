@@ -150,6 +150,18 @@ Shindo.tests('Fog::Compute::RackspaceV2 | server', ['rackspace']) do
     end
 
     @instance.wait_for { ready?('RESCUE') }
+    tests('#start').succeeds do
+      @instance.start
+    end
+
+    sleep 30 unless Fog.mocking?
+    @instance.wait_for { ready?('ACTIVE') }
+    tests('#stop').succeeds do
+      @instance.stop
+    end
+
+    sleep 30 unless Fog.mocking?
+    @instance.wait_for { ready?('SHUTOFF') }
     tests('#unrescue').succeeds do
       @instance.unrescue
     end
