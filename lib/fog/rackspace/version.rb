@@ -1,5 +1,5 @@
 module Fog
   module Rackspace
-    VERSION = "0.1.3"
+    VERSION = "0.1.1"
   end
 end
