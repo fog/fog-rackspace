@@ -45,6 +45,13 @@ module Fog
           first_attempt = false
           authenticate
           retry
+        rescue Excon::Error::Socket => ees
+          if ees.message && ees.message.downcase.include?('broken pipe')
+            raise ees unless first_attempt
+            first_attempt = false
+            authenticate
+            retry
+          end
         end
 
         process_response(response) if parse_json
