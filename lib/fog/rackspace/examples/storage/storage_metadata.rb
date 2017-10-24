@@ -2,7 +2,6 @@
 
 # This example demonstrates creating a file on the CDN network with the Rackpace Open Cloud
 
-require 'rubygems' #required for Ruby 1.8.x
 require 'fog'
 
 # Use username defined in ~/.fog file, if absent prompt for username.

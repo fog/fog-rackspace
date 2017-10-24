@@ -2,7 +2,6 @@
 
 # This example demonstrates creating a server with the Rackpace Open Cloud
 
-require 'rubygems' #required for Ruby 1.8.x
 require 'fog'
 require "base64" #required to encode files for personality functionality
 

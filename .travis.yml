@@ -4,25 +4,15 @@ script: bundle exec rake test
 matrix:
   fast_finish: true
   include:
-  - rvm: 1.8.7
-    gemfile: gemfiles/Gemfile-ruby-1.8.7
-  - rvm: 1.9.3
+  - rvm: 2.0
     gemfile: Gemfile
-  - rvm: 2.0.0
+  - rvm: 2.1
     gemfile: Gemfile
-  - rvm: 2.1.0
+  - rvm: 2.2
     gemfile: Gemfile
-  - rvm: 2.1.1
+  - rvm: 2.3
     gemfile: Gemfile
-  - rvm: 2.1.1
-    gemfile: gemfiles/Gemfile-edge
-  - rvm: 2.2.0
-    gemfile: Gemfile
-  - rvm: 2.2.0
-    gemfile: gemfiles/Gemfile-edge
-  - rvm: jruby-18mode
-    gemfile: gemfiles/Gemfile-ruby-1.8.7
-  - rvm: jruby-19mode
+  - rvm: 2.4
     gemfile: Gemfile
   - rvm: jruby-head
     gemfile: Gemfile

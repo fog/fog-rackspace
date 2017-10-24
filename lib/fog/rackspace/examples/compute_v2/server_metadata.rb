@@ -2,7 +2,6 @@
 
 # This example demonstrates working with server metadata on the Rackpace Open Cloud
 
-require 'rubygems' #required for Ruby 1.8.x
 require './lib/fog'
 
 # Use username defined in ~/.fog file, if absent prompt for username.
