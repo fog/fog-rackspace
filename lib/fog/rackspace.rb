@@ -2,11 +2,6 @@ require 'fog/rackspace/version'
 require 'fog/core'
 require 'fog/json'
 
-require 'fog/rackspace/mock_data'
-require 'fog/rackspace/service'
-require 'fog/rackspace/errors'
-
-
 module Fog
   module CDN
     autoload :Rackspace,  File.expand_path('../rackspace/cdn', __FILE__)
@@ -26,6 +21,10 @@ module Fog
   end
   
   module Rackspace
+    autoload :Errors, File.expand_path('../rackspace/errors', __FILE__)
+    autoload :MockData, File.expand_path('../rackspace/mock_data', __FILE__)
+    autoload :Service, File.expand_path('../rackspace/service', __FILE__)
+
     extend Fog::Provider
 
     US_AUTH_ENDPOINT = 'https://identity.api.rackspacecloud.com/v2.0' unless defined? US_AUTH_ENDPOINT
