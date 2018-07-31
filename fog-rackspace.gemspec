@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake',    '~> 10.0'
   spec.add_development_dependency 'shindo',  '~> 0.3'
   spec.add_development_dependency 'rspec',  '~> 3.4'
-  spec.add_development_dependency 'rubyzip', '~> 0.9.9'
+  spec.add_development_dependency 'rubyzip', '~> 1.2.1'
   spec.add_development_dependency 'pry', '~> 0.10.3'
   spec.add_development_dependency 'vcr', '~> 3.0.1'
   spec.add_development_dependency 'webmock', '~> 1.24.2'
