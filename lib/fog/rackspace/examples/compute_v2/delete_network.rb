@@ -2,7 +2,6 @@
 
 # This example demonstrates deletes a private network and attaching it to a new server with the Rackpace Open Cloud
 
-require 'rubygems' #required for Ruby 1.8.x
 require 'fog'
 
 def wait_for_server_deletion(server)

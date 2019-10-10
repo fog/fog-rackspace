@@ -2,7 +2,6 @@
 
 # This example demonstrates how to delete servers with Fog and the Rackspace Open Cloud
 
-require 'rubygems' #required for Ruby 1.8.x
 require 'fog'
 
 def get_user_input(prompt)

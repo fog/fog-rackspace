@@ -2,7 +2,6 @@
 
 # This example demonstrates creating a container with CDN on the Rackpace Open Cloud
 
-require 'rubygems' #required for Ruby 1.8.x
 require 'fog'
 
 def get_user_input(prompt)

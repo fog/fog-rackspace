@@ -2,7 +2,6 @@
 
 # This example demonstrates uploading large files in segments
 
-require 'rubygems' #required for Ruby 1.8.x
 require 'fog'
 
 # Size of segment. The Rackspace cloud currently requires files larger than 5GB to be segmented so we will choose 5GB -1 for a size
