@@ -19,11 +19,11 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency 'bundler', '~> 1.6'
+  spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'rake',    '~> 10.0'
   spec.add_development_dependency 'shindo',  '~> 0.3'
   spec.add_development_dependency 'rspec',  '~> 3.4'
-  spec.add_development_dependency 'rubyzip', '~> 1.2.1'
+  spec.add_development_dependency 'rubyzip', '~> 1.3.0'
   spec.add_development_dependency 'pry', '~> 0.10.3'
   spec.add_development_dependency 'vcr', '~> 3.0.1'
   spec.add_development_dependency 'webmock', '~> 1.24.2'
