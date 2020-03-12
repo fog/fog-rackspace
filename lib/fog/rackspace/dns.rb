@@ -170,3 +170,5 @@ module Fog
     end
   end
 end
+
+Fog::Rackspace::DNS = Fog::DNS::Rackspace

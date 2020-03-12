@@ -254,3 +254,5 @@ module Fog
     end
   end
 end
+
+Fog::Rackspace::Compute = Fog::Compute::Rackspace
