@@ -48,7 +48,7 @@ module Fog
           payload[description] = {
             "age" => element.age,
             "href" => element.href,
-            "created" => ctime.strftime("%Y-%m-%dT%I:%M:%SZ")
+            "created" => ctime.strftime("%Y-%m-%dT%H:%M:%SZ")
           }
         end
       end
