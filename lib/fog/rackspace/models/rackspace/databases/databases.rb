@@ -3,8 +3,7 @@ require 'fog/rackspace/models/databases/database'
 
 module Fog
   module Rackspace
-    class Databases
-      class Databases < Fog::Collection
+    class Databases < Fog::Collection
         model Fog::Rackspace::Databases::Database
 
         attr_accessor :instance

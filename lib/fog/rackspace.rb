@@ -47,6 +47,7 @@ module Fog
     autoload :Networking, File.expand_path('../rackspace/networking', __FILE__)
     autoload :Orchestration, File.expand_path('../rackspace/orchestration', __FILE__)
     autoload :NetworkingV2, File.expand_path('../rackspace/networking_v2', __FILE__)
+    autoload :Databases, File.expand_path('../rackspace/databases', __FILE__)
 
     service(:auto_scale,       'AutoScale')
     service(:block_storage,    'BlockStorage')
