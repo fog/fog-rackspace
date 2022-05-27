@@ -1,4 +1,4 @@
-Shindo.tests('Fog::Rackspace::Identity | tenants', ['rackspace']) do
+Shindo.tests('Fog::Identity::Rackspace | tenants', ['rackspace']) do
 
   pending if Fog.mock?
 
@@ -11,7 +11,7 @@ Shindo.tests('Fog::Rackspace::Identity | tenants', ['rackspace']) do
     }]
   }
 
-  service = Fog::Rackspace::Identity.new
+  service = Fog::Identity::Rackspace.new
 
   tests('success') do
     tests('#list_tenants').formats(TENANTS_FORMATS) do

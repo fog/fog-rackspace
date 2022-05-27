@@ -1,8 +1,8 @@
-Shindo.tests('Fog::Rackspace::Identity | credentials', ['rackspace']) do
+Shindo.tests('Fog::Identity::Rackspace | credentials', ['rackspace']) do
 
   pending if Fog.mocking?
 
-  service = Fog::Rackspace::Identity.new
+  service = Fog::Identity::Rackspace.new
   user = service.users.all.first
 
   tests('success') do

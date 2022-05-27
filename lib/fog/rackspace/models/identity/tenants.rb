@@ -5,7 +5,7 @@ module Fog
   module Rackspace
     class Identity
       class Tenants < Fog::Collection
-        model Fog::Rackspace::Identity::Tenant
+        model Fog::Identity::Rackspace::Tenant
 
         def all
           load(retrieve_tenants)

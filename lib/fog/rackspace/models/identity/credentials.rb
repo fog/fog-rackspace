@@ -5,7 +5,7 @@ module Fog
   module Rackspace
     class Identity
       class Credentials < Fog::Collection
-        model Fog::Rackspace::Identity::Credential
+        model Fog::Identity::Rackspace::Credential
 
         attr_accessor :user
 

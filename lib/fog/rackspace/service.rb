@@ -119,7 +119,7 @@ module Fog
               :connection_options => identity_options[:connection_options] || {}
         }
 
-        @identity_service = Fog::Rackspace::Identity.new(hash)
+        @identity_service = Fog::Identity::Rackspace.new(hash)
         @auth_token = @identity_service.auth_token
       end
 

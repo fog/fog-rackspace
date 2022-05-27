@@ -5,7 +5,7 @@ module Fog
   module Rackspace
     class Identity
       class Users < Fog::Collection
-        model Fog::Rackspace::Identity::User
+        model Fog::Identity::Rackspace::User
 
         def all
           data = service.list_users.body['users']

@@ -35,7 +35,7 @@ Shindo.tests('Fog::Rackspace::ServiceCatalog | users', ['rackspace']) do
       "user"=>{"roles"=>[{"description"=>"User Admin
       Role.", "name"=>"identity:user-admin", "id"=>"3"}], "name"=>"joe-racker", "RAX-AUTH:defaultRegion"=>"", "id"=>"TK421"}}}
 
-      @service_catalog = Fog::Rackspace::Identity::ServiceCatalog.from_response(nil, before_hash)
+      @service_catalog = Fog::Identity::Rackspace::ServiceCatalog.from_response(nil, before_hash)
     end
 
     tests('services') do
@@ -63,7 +63,7 @@ Shindo.tests('Fog::Rackspace::ServiceCatalog | users', ['rackspace']) do
     tests('with one endpoint') do
       tests('catalog contains global endpoint') do
         catalog_hash =  [{"type"=>"volume", "endpoints"=>[{"tenantId"=>"777", "publicURL"=>"https://blockstorage.api.rackspacecloud.com/v1/777"}], "name"=>"cloudBlockStorage"}]
-        @service_catalog = Fog::Rackspace::Identity::ServiceCatalog.new(:service => nil, :catalog => catalog_hash)
+        @service_catalog = Fog::Identity::Rackspace::ServiceCatalog.new(:service => nil, :catalog => catalog_hash)
 
         tests('no region specifed').returns("https://blockstorage.api.rackspacecloud.com/v1/777") do
           @service_catalog.get_endpoint(:cloudBlockStorage)
@@ -74,7 +74,7 @@ Shindo.tests('Fog::Rackspace::ServiceCatalog | users', ['rackspace']) do
       end
       tests('catalog does not contain global endpoint') do
         catalog_hash =   [{"type"=>"volume", "endpoints"=>[{"region" => "ORD", "tenantId"=>"777", "publicURL"=>"https://ord.blockstorage.api.rackspacecloud.com/v1/777"}], "name"=>"cloudBlockStorage"}]
-        @service_catalog = Fog::Rackspace::Identity::ServiceCatalog.new(:service => nil, :catalog => catalog_hash)
+        @service_catalog = Fog::Identity::Rackspace::ServiceCatalog.new(:service => nil, :catalog => catalog_hash)
 
         tests('non-existing region') do
           raises(RuntimeError) { @service_catalog.get_endpoint(:cloudBlockStorage, :dfw) }
@@ -92,7 +92,7 @@ Shindo.tests('Fog::Rackspace::ServiceCatalog | users', ['rackspace']) do
       {"internalURL"=>"https://snet-storage101.ord1.clouddrive.com/v1/Mosso777", "region"=>"ORD",
       "tenantId"=>"Mosso777",
       "publicURL"=>"https://storage101.ord1.clouddrive.com/v1/Mosso777"}], "name"=>"cloudFiles"}]
-      @service_catalog = Fog::Rackspace::Identity::ServiceCatalog.new(:service => nil, :catalog => catalog_hash)
+      @service_catalog = Fog::Identity::Rackspace::ServiceCatalog.new(:service => nil, :catalog => catalog_hash)
 
       returns("https://storage101.ord1.clouddrive.com/v1/Mosso777") { @service_catalog.get_endpoint(:cloudFiles, :ord) }
       returns("https://snet-storage101.ord1.clouddrive.com/v1/Mosso777") { @service_catalog.get_endpoint(:cloudFiles, :ord, true) }
@@ -130,7 +130,7 @@ Shindo.tests('Fog::Rackspace::ServiceCatalog | users', ['rackspace']) do
       "publicURL"=>"https://dfw.servers.api.rackspacecloud.com/v2/777"}, {"region"=>"ORD", "versionId"=>"2", "tenantId"=>"777",
       "versionList"=>"https://ord.servers.api.rackspacecloud.com/", "versionInfo"=>"https://ord.servers.api.rackspacecloud.com/v2",
       "publicURL"=>"https://ord.servers.api.rackspacecloud.com/v2/777"}, {"versionId"=>"2", "tenantId"=>"777", "versionList"=>"https://servers.api.rackspacecloud.com/", "versionInfo"=>"https://servers.api.rackspacecloud.com/v2", "publicURL"=>"https://servers.api.rackspacecloud.com/v2/777"}], "name"=>"cloudServersOpenStack"}]
-      @service_catalog = Fog::Rackspace::Identity::ServiceCatalog.new(:service => nil, :catalog => catalog_hash)
+      @service_catalog = Fog::Identity::Rackspace::ServiceCatalog.new(:service => nil, :catalog => catalog_hash)
 
      @service_catalog.display_service_regions(:cloudServersOpenStack)
     end
@@ -142,7 +142,7 @@ Shindo.tests('Fog::Rackspace::ServiceCatalog | users', ['rackspace']) do
       { "region"=>"ORD",
       "tenantId"=>"Mosso777",
       "publicURL"=>"https://storage101.ord1.clouddrive.com/v1/Mosso777"}], "name"=>"cloudFiles"},]
-      @service_catalog = Fog::Rackspace::Identity::ServiceCatalog.new(:service => nil, :catalog => catalog_hash)
+      @service_catalog = Fog::Identity::Rackspace::ServiceCatalog.new(:service => nil, :catalog => catalog_hash)
       tests('public').returns(":dfw, :ord") do
         @service_catalog.display_service_regions(:cloudFiles)
       end

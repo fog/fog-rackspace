@@ -1,8 +1,6 @@
-
-
 module Fog
-  module Storage
-    class Rackspace < Fog::Service
+  module Rackspace
+    class Storage < Fog::Service
       include Fog::Rackspace::Errors
 
       class ServiceError < Fog::Rackspace::Errors::ServiceError; end

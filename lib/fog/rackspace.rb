@@ -3,24 +3,25 @@ require 'fog/core'
 require 'fog/json'
 
 module Fog
-  module CDN
-    autoload :Rackspace,  File.expand_path('../rackspace/cdn', __FILE__)
-  end
 
-  module Compute
-    autoload :Rackspace, File.expand_path('../rackspace/compute', __FILE__)
-    autoload :RackspaceV2, File.expand_path('../rackspace/compute_v2', __FILE__)
-  end
-
-  module DNS
-    autoload :Rackspace, File.expand_path('../rackspace/dns', __FILE__)
-  end
-
-  module Storage
-    autoload :Rackspace, File.expand_path('../rackspace/storage', __FILE__)
-  end
-  
   module Rackspace
+    # module Compute
+    #   autoload :Rackspace, File.expand_path('../rackspace/compute', __FILE__)
+    #   autoload :RackspaceV2, File.expand_path('../rackspace/compute_v2', __FILE__)
+    # end
+
+    # module DNS
+    #   autoload :Rackspace, File.expand_path('../rackspace/dns', __FILE__)
+    # end
+
+    # # module Storage
+    # #   autoload :Rackspace, File.expand_path('../rackspace/storage', __FILE__)
+    # # end
+    
+    # module CDN
+    #   autoload :Rackspace,  File.expand_path('../rackspace/cdn', __FILE__)
+    # end
+
     autoload :Errors, File.expand_path('../rackspace/errors', __FILE__)
     autoload :MockData, File.expand_path('../rackspace/mock_data', __FILE__)
     autoload :Service, File.expand_path('../rackspace/service', __FILE__)
@@ -50,9 +51,9 @@ module Fog
     service(:auto_scale,       'AutoScale')
     service(:block_storage,    'BlockStorage')
     service(:cdn,              'CDN')
-    service(:cdn_v2,           'CDN v2')
+    service(:cdn_v2,           'CDNV2')
     service(:compute,          'Compute')
-    service(:compute_v2,       'Compute v2')
+    service(:compute_v2,       'ComputeV2')
     service(:dns,              'DNS')
     service(:storage,          'Storage')
     service(:load_balancers,   'LoadBalancers')

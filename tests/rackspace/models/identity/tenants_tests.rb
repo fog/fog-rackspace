@@ -1,8 +1,8 @@
-Shindo.tests('Fog::Rackspace::Identity | tenants', ['rackspace']) do
+Shindo.tests('Fog::Identity::Rackspace | tenants', ['rackspace']) do
 
   pending if Fog.mocking?
 
-  service = Fog::Rackspace::Identity.new
+  service = Fog::Identity::Rackspace.new
   username = "fog_user_#{Time.now.to_i.to_s}"
   options = {
     :username => username,
