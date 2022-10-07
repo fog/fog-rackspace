@@ -463,3 +463,5 @@ module Fog
     end
   end
 end
+
+Fog::Rackspace::Storage = Fog::Storage::Rackspace
