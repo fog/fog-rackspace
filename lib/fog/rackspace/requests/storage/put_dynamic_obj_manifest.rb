@@ -1,6 +1,6 @@
 module Fog
-  module Storage
-    class Rackspace
+  module Rackspace
+    class Storage
       class Real
         # Create a new dynamic large object manifest
         #
@@ -19,10 +19,10 @@ module Fog
         # @param options [Hash] Config headers for +object+.
         # @option options [String] 'X-Object-Manifest' ("container/object") "<container>/<prefix>" for segment objects.
         #
-        # @raise [Fog::Storage::Rackspace::NotFound] HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::NotFound] HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         # @raise [Excon::Errors::Unauthorized]
         #
         # @see http://docs.rackspace.com/files/api/v1/cf-devguide/content/Large_Object_Creation-d1e2019.html

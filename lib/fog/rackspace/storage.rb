@@ -1,8 +1,8 @@
 
 
 module Fog
-  module Storage
-    class Rackspace < Fog::Service
+  module Rackspace
+    class Storage < Fog::Service
       include Fog::Rackspace::Errors
 
       class ServiceError < Fog::Rackspace::Errors::ServiceError; end
@@ -118,7 +118,7 @@ module Fog
         # Return Account Details
         # @return [Fog::Storage::Rackspace::Account] account details object
         def account
-          account = Fog::Storage::Rackspace::Account.new(:service => self)
+          account = Fog::Rackspace::Storage::Account.new(:service => self)
           account.reload
         end
       end
@@ -182,7 +182,7 @@ module Fog
           # @return [MockObject] The object within this container with the
           #   specified name.
           def mock_object!(name)
-            mock_object(name) or raise Fog::Storage::Rackspace::NotFound.new
+            mock_object(name) or raise Fog::Rackspace::Storage::NotFound.new
           end
 
           # Add a new MockObject to this container. An existing object with

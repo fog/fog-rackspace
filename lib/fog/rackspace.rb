@@ -16,10 +16,6 @@ module Fog
     autoload :Rackspace, File.expand_path('../rackspace/dns', __FILE__)
   end
 
-  module Storage
-    autoload :Rackspace, File.expand_path('../rackspace/storage', __FILE__)
-  end
-  
   module Rackspace
     autoload :Errors, File.expand_path('../rackspace/errors', __FILE__)
     autoload :MockData, File.expand_path('../rackspace/mock_data', __FILE__)
