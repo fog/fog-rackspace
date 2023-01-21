@@ -3,19 +3,6 @@ require 'fog/core'
 require 'fog/json'
 
 module Fog
-  module CDN
-    autoload :Rackspace,  File.expand_path('../rackspace/cdn', __FILE__)
-  end
-
-  module Compute
-    autoload :Rackspace, File.expand_path('../rackspace/compute', __FILE__)
-    autoload :RackspaceV2, File.expand_path('../rackspace/compute_v2', __FILE__)
-  end
-
-  module DNS
-    autoload :Rackspace, File.expand_path('../rackspace/dns', __FILE__)
-  end
-
   module Rackspace
     autoload :Errors, File.expand_path('../rackspace/errors', __FILE__)
     autoload :MockData, File.expand_path('../rackspace/mock_data', __FILE__)
@@ -62,7 +49,7 @@ module Fog
 
     def self.authenticate(options, connection_options = {})
       rackspace_auth_url = options[:rackspace_auth_url]
-      rackspace_auth_url ||= options[:rackspace_endpoint] == Fog::Compute::RackspaceV2::LON_ENDPOINT ? UK_AUTH_ENDPOINT : US_AUTH_ENDPOINT
+      rackspace_auth_url ||= options[:rackspace_endpoint] == Fog::Rackspace::ComputeV2::LON_ENDPOINT ? UK_AUTH_ENDPOINT : US_AUTH_ENDPOINT
       url = rackspace_auth_url.match(/^https?:/) ? \
                 rackspace_auth_url : 'https://' + rackspace_auth_url
       uri = URI.parse(url)

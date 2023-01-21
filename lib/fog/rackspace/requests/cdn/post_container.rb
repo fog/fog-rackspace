@@ -14,10 +14,10 @@ module Fog
         #   * 'X-User-Agent-ACL'<~String> - ?
         #   * 'X-Referrer-ACL'<~String> - ?
         # @return [Excon::Response] response
-        # @raise [Fog::Storage::Rackspace::NotFound] - HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         def post_container(name, options = {})
           response = request(
             :expects  => [201, 202],
@@ -31,7 +31,7 @@ module Fog
 
       class Mock
         def post_container(name, options = {})
-          raise Fog::Storage::Rackspace::NotFound.new "#{name} not found" unless name == 'fogcontainertests'
+          raise Fog::Rackspace::Storage::NotFound.new "#{name} not found" unless name == 'fogcontainertests'
           response = Excon::Response.new
           response.status = 202
           response.headers = {

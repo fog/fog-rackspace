@@ -1,8 +1,8 @@
 
 
 module Fog
-  module DNS
-    class Rackspace < Fog::Service
+  module Rackspace
+    class DNS < Fog::Service
       include Fog::Rackspace::Errors
 
       class ServiceError < Fog::Rackspace::Errors::ServiceError; end

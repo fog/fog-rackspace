@@ -14,10 +14,10 @@ module Fog
         #   * 'X-User-Agent-ACL'<~String> - ?
         #   * 'X-Referrer-ACL'<~String> - ?
         # @return [Excon::Response] response
-        # @raise [Fog::Storage::Rackspace::NotFound] - HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         def put_container(name, options = {})
           response = request(
             :expects  => [201, 202],

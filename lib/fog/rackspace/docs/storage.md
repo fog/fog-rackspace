@@ -245,17 +245,17 @@ To retrieve a list of directories:
 
 	service.directories
 	
-This returns a collection of `Fog::Storage::Rackspace::Directory` models:
+This returns a collection of `Fog::Rackspace::Storage::Directory` models:
 
-	<Fog::Storage::Rackspace::Directories
+	<Fog::Rackspace::Storage::Directories
     [
-      <Fog::Storage::Rackspace::Directory
+      <Fog::Rackspace::Storage::Directory
         key="blue",
         bytes=434266,
         count=1,
         cdn_cname=nil
       >,
-      <Fog::Storage::Rackspace::Directory
+      <Fog::Rackspace::Storage::Directory
         key="brown",
         bytes=761879,
         count=1,
@@ -277,9 +277,9 @@ This call is similar to...
 
 ... except the `get` method makes an HTTP call that returns metadata for up to the first 10,000 files. **This can be slow!**
 
-This returns a `Fog::Storage::Rackspace::Directory` instance:
+This returns a `Fog::Rackspace::Storage::Directory` instance:
 
-	<Fog::Storage::Rackspace::Directory
+	<Fog::Rackspace::Storage::Directory
     key="blue",
     bytes=434266,
     count=1,
@@ -471,7 +471,7 @@ To stream video for iOS devices without needing to convert your video use the fo
 	
 ## Metadata
 
-You can access metadata as an attribute on both `Fog::Storage::Rackspace::Directory` and `Fog::Storage::Rackspace::File`.
+You can access metadata as an attribute on both `Fog::Rackspace::Storage::Directory` and `Fog::Rackspace::Storage::File`.
 
 This example demonstrates how to iterate through a directory's metadata:
 
@@ -528,9 +528,9 @@ To view Cloud Files usage execute the following:
 
 	service.account
 	
-This returns a `Fog::Storage::Rackspace::Account` instance:
+This returns a `Fog::Rackspace::Storage::Account` instance:
 
-	<Fog::Storage::Rackspace::Account
+	<Fog::Rackspace::Storage::Account
     meta_temp_url_key="lkkl23jl2j3",
     container_count=13,
     bytes_used=2563554,
