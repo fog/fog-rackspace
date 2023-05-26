@@ -19,7 +19,7 @@ module Fog
     autoload :CDNV2, File.expand_path('../rackspace/cdn_v2', __FILE__)
     autoload :Compute, File.expand_path('../rackspace/compute', __FILE__)
     autoload :ComputeV2, File.expand_path('../rackspace/compute_v2', __FILE__)
-    autoload :Database, File.expand_path('../rackspace/databases', __FILE__)
+    autoload :Databases, File.expand_path('../rackspace/databases', __FILE__)
     autoload :DNS, File.expand_path('../rackspace/dns', __FILE__)
     autoload :Identity, File.expand_path('../rackspace/identity', __FILE__)
     autoload :LoadBalancers, File.expand_path('../rackspace/load_balancers', __FILE__)
