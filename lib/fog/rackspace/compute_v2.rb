@@ -251,3 +251,5 @@ module Fog
     end
   end
 end
+
+Fog::Rackspace::ComputeV2 = Fog::Compute::RackspaceV2
