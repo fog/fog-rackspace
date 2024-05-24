@@ -1,8 +1,8 @@
 require 'fog/core/model'
 
 module Fog
-  module Storage
-    class Rackspace
+  module Rackspace
+    class Storage
       class File < Fog::Model
         # @!attribute [r] key
         # @return [String] The name of the file

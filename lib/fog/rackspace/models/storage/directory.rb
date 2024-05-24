@@ -3,8 +3,8 @@ require 'fog/rackspace/models/storage/files'
 require 'fog/rackspace/models/storage/metadata'
 
 module Fog
-  module Storage
-    class Rackspace
+  module Rackspace
+    class Storage
       class Directory < Fog::Model
         # @!attribute [r] key
         # @return [String] The name of the directory

@@ -1,6 +1,6 @@
 module Fog
-  module Storage
-    class Rackspace
+  module Rackspace
+    class Storage
       class Metadata
         OBJECT_META_PREFIX = "X-Object-Meta-"
         OBJECT_REMOVE_META_PREFIX = "X-Remove-Object-Meta-"

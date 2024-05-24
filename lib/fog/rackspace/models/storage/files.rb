@@ -2,8 +2,8 @@ require 'fog/core/collection'
 require 'fog/rackspace/models/storage/file'
 
 module Fog
-  module Storage
-    class Rackspace
+  module Rackspace
+    class Storage
       class Files < Fog::Collection
         # @!attribute [rw] directory
         # @return [String] The name of the directory

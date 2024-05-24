@@ -2,8 +2,8 @@ require 'fog/core/collection'
 require 'fog/rackspace/models/storage/directory'
 
 module Fog
-  module Storage
-    class Rackspace
+  module Rackspace
+    class Storage
       class Directories < Fog::Collection
         model Fog::Rackspace::Storage::Directory
 
