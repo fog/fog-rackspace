@@ -5,7 +5,7 @@ Shindo.tests('Fog::CDN[:rackspace] | CDN requests', ['rackspace']) do
   @containers_format = [{
     "cdn_ios_uri" => String,
     "log_retention" => Fog::Boolean,
-    "ttl" => Fixnum,
+    "ttl" => Integer,
     "cdn_streaming_uri" => String,
     "cdn_enabled" => Fog::Boolean,
     "name" => String,

@@ -1,4 +1,4 @@
-Shindo.tests('Fog::Compute::RackspaceV2 | metadata_tests', ['rackspace']) do
+Shindo.tests('Fog::Rackspace::ComputeV2 | metadata_tests', ['rackspace']) do
 
   @service = Fog::Compute.new(:provider => 'Rackspace', :version => 'V2')
   image_id  = rackspace_test_image_id(@service)

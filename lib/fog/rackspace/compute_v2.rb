@@ -250,4 +250,7 @@ module Fog
       end
     end
   end
+
+  # fog-core 2.4.0 still has this definitaion
+  Compute::RackspaceV2 = Fog::Rackspace::ComputeV2
 end

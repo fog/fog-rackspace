@@ -1,8 +1,8 @@
 require 'fog/core/model'
 
 module Fog
-  module Storage
-    class Rackspace
+  module Rackspace
+    class Storage
       class Account < Fog::Model
         # @see http://docs.rackspace.com/files/api/v1/cf-devguide/content/View_Account_Info-d1e11995.html
 
