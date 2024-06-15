@@ -2,17 +2,17 @@ require 'fog/core/collection'
 require 'fog/rackspace/models/storage/directory'
 
 module Fog
-  module Storage
-    class Rackspace
+  module Rackspace
+    class Storage
       class Directories < Fog::Collection
-        model Fog::Storage::Rackspace::Directory
+        model Fog::Rackspace::Storage::Directory
 
         # Returns list of directories
-        # @return [Fog::Storage::Rackspace::Directories] Retrieves a list directories.
-        # @raise [Fog::Storage::Rackspace::NotFound] - HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @return [Fog::Rackspace::Storage::Directories] Retrieves a list directories.
+        # @raise [Fog::Rackspace::Storage::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         # @note Fog's current implementation only returns 10,000 directories
         # @see http://docs.rackspace.com/files/api/v1/cf-devguide/content/View_List_of_Containers-d1e1100.html
         def all
@@ -24,11 +24,11 @@ module Fog
         # @param [String] key  of directory
         # @param options [Hash]:
         # @option options [String] cdn_cname CDN CNAME used when calling Directory#public_url
-        # @return [Fog::Storage::Rackspace::Directory]
-        # @raise [Fog::Storage::Rackspace::NotFound] - HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @return [Fog::Rackspace::Storage::Directory]
+        # @raise [Fog::Rackspace::Storage::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         # @example
         #   directory = fog.directories.get('video', :cdn_cname => 'http://cdn.lunenburg.org')
         #   files = directory.files
@@ -53,7 +53,7 @@ module Fog
             directory.files << directory.files.new(file)
           end
           directory
-        rescue Fog::Storage::Rackspace::NotFound
+        rescue Fog::Rackspace::Storage::NotFound
           nil
         end
       end

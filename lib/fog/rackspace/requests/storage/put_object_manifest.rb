@@ -1,6 +1,6 @@
 module Fog
-  module Storage
-    class Rackspace
+  module Rackspace
+    class Storage
       module Common
         # Create a new dynamic large object manifest
         #

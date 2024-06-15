@@ -204,7 +204,7 @@ Shindo.tests('Fog::Storage[:rackspace] | large object requests', ['rackspace']) 
 
     tests('dynamic large object requests') do
 
-      tests('#put_dynamic_obj_manifest with missing container').raises(Fog::Storage::Rackspace::NotFound) do
+      tests('#put_dynamic_obj_manifest with missing container').raises(Fog::Rackspace::Storage::NotFound) do
         Fog::Storage[:rackspace].put_dynamic_obj_manifest('fognoncontainer', 'fog_large_object')
       end
 
@@ -217,7 +217,7 @@ Shindo.tests('Fog::Storage[:rackspace] | large object requests', ['rackspace']) 
         Fog::Storage[:rackspace].put_object(@segments[:b][:container], @segments[:b][:name], @segments[:b][:data])
       end
 
-      tests('#put_static_obj_manifest with missing container').raises(Fog::Storage::Rackspace::NotFound) do
+      tests('#put_static_obj_manifest with missing container').raises(Fog::Rackspace::Storage::NotFound) do
         Fog::Storage[:rackspace].put_static_obj_manifest('fognoncontainer', 'fog_large_object', [])
       end
 
@@ -236,7 +236,7 @@ Shindo.tests('Fog::Storage[:rackspace] | large object requests', ['rackspace']) 
           error = err
         end
 
-        raises(Fog::Storage::Rackspace::BadRequest) do
+        raises(Fog::Rackspace::Storage::BadRequest) do
           raise error if error
         end
 
@@ -261,7 +261,7 @@ Shindo.tests('Fog::Storage[:rackspace] | large object requests', ['rackspace']) 
           error = err
         end
 
-        raises(Fog::Storage::Rackspace::BadRequest) do
+        raises(Fog::Rackspace::Storage::BadRequest) do
           raise error if error
         end
 
@@ -286,7 +286,7 @@ Shindo.tests('Fog::Storage[:rackspace] | large object requests', ['rackspace']) 
           error = err
         end
 
-        raises(Fog::Storage::Rackspace::BadRequest) do
+        raises(Fog::Rackspace::Storage::BadRequest) do
           raise error if error
         end
 

@@ -1,4 +1,4 @@
-Shindo.tests('Fog::Compute::RackspaceV2 | virtual_interface', ['rackspace']) do
+Shindo.tests('Fog::Rackspace::ComputeV2 | virtual_interface', ['rackspace']) do
   service = Fog::Compute::RackspaceV2.new
 
   net_options = {

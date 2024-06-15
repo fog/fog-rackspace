@@ -15,10 +15,10 @@ module Fog
         #   * body<~Array>:
         #     * container<~String>: Name of container
         # @return [Excon::Response] response
-        # @raise [Fog::Storage::Rackspace::NotFound] - HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         def get_containers(options = {})
           response = request(
             :expects  => [200, 204],

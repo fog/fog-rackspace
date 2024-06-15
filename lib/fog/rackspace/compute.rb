@@ -1,8 +1,8 @@
 
 
 module Fog
-  module Compute
-    class Rackspace < Fog::Service
+  module Rackspace
+    class Compute < Fog::Service
       include Fog::Rackspace::Errors
 
       class ServiceError < Fog::Rackspace::Errors::ServiceError; end
@@ -253,4 +253,7 @@ module Fog
       end
     end
   end
+
+  # fog-core 2.4.0 still users this definition
+  Compute::Rackspace = Fog::Rackspace::Compute
 end

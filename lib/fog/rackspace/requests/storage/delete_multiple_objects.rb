@@ -1,6 +1,6 @@
 module Fog
-  module Storage
-    class Rackspace
+  module Rackspace
+    class Storage
       class Real
         # Deletes multiple objects or containers with a single request.
         #
@@ -43,17 +43,17 @@ module Fog
         #     * "Number Deleted" [Integer] - Number of objects or containers deleted.
         #     * "Response Body" [String] - Response body for "Response Status".
         #
-        # @raise [Fog::Storage::Rackspace::NotFound] HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::NotFound] HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         # @raise [Excon::Errors::Unauthorized] HTTP 401
         #
         # @see http://docs.rackspace.com/files/api/v1/cf-devguide/content/Bulk_Delete-d1e2338.html
         def delete_multiple_objects(container, object_names, options = {})
           body = object_names.map do |name|
             object_name = container ? "#{ container }/#{ name }" : name
-            URI.encode(object_name)
+            URI.encode_www_form_component(object_name)
           end.join("\n")
 
           response = request({

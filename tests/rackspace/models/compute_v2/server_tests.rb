@@ -1,5 +1,5 @@
-Shindo.tests('Fog::Compute::RackspaceV2 | server', ['rackspace']) do
-  service = Fog::Compute::RackspaceV2.new
+Shindo.tests('Fog::Rackspace::ComputeV2 | server', ['rackspace']) do
+  service = Fog::Rackspace::ComputeV2.new
   cbs_service = Fog::Rackspace::BlockStorage.new
 
   tests('setup test network').succeeds do
@@ -15,50 +15,50 @@ Shindo.tests('Fog::Compute::RackspaceV2 | server', ['rackspace']) do
   }
 
   tests('ready?') do
-    @server = Fog::Compute::RackspaceV2::Server.new
+    @server = Fog::Rackspace::ComputeV2::Server.new
 
     tests('default in ready state').returns(true) do
-      @server.state = Fog::Compute::RackspaceV2::Server::ACTIVE
+      @server.state = Fog::Rackspace::ComputeV2::Server::ACTIVE
       @server.ready?
     end
 
     tests('custom ready state').returns(true) do
-      @server.state = Fog::Compute::RackspaceV2::Server::VERIFY_RESIZE
-      @server.ready?(Fog::Compute::RackspaceV2::Server::VERIFY_RESIZE)
+      @server.state = Fog::Rackspace::ComputeV2::Server::VERIFY_RESIZE
+      @server.ready?(Fog::Rackspace::ComputeV2::Server::VERIFY_RESIZE)
     end
 
     tests('default NOT in ready state').returns(false) do
-      @server.state = Fog::Compute::RackspaceV2::Server::REBOOT
+      @server.state = Fog::Rackspace::ComputeV2::Server::REBOOT
       @server.ready?
     end
 
     tests('custom NOT ready state').returns(false) do
-      @server.state = Fog::Compute::RackspaceV2::Server::REBOOT
-      @server.ready?(Fog::Compute::RackspaceV2::Server::VERIFY_RESIZE)
+      @server.state = Fog::Rackspace::ComputeV2::Server::REBOOT
+      @server.ready?(Fog::Rackspace::ComputeV2::Server::VERIFY_RESIZE)
     end
 
     tests('default error state').returns(true) do
-      @server.state = Fog::Compute::RackspaceV2::Server::ERROR
+      @server.state = Fog::Rackspace::ComputeV2::Server::ERROR
       exception_occurred = false
       begin
         @server.ready?
-      rescue Fog::Compute::RackspaceV2::InvalidServerStateException => e
+      rescue Fog::Rackspace::ComputeV2::InvalidServerStateException => e
         exception_occurred = true
-        returns(true) {e.desired_state == Fog::Compute::RackspaceV2::Server::ACTIVE }
-        returns(true) {e.current_state == Fog::Compute::RackspaceV2::Server::ERROR }
+        returns(true) {e.desired_state == Fog::Rackspace::ComputeV2::Server::ACTIVE }
+        returns(true) {e.current_state == Fog::Rackspace::ComputeV2::Server::ERROR }
       end
       exception_occurred
     end
 
     tests('custom error state').returns(true) do
-      @server.state = Fog::Compute::RackspaceV2::Server::ACTIVE
+      @server.state = Fog::Rackspace::ComputeV2::Server::ACTIVE
       exception_occurred = false
       begin
-        @server.ready?(Fog::Compute::RackspaceV2::Server::VERIFY_RESIZE, Fog::Compute::RackspaceV2::Server::ACTIVE)
-      rescue Fog::Compute::RackspaceV2::InvalidServerStateException => e
+        @server.ready?(Fog::Rackspace::ComputeV2::Server::VERIFY_RESIZE, Fog::Rackspace::ComputeV2::Server::ACTIVE)
+      rescue Fog::Rackspace::ComputeV2::InvalidServerStateException => e
         exception_occurred = true
-        returns(true) {e.desired_state == Fog::Compute::RackspaceV2::Server::VERIFY_RESIZE }
-        returns(true) {e.current_state == Fog::Compute::RackspaceV2::Server::ACTIVE }
+        returns(true) {e.desired_state == Fog::Rackspace::ComputeV2::Server::VERIFY_RESIZE }
+        returns(true) {e.current_state == Fog::Rackspace::ComputeV2::Server::ACTIVE }
       end
       exception_occurred
     end
@@ -217,12 +217,12 @@ Shindo.tests('Fog::Compute::RackspaceV2 | server', ['rackspace']) do
     }
 
     create_server = lambda { |attributes|
-      service = Fog::Compute::RackspaceV2.new
+      service = Fog::Rackspace::ComputeV2.new
       attributes.merge!(:service => service)
 
       Fog::SSH::Mock.data.clear
 
-      server = Fog::Compute::RackspaceV2::Server.new(attributes)
+      server = Fog::Rackspace::ComputeV2::Server.new(attributes)
       server.save(attributes)
 
       @address = 123

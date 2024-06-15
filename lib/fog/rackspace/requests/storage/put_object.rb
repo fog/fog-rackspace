@@ -1,6 +1,6 @@
 module Fog
-  module Storage
-    class Rackspace
+  module Rackspace
+    class Storage
       class Real
         # Create a new object
         #
@@ -14,10 +14,10 @@ module Fog
         # * data<~String|File> - data to upload
         # * options<~Hash> - config headers for object. Defaults to #{}.
         # * block<~Proc> - chunker
-        # @raise [Fog::Storage::Rackspace::NotFound] - HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         def put_object(container, object, data, options = {}, &block)
           data = Fog::Storage.parse_data(data)
           headers = data[:headers].merge!(options)
@@ -64,7 +64,7 @@ module Fog
           etag = o.meta['Etag']
           if etag && etag != o.hash
             c.remove_object object
-            raise Fog::Storage::Rackspace::ServiceError.new
+            raise Fog::Rackspace::Storage::ServiceError.new
           end
 
           response = Excon::Response.new

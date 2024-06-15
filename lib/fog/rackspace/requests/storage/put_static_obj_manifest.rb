@@ -1,6 +1,6 @@
 module Fog
-  module Storage
-    class Rackspace
+  module Rackspace
+    class Storage
       class Real
         # Create a new static large object manifest.
         #
@@ -33,10 +33,10 @@ module Fog
         # @param segments [Array<Hash>] Segment data for the object.
         # @param options [Hash] Config headers for +object+.
         #
-        # @raise [Fog::Storage::Rackspace::NotFound] HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::NotFound] HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         # @raise [Excon::Errors::Unauthorized] HTTP 401
         #
         # @see http://docs.rackspace.com/files/api/v1/cf-devguide/content/Uploading_the_Manifext-d1e2227.html
@@ -62,7 +62,7 @@ module Fog
             cname, oname = segment[:path].split('/', 2)
             target_container = mock_container(cname)
 
-            raise Fog::Storage::Rackspace::NotFound.new unless target_container
+            raise Fog::Rackspace::Storage::NotFound.new unless target_container
 
             target_object = target_container.mock_object oname
             unless target_object
@@ -85,7 +85,7 @@ module Fog
             response.body = Fog::JSON.encode({ 'Errors' => errors })
 
             error = Excon::Errors.status_error({}, response)
-            raise Fog::Storage::Rackspace::BadRequest.slurp(error)
+            raise Fog::Rackspace::Storage::BadRequest.slurp(error)
           end
 
           data = Fog::JSON.encode(segments)

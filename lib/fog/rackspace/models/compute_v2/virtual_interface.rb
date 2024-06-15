@@ -2,8 +2,8 @@ require 'fog/core/collection'
 require 'fog/rackspace/models/compute_v2/virtual_interface'
 
 module Fog
-  module Compute
-    class RackspaceV2
+  module Rackspace
+    class ComputeV2
       class VirtualInterface < Fog::Model
         # @!attribute [r] id
         # @return [String] The virtual interface id

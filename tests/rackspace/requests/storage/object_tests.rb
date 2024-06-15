@@ -55,7 +55,7 @@ Shindo.tests('Fog::Storage[:rackspace] | object requests', ["rackspace"]) do
     # an object key with no special characters
     tests("#get_object_http_url('fogobjecttests', 'fog_object','expiration timestamp')").succeeds do
       expires_at = 1344149532 # 2012-08-05 16:52:12 +1000
-      storage    = Fog::Storage::Rackspace.new(:rackspace_temp_url_key => "super_secret")
+      storage    = Fog::Rackspace::Storage.new(:rackspace_temp_url_key => "super_secret")
       storage.extend RackspaceStorageHelpers
       storage.override_path('/fake_version/fake_tenant')
       object_url = storage.get_object_http_url('fogobjecttests', 'fog_object', expires_at)
@@ -71,7 +71,7 @@ Shindo.tests('Fog::Storage[:rackspace] | object requests', ["rackspace"]) do
     # an object key with no special characters
     tests("#get_object_https_url('fogobjecttests', 'fog_object','expiration timestamp')").succeeds do
       expires_at = 1344149532 # 2012-08-05 16:52:12 +1000
-      storage    = Fog::Storage::Rackspace.new(:rackspace_temp_url_key => "super_secret")
+      storage    = Fog::Rackspace::Storage.new(:rackspace_temp_url_key => "super_secret")
       storage.extend RackspaceStorageHelpers
       storage.override_path('/fake_version/fake_tenant')
       object_url = storage.get_object_https_url('fogobjecttests', 'fog_object', expires_at)
@@ -87,7 +87,7 @@ Shindo.tests('Fog::Storage[:rackspace] | object requests', ["rackspace"]) do
     # an object key nested under a /
     tests("#get_object_https_url('fogobjecttests', 'fog/object','expiration timestamp')").succeeds do
       expires_at = 1344149532 # 2012-08-05 16:52:12 +1000
-      storage    = Fog::Storage::Rackspace.new(:rackspace_temp_url_key => "super_secret")
+      storage    = Fog::Rackspace::Storage.new(:rackspace_temp_url_key => "super_secret")
       storage.extend RackspaceStorageHelpers
       storage.override_path('/fake_version/fake_tenant')
       object_url = storage.get_object_https_url('fogobjecttests', 'fog/object', expires_at)
@@ -103,7 +103,7 @@ Shindo.tests('Fog::Storage[:rackspace] | object requests', ["rackspace"]) do
     # an object key containing a -
     tests("#get_object_https_url('fogobjecttests', 'fog-object','expiration timestamp')").succeeds do
       expires_at = 1344149532 # 2012-08-05 16:52:12 +1000
-      storage    = Fog::Storage::Rackspace.new(:rackspace_temp_url_key => "super_secret")
+      storage    = Fog::Rackspace::Storage.new(:rackspace_temp_url_key => "super_secret")
       storage.extend RackspaceStorageHelpers
       storage.override_path('/fake_version/fake_tenant')
       object_url = storage.get_object_https_url('fogobjecttests', 'fog-object', expires_at)
@@ -165,27 +165,27 @@ Shindo.tests('Fog::Storage[:rackspace] | object requests', ["rackspace"]) do
 
   tests('failure') do
 
-    tests("#get_object('fogobjecttests', 'fog_non_object')").raises(Fog::Storage::Rackspace::NotFound) do
+    tests("#get_object('fogobjecttests', 'fog_non_object')").raises(Fog::Rackspace::Storage::NotFound) do
       Fog::Storage[:rackspace].get_object('fogobjecttests', 'fog_non_object')
     end
 
-    tests("#get_object('fognoncontainer', 'fog_non_object')").raises(Fog::Storage::Rackspace::NotFound) do
+    tests("#get_object('fognoncontainer', 'fog_non_object')").raises(Fog::Rackspace::Storage::NotFound) do
       Fog::Storage[:rackspace].get_object('fognoncontainer', 'fog_non_object')
     end
 
-    tests("#head_object('fogobjecttests', 'fog_non_object')").raises(Fog::Storage::Rackspace::NotFound) do
+    tests("#head_object('fogobjecttests', 'fog_non_object')").raises(Fog::Rackspace::Storage::NotFound) do
       Fog::Storage[:rackspace].head_object('fogobjecttests', 'fog_non_object')
     end
 
-    tests("#head_object('fognoncontainer', 'fog_non_object')").raises(Fog::Storage::Rackspace::NotFound) do
+    tests("#head_object('fognoncontainer', 'fog_non_object')").raises(Fog::Rackspace::Storage::NotFound) do
       Fog::Storage[:rackspace].head_object('fognoncontainer', 'fog_non_object')
     end
 
-    tests("#delete_object('fogobjecttests', 'fog_non_object')").raises(Fog::Storage::Rackspace::NotFound) do
+    tests("#delete_object('fogobjecttests', 'fog_non_object')").raises(Fog::Rackspace::Storage::NotFound) do
       Fog::Storage[:rackspace].delete_object('fogobjecttests', 'fog_non_object')
     end
 
-    tests("#delete_object('fognoncontainer', 'fog_non_object')").raises(Fog::Storage::Rackspace::NotFound) do
+    tests("#delete_object('fognoncontainer', 'fog_non_object')").raises(Fog::Rackspace::Storage::NotFound) do
       Fog::Storage[:rackspace].delete_object('fognoncontainer', 'fog_non_object')
     end
 

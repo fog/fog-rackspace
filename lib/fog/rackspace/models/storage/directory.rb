@@ -3,8 +3,8 @@ require 'fog/rackspace/models/storage/files'
 require 'fog/rackspace/models/storage/metadata'
 
 module Fog
-  module Storage
-    class Rackspace
+  module Rackspace
+    class Storage
       class Directory < Fog::Model
         # @!attribute [r] key
         # @return [String] The name of the directory
@@ -34,32 +34,32 @@ module Fog
         attr_writer :public_url
 
         # Set directory metadata
-        # @param [Hash,Fog::Storage::Rackspace::Metadata] hash contains key value pairs
+        # @param [Hash,Fog::Rackspace::Storage::Metadata] hash contains key value pairs
         def metadata=(hash)
-          if hash.is_a? Fog::Storage::Rackspace::Metadata
+          if hash.is_a? Fog::Rackspace::Storage::Metadata
             attributes[:metadata] = hash
           else
-            attributes[:metadata] = Fog::Storage::Rackspace::Metadata.new(self, hash)
+            attributes[:metadata] = Fog::Rackspace::Storage::Metadata.new(self, hash)
           end
           attributes[:metadata]
         end
 
         # Retrieve directory metadata
-        # @return [Fog::Storage::Rackspace::Metadata] metadata key value pairs.
+        # @return [Fog::Rackspace::Storage::Metadata] metadata key value pairs.
         def metadata
           unless attributes[:metadata]
              response = service.head_container(key)
-             attributes[:metadata] = Fog::Storage::Rackspace::Metadata.from_headers(self, response.headers)
+             attributes[:metadata] = Fog::Rackspace::Storage::Metadata.from_headers(self, response.headers)
           end
           attributes[:metadata]
         end
 
         # Destroy the directory and remove it from CDN
         # @return [Boolean] returns true if directory was deleted
-        # @raise [Fog::Storage::Rackspace::NotFound] - HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         # @note Directory must be empty before it is destroyed.
         # @see http://docs.rackspace.com/files/api/v1/cf-devguide/content/Delete_Container-d1e1765.html
         def destroy
@@ -72,14 +72,14 @@ module Fog
         end
 
         # Returns collection of files in directory
-        # @return [Fog::Storage::Rackspace::Files] collection of files in directory
-        # @raise [Fog::Storage::Rackspace::NotFound] - HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @return [Fog::Rackspace::Storage::Files] collection of files in directory
+        # @raise [Fog::Rackspace::Storage::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         def files
           @files ||= begin
-            Fog::Storage::Rackspace::Files.new(
+            Fog::Rackspace::Storage::Files.new(
               :directory    => self,
               :service   => service
             )
@@ -88,10 +88,10 @@ module Fog
 
         # Is directory published to CDN
         # @return [Boolean] return true if published to CDN
-        # @raise [Fog::Storage::Rackspace::NotFound] - HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         def public?
           if @public.nil?
             @public ||= (key && public_url) ? true : false
@@ -100,11 +100,11 @@ module Fog
         end
 
         # Reload directory with latest data from Cloud Files
-        # @return [Fog::Storage::Rackspace::Directory] returns itself
-        # @raise [Fog::Storage::Rackspace::NotFound] - HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @return [Fog::Rackspace::Storage::Directory] returns itself
+        # @raise [Fog::Rackspace::Storage::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         def reload
           @public = nil
           @urls = nil
@@ -121,10 +121,10 @@ module Fog
         # 3. return the default CDN url.
         #
         # @return [String] public url for directory
-        # @raise [Fog::Storage::Rackspace::NotFound] - HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         def public_url
           return nil if urls.empty?
           return urls[:ssl_uri] if service.ssl?
@@ -133,10 +133,10 @@ module Fog
 
         # URL used to stream video to iOS devices. Cloud Files will auto convert to the approprate format.
         # @return [String] iOS URL
-        # @raise [Fog::Storage::Rackspace::NotFound] - HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         # @see http://docs.rackspace.com/files/api/v1/cf-devguide/content/iOS-Streaming-d1f3725.html
         def ios_url
           urls[:ios_uri]
@@ -144,10 +144,10 @@ module Fog
 
         # URL used to stream resources
         # @return [String] streaming url
-        # @raise [Fog::Storage::Rackspace::NotFound] - HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         # @see http://docs.rackspace.com/files/api/v1/cf-devguide/content/Streaming-CDN-Enabled_Containers-d1f3721.html
         def streaming_url
           urls[:streaming_uri]
@@ -155,10 +155,10 @@ module Fog
 
         # Create or update directory and associated metadata
         # @return [Boolean] returns true if directory was saved
-        # @raise [Fog::Storage::Rackspace::NotFound] - HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         # @note If public attribute is true, directory will be CDN enabled
         # @see http://docs.rackspace.com/files/api/v1/cf-devguide/content/Create_Container-d1e1694.html
         def save
@@ -167,7 +167,7 @@ module Fog
           if cdn_enabled?
             @urls = service.cdn.publish_container(self, public?)
           else
-            raise Fog::Storage::Rackspace::Error.new("Directory can not be set as :public without a CDN provided") if public?
+            raise Fog::Rackspace::Storage::Error.new("Directory can not be set as :public without a CDN provided") if public?
           end
           true
         end

@@ -1,6 +1,6 @@
 module Fog
-  module Storage
-    class Rackspace
+  module Rackspace
+    class Storage
       class Real
         # Delete a static large object.
         #
@@ -22,10 +22,10 @@ module Fog
         #     * "Number Deleted" [Integer] - Number of segments deleted.
         #     * "Response Body" [String] - Response body for Response Status.
         #
-        # @raise [Fog::Storage::Rackspace::NotFound] HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::NotFound] HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         # @raise [Excon::Errors::Unauthorized] HTTP 401
         #
         # @see http://docs.rackspace.com/files/api/v1/cf-devguide/content/Deleting_a_Large_Object-d1e2228.html
@@ -52,7 +52,7 @@ module Fog
           return not_found(object) unless o
 
           # What happens if o isn't a static large object?
-          raise Fog::Storage::Rackspace::BadRequest.new unless o.static_manifest?
+          raise Fog::Rackspace::Storage::BadRequest.new unless o.static_manifest?
 
           segments = Fog::JSON.decode(o.body)
           paths = segments.map { |s| s['path'] }

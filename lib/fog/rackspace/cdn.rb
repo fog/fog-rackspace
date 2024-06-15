@@ -1,8 +1,8 @@
 
 
 module Fog
-  module CDN
-    class Rackspace < Fog::Service
+  module Rackspace
+    class CDN < Fog::Service
       requires :rackspace_api_key, :rackspace_username
       recognizes :rackspace_auth_url, :persistent, :rackspace_cdn_ssl, :rackspace_region, :rackspace_cdn_url
 
@@ -55,13 +55,13 @@ module Fog
         end
 
         # Publish container to CDN
-        # @param [Fog::Storage::Rackspace::Directory] container directory to publish
+        # @param [Fog::Rackspace::Storage::Directory] container directory to publish
         # @param [Boolean] publish If true directory is published. If false directory is unpublished.
         # @return [Hash] hash containing urls for published container
-        # @raise [Fog::Storage::Rackspace::NotFound] - HTTP 404
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::NotFound] - HTTP 404
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         def publish_container(container, publish = true)
           enabled = publish ? 'True' : 'False'
           response = put_container(container.key, 'X-Cdn-Enabled' => enabled)
@@ -70,11 +70,11 @@ module Fog
         end
 
         # Returns hash of urls for container
-        # @param [Fog::Storage::Rackspace::Directory] container to retrieve urls for
+        # @param [Fog::Rackspace::Storage::Directory] container to retrieve urls for
         # @return [Hash] hash containing urls for published container
-        # @raise [Fog::Storage::Rackspace::BadRequest] - HTTP 400
-        # @raise [Fog::Storage::Rackspace::InternalServerError] - HTTP 500
-        # @raise [Fog::Storage::Rackspace::ServiceError]
+        # @raise [Fog::Rackspace::Storage::BadRequest] - HTTP 400
+        # @raise [Fog::Rackspace::Storage::InternalServerError] - HTTP 500
+        # @raise [Fog::Rackspace::Storage::ServiceError]
         # @note If unable to find container or container is not published this method will return an empty hash.
         def urls(container)
           begin
@@ -122,7 +122,7 @@ module Fog
         end
 
         def purge(object)
-          return true if object.is_a? Fog::Storage::Rackspace::File
+          return true if object.is_a? Fog::Rackspace::Storage::File
           raise Fog::Errors::NotImplemented.new("#{object.class} does not support CDN purging") if object
         end
 
@@ -152,10 +152,10 @@ module Fog
         end
 
         # Purges File
-        # @param [Fog::Storage::Rackspace::File] file to be purged from the CDN
+        # @param [Fog::Rackspace::Storage::File] file to be purged from the CDN
         # @raise [Fog::Errors::NotImplemented] returned when non file parameters are specified
         def purge(file)
-          unless file.is_a? Fog::Storage::Rackspace::File
+          unless file.is_a? Fog::Rackspace::Storage::File
             raise Fog::Errors::NotImplemented.new("#{object.class} does not support CDN purging")  if object
           end
 
@@ -166,13 +166,13 @@ module Fog
         def request(params, parse_json = true)
           super
         rescue Excon::Errors::NotFound => error
-          raise Fog::Storage::Rackspace::NotFound.slurp(error, self)
+          raise Fog::Rackspace::Storage::NotFound.slurp(error, self)
         rescue Excon::Errors::BadRequest => error
-          raise Fog::Storage::Rackspace::BadRequest.slurp(error, self)
+          raise Fog::Rackspace::Storage::BadRequest.slurp(error, self)
         rescue Excon::Errors::InternalServerError => error
-          raise Fog::Storage::Rackspace::InternalServerError.slurp(error, self)
+          raise Fog::Rackspace::Storage::InternalServerError.slurp(error, self)
         rescue Excon::Errors::HTTPStatusError => error
-          raise Fog::Storage::Rackspace::ServiceError.slurp(error, self)
+          raise Fog::Rackspace::Storage::ServiceError.slurp(error, self)
         end
 
         private

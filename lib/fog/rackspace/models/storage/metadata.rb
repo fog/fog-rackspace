@@ -1,6 +1,6 @@
 module Fog
-  module Storage
-    class Rackspace
+  module Rackspace
+    class Storage
       class Metadata
         OBJECT_META_PREFIX = "X-Object-Meta-"
         OBJECT_REMOVE_META_PREFIX = "X-Remove-Object-Meta-"
@@ -18,11 +18,11 @@ module Fog
         attr_reader :data
 
         # @!attribute [rw] parent
-        # @return [Fog::Storage::Rackspace::Directory,Fog::Storage::Rackspace::File] the parent object of the metadata
+        # @return [Fog::Rackspace::Storage::Directory,Fog::Rackspace::Storage::File] the parent object of the metadata
         attr_reader :parent
 
         # Initialize
-        # @param [Fog::Storage::Rackspace::Directory,Fog::Storage::Rackspace::File] parent object of the metadata
+        # @param [Fog::Rackspace::Storage::Directory,Fog::Rackspace::Storage::File] parent object of the metadata
         # @param [Hash] hash containing initial metadata values
         def initialize(parent, hash={})
           @data = hash || {}
@@ -77,7 +77,7 @@ module Fog
         end
 
         # Creates metadata object from Cloud File Headers
-        # @param [Fog::Storage::Rackspace::Directory,Fog::Storage::Rackspace::File] parent object of the metadata
+        # @param [Fog::Rackspace::Storage::Directory,Fog::Rackspace::Storage::File] parent object of the metadata
         # @param [Hash] headers Cloud File headers
         def self.from_headers(parent, headers)
           metadata = Metadata.new(parent)
@@ -104,11 +104,11 @@ module Fog
         private
 
         def directory?
-          [Fog::Storage::Rackspace::Directory, Fog::Storage::Rackspace::Directories].include? parent_class
+          [Fog::Rackspace::Storage::Directory, Fog::Rackspace::Storage::Directories].include? parent_class
         end
 
         def file?
-          [Fog::Storage::Rackspace::File, Fog::Storage::Rackspace::Files].include? parent_class
+          [Fog::Rackspace::Storage::File, Fog::Rackspace::Storage::Files].include? parent_class
         end
 
         def parent_class

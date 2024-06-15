@@ -5,7 +5,7 @@ Shindo.tests('Fog::CDN[:rackspace] | CDN requests', ['rackspace']) do
   @containers_format = [{
     "cdn_ios_uri" => String,
     "log_retention" => Fog::Boolean,
-    "ttl" => Fixnum,
+    "ttl" => Integer,
     "cdn_streaming_uri" => String,
     "cdn_enabled" => Fog::Boolean,
     "name" => String,
@@ -64,11 +64,11 @@ Shindo.tests('Fog::CDN[:rackspace] | CDN requests', ['rackspace']) do
 
   tests('failure') do
 
-    tests("#head_container('missing_container')").raises(Fog::Storage::Rackspace::NotFound) do
+    tests("#head_container('missing_container')").raises(Fog::Rackspace::Storage::NotFound) do
       Fog::CDN[:rackspace].head_container('missing_container')
     end
 
-    tests("#post_container('missing_container')").raises(Fog::Storage::Rackspace::NotFound) do
+    tests("#post_container('missing_container')").raises(Fog::Rackspace::Storage::NotFound) do
       Fog::CDN[:rackspace].post_container('missing_container', 'X-TTL' => 5000)
     end
   end

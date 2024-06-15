@@ -1,8 +1,8 @@
-Shindo.tests('Fog::Compute::RackspaceV2 | metadata', ['rackspace']) do
+Shindo.tests('Fog::Rackspace::ComputeV2 | metadata', ['rackspace']) do
 
   pending if Fog.mocking?
 
-  service = Fog::Compute::RackspaceV2.new
+  service = Fog::Rackspace::ComputeV2.new
   test_time = Time.now.to_i.to_s
 
   tests('success') do

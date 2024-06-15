@@ -1,8 +1,8 @@
 
 
 module Fog
-  module Storage
-    class Rackspace < Fog::Service
+  module Rackspace
+    class Storage < Fog::Service
       include Fog::Rackspace::Errors
 
       class ServiceError < Fog::Rackspace::Errors::ServiceError; end
@@ -116,9 +116,9 @@ module Fog
         end
 
         # Return Account Details
-        # @return [Fog::Storage::Rackspace::Account] account details object
+        # @return [Fog::Rackspace::Storage::Account] account details object
         def account
-          account = Fog::Storage::Rackspace::Account.new(:service => self)
+          account = Fog::Rackspace::Storage::Account.new(:service => self)
           account.reload
         end
       end
@@ -176,13 +176,13 @@ module Fog
           end
 
           # Access a MockObject with a specific name, raising a
-          # `Fog::Storage::Rackspace::NotFound` exception if none are present.
+          # `Fog::Rackspace::Storage::NotFound` exception if none are present.
           #
           # @param name [String] (Unescaped) object name.
           # @return [MockObject] The object within this container with the
           #   specified name.
           def mock_object!(name)
-            mock_object(name) or raise Fog::Storage::Rackspace::NotFound.new
+            mock_object(name) or raise Fog::Rackspace::Storage::NotFound.new
           end
 
           # Add a new MockObject to this container. An existing object with
@@ -374,14 +374,14 @@ module Fog
         end
 
         # Access a MockContainer with the specified name, raising a
-        # {Fog::Storage::Rackspace::NotFound} exception if none exist.
+        # {Fog::Rackspace::Storage::NotFound} exception if none exist.
         #
         # @param cname [String] The (unescaped) container name.
-        # @throws [Fog::Storage::Rackspace::NotFound] If no container with the
+        # @throws [Fog::Rackspace::Storage::NotFound] If no container with the
         #   given name exists.
         # @return [MockContainer] The existing MockContainer.
         def mock_container!(cname)
-          mock_container(cname) or raise Fog::Storage::Rackspace::NotFound.new
+          mock_container(cname) or raise Fog::Rackspace::Storage::NotFound.new
         end
 
         # Create and add a new, empty MockContainer with the given name. An

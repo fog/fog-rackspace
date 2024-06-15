@@ -3,23 +3,6 @@ require 'fog/core'
 require 'fog/json'
 
 module Fog
-  module CDN
-    autoload :Rackspace,  File.expand_path('../rackspace/cdn', __FILE__)
-  end
-
-  module Compute
-    autoload :Rackspace, File.expand_path('../rackspace/compute', __FILE__)
-    autoload :RackspaceV2, File.expand_path('../rackspace/compute_v2', __FILE__)
-  end
-
-  module DNS
-    autoload :Rackspace, File.expand_path('../rackspace/dns', __FILE__)
-  end
-
-  module Storage
-    autoload :Rackspace, File.expand_path('../rackspace/storage', __FILE__)
-  end
-  
   module Rackspace
     autoload :Errors, File.expand_path('../rackspace/errors', __FILE__)
     autoload :MockData, File.expand_path('../rackspace/mock_data', __FILE__)
@@ -36,7 +19,7 @@ module Fog
     autoload :CDNV2, File.expand_path('../rackspace/cdn_v2', __FILE__)
     autoload :Compute, File.expand_path('../rackspace/compute', __FILE__)
     autoload :ComputeV2, File.expand_path('../rackspace/compute_v2', __FILE__)
-    autoload :Database, File.expand_path('../rackspace/databases', __FILE__)
+    autoload :Databases, File.expand_path('../rackspace/databases', __FILE__)
     autoload :DNS, File.expand_path('../rackspace/dns', __FILE__)
     autoload :Identity, File.expand_path('../rackspace/identity', __FILE__)
     autoload :LoadBalancers, File.expand_path('../rackspace/load_balancers', __FILE__)
@@ -50,9 +33,9 @@ module Fog
     service(:auto_scale,       'AutoScale')
     service(:block_storage,    'BlockStorage')
     service(:cdn,              'CDN')
-    service(:cdn_v2,           'CDN v2')
+    service(:cdn_v2,           'CDNV2')
     service(:compute,          'Compute')
-    service(:compute_v2,       'Compute v2')
+    service(:compute_v2,       'ComputeV2')
     service(:dns,              'DNS')
     service(:storage,          'Storage')
     service(:load_balancers,   'LoadBalancers')
@@ -66,7 +49,7 @@ module Fog
 
     def self.authenticate(options, connection_options = {})
       rackspace_auth_url = options[:rackspace_auth_url]
-      rackspace_auth_url ||= options[:rackspace_endpoint] == Fog::Compute::RackspaceV2::LON_ENDPOINT ? UK_AUTH_ENDPOINT : US_AUTH_ENDPOINT
+      rackspace_auth_url ||= options[:rackspace_endpoint] == Fog::Rackspace::ComputeV2::LON_ENDPOINT ? UK_AUTH_ENDPOINT : US_AUTH_ENDPOINT
       url = rackspace_auth_url.match(/^https?:/) ? \
                 rackspace_auth_url : 'https://' + rackspace_auth_url
       uri = URI.parse(url)
