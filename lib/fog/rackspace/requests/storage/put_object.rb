@@ -25,7 +25,7 @@ module Fog
           params = block_given? ? { :request_block => block } : { :body => data[:body] }
 
           params.merge!(
-            :expects    => 201,
+            :expects    => [201, 202],
             :idempotent => !params[:request_block],
             :headers    => headers,
             :method     => 'PUT',
